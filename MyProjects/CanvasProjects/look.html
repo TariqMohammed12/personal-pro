@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            color: #fff;
+
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        let canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        window.addEventListener("resize", () => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        });
+        let arrParticle = new Array();
+
+
+        class Particle {
+            constructor(x, y, rad, dx, dy, arrrand) {
+                this.x = x;
+                this.y = y;
+                this.rad = rad;
+                this.dx = dx;
+                this.dy = dy;
+                this.arrrand = arrrand;
+                this.fraction = 0.3;
+                this.cx = 0;
+                this.re = 0;
+            }
+            draw = function () {
+                ctx.beginPath();
+                ctx.fillStyle = `rgb(${this.x / (w / 255)}, ${this.y / (h / 255)}, ${255 - (this.y / (h / 255))})`;
+                ctx.arc(this.x, this.y, this.rad, 2 * Math.PI, false);
+                ctx.fill();
+            }
+            update = function () {
+
+                this.re += 0.01 / 5;
+                this.x += (Math.sin(this.dy * (2 * Math.PI) * this.re) * this.arrrand);
+                this.y += (Math.cos(this.dy * (2 * Math.PI) * this.re) * this.arrrand);
+
+                if (this.x > w - this.rad || this.x < this.rad) {
+                    this.dx = -this.dx;
+                }
+                if (this.y > h - this.rad || this.y < this.rad) {
+                    this.dy = -this.dy;
+                }
+                this.draw();
+            }
+        }
+
+
+        document.body.addEventListener("click", (e) => {
+
+            for (let i = 0; i < arrParticle.length; i++) {
+                arrParticle[i].x = e.x;
+                arrParticle[i].y = e.y;
+
+
+            }
+        });
+
+        function init() {
+            let plus = 5;
+            let arr = [plus, -plus];
+            for (let i = 0; i < 400; i++) {
+                let rad = 10;
+                let step = 4;
+                let arrrand = arr[(Math.random() * (arr.length - 1)).toFixed("")];
+                let dx = Math.random() * step;
+                let dy = Math.random() * step;
+                let x = Math.random() * (w - rad * 2) + rad;
+                let y = Math.random() * (h - rad * 2) + rad;
+
+                arrParticle.push(new Particle(x, y, rad, dx, dy, arrrand));
+            }
+        }
+        function animate() {
+
+            ctx.fillStyle = `rgb(18, 18, 18, 0.01)`;
+            ctx.fillRect(0, 0, w, h);
+            // ctx.clearRect(0, 0, w, h);
+            requestAnimationFrame(animate);
+
+            arrParticle.forEach((particle => {
+                particle.update();
+            }));
+
+        }
+        animate();
+        init();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: rgb(46 46 46);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+
+        }
+
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        .div {
+            width: 266px;
+            height: 404px;
+            margin: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #282828;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+            border-radius: 20px;
+            box-shadow: 3px 2px 3px rgb(0 0 0 / 52%);
+            position: relative;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+
+
+        .div:hover {
+            opacity: 0.9;
+        }
+
+        .crr {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            height: 84vh;
+            box-shadow: -1px 6px 6px rgb(0 0 0 / 46%) inset;
+            padding: 0 0 80px 0;
+        }
+
+        .text {
+
+            width: 40%;
+            height: 47px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            background-color: #00000017;
+            color: #fff;
+            font-size: 29px;
+            margin: 16px 0;
+            text-align: center;
+            outline: none;
+            box-shadow: 4px 4px 2px #0000006b;
+        }
+
+        .h {
+            margin: 30px 0;
+        }
+
+        img {
+
+            width: 100%;
+            height: 100%;
+            transition: 0.3s;
+        }
+
+        img:hover {
+            width: 110%;
+            height: 110%;
+        }
+
+        p {
+            font-size: 23px;
+            cursor: text;
+        }
+
+        .butt {
+
+            color: #fff;
+            background-color: #565656;
+            border: none;
+            padding: 10px 30px;
+            margin: 17px;
+            cursor: pointer;
+            border-radius: 19px;
+            box-shadow: 1px 1px 1px rgb(0 0 0 / 60%);
+            font-size: 18px;
+            display: inline-block;
+            transition: 0.2s;
+        }
+
+        .butt:hover {
+            letter-spacing: 2px;
+        }
+
+        .upim {
+            width: 100%;
+            height: 60%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bbb {
+            position: fixed;
+            display: inline-block;
+            right: 72px;
+            top: 770px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: none;
+            background-color: #5a5a5a;
+            box-shadow: 3px 3px 1px rgb(0 0 0 / 70%);
+            cursor: pointer;
+            visibility: hidden;
+            transition: 0.3s;
+            opacity: 0;
+        }
+
+        .bbb:hover {
+            opacity: 0.8;
+        }
+
+        @media screen and (max-width: 400px) {
+            .div {
+
+                width: 45%;
+                height: 356px;
+                margin: 7px;
+
+            }
+
+            .butt {
+
+                padding: 6px 20px;
+                font-size: 16px;
+
+            }
+
+            .text {
+                width: 83%;
+                height: 40px;
+                font-size: 24px;
+            }
+
+        }
+
+        @media screen and (max-width: 300px) {
+            .div {
+
+                width: 80%;
+                height: 356px;
+                margin: 7px;
+
+            }
+
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="text" name="" id="text" class="text">
+    <h3 style="font-size: 20px; color: #fff;" id="h" class="h"></h3>
+
+    <script>
+
+        let arr = [];
+        let imm = ["c1.jpg",
+            "c2.jpg",
+            "c3.jpg",
+            "c4.jpg",
+            "c5.jpg",
+            "c6.jpg",
+            "c7.jpg",
+            "c8.jpg"];
+        let imma = [];
+        let mas = [];
+        let button = [];
+        let pp = [];
+        let ll = [];
+        let ma;
+        let bbb = document.createElement('button');
+        let add = 100;
+        let div = document.createElement('div');
+        let text1 = document.getElementById('text');
+        let ss = "qwertyuiopasdfghjklzxcvbnm";
+        let h = document.getElementById('h');
+        let counter = 0;
+        div.className = "crr";
+        bbb.className = "bbb";
+
+        h.innerHTML = add + " " + "products";
+        text1.placeholder = "Search in " + add + " products";
+        for (let i = 0; i < add; i++) {
+
+
+            let r = [(Math.random() * ss.length - 1).toFixed("0"),
+            (Math.random() * ss.length - 1).toFixed("0"),
+            (Math.random() * ss.length - 1).toFixed("0"),
+            (Math.random() * ss.length - 1).toFixed("0"),
+            (Math.random() * ss.length - 1).toFixed("0"),
+            (Math.random() * ss.length - 1).toFixed("0")];
+
+            let im = (Math.random() * 7).toFixed("0");
+            let r0 = (Math.random() * 255).toFixed("0");
+            let r1 = (Math.random() * 255).toFixed("0");
+            let r2 = (Math.random() * 255).toFixed("0");
+
+
+            arr[i] = document.createElement("div");
+            ll[i] = document.createElement("div");
+            pp[i] = document.createElement("p");
+            imma[i] = document.createElement("img");
+            imma[i].setAttribute('src', imm[im]);
+            button[i] = document.createElement('button');
+            button[i].className = "butt";
+            button[i].innerHTML = "download";
+
+            // arr[i].style.backgroundColor = "rgb(" + 255 + "," + r1 + "," + r2 + ")";
+
+            arr[i].className = "div";
+            ll[i].append(imma[i]);
+            ll[i].className = "upim";
+            arr[i].append(ll[i], pp[i], button[i]);
+
+            div.append(arr[i], bbb);
+
+            document.body.appendChild(div);
+
+            pp[i].innerHTML = ss[r[0]] + ss[r[1]] + ss[r[2]] + ss[r[3]] + ss[r[4]] + ss[r[5]];
+
+
+        }
+        let adad = 0;
+        text1.addEventListener('input', function () {
+
+            for (let i = 0; i < arr.length; i++) {
+                if (this.value != "") {
+
+                    for (let v = 0; v < pp[i].innerHTML.length; v++) {
+
+
+                        if (this.value[0] == pp[i].innerHTML[0] || this.value[0].toUpperCase() == pp[i].innerHTML[0].toUpperCase()) {
+
+
+
+                            if (pp[i].innerHTML.includes(this.value[v]) == true || (pp[i].innerHTML).toUpperCase().includes(this.value[v]) == true) {
+
+
+
+
+
+
+
+                                adad++;
+
+
+
+
+                            }
+                        }
+
+                    }
+
+                    if (adad == this.value.length) {
+                        counter++;
+                        arr[i].style.display = "flex";
+                        adad = 0;
+
+                    } else {
+                        arr[i].style.display = "none";
+                    }
+                    adad = 0;
+                    h.innerHTML = counter + " " + "product";
+
+                } else {
+                    arr[i].style.display = "flex";
+                    h.innerHTML = add + " " + "products";
+
+
+
+                }
+
+            }
+
+            counter = 0;
+
+        });
+
+
+
+        document.querySelector('.crr').onscroll = function () {
+            if (document.querySelector('.crr').scrollTop > 2000) {
+                bbb.style.cssText = " visibility: unset; opacity: 1;";
+                bbb.onclick = function () {
+                    document.querySelector('.crr').scroll(0, 0);
+                }
+            } else {
+                bbb.style.cssText = " visibility: hidden; opacity: 0;";
+            }
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+<!-- 
+
+
+
+
+let hei = document.getElementById("hei");
+let upwa = document.querySelector(".upwa");
+let hea = document.querySelector("header");
+let ul = document.querySelector(".inhed ul");
+let poss = document.documentElement;
+let but = new Array();
+let iv = new Array();
+let arrw = new Array();
+let arrw1 = new Array();
+let card = new Array();
+let lic = new Array();
+let ina = new Array();
+let vzs = new Date().getFullYear();
+let wi = 770;
+let va = 70;
+let r = true;
+let r1 = true;
+let dd = document.querySelector(".dd");
+let d1 = document.querySelector(".d1");
+let light = `#f00`;
+let ofx = 181;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let li = [["Home"], ["AboutMe"], ["MyService"], ["MyWorke"], ["Connect"]];
+poss.style.setProperty("--colo", `rgb(255, 255, 255)`);
+poss.style.setProperty("--colo1", `rgb(255, 0, 0)`);
+poss.style.setProperty("--colo2", `rgb(110 110 110)`);
+for (let i = 0; i < li.length; i++) {
+  lic[i] = document.createElement("li");
+  ina[i] = document.createElement("a");
+
+  for (let i1 = 0; i1 < li[i].length; i1++) {
+    if (i1 == 0) {
+      ina[i].innerHTML = li[i][i1];
+    }
+  }
+  ina[i].href = "#hr" + i;
+  ina[i].id = "gg" + i;
+  lic[i].append(ina[i]);
+  ul.append(lic[i]);
+}
+document.body.style.width = window.innerWidth + "px";
+window.addEventListener("resize", () => {
+  document.body.style.width = window.innerWidth + "px";
+});
+for (let i = 0; i < 3; i++) {
+  but[i] = document.getElementById("butt" + i);
+  iv[i] = document.getElementById("i" + i);
+
+  but[i].addEventListener("mouseover", function (event) {
+    iv[i].style.cssText = `width: 0;`;
+    but[i].style.border = "1px solid #fff";
+  });
+  but[i].addEventListener("mouseout", function (event) {
+    iv[i].style.cssText = `width: 100%; right: 0;`;
+    but[i].style.border = "1px solid transparent";
+  });
+}
+
+window.addEventListener("mousemove", () => {
+  var eye = document.querySelectorAll(".eyex").forEach((ele) => {
+    let x = ele.getBoundingClientRect().left + ele.clientWidth / 2;
+    let y = ele.getBoundingClientRect().top + ele.clientHeight / 2;
+    let radian = Math.atan2(event.pageX - x, event.pageY - window.scrollY - y);
+    let rot = radian * (180 / Math.PI) * -1 + 270;
+
+    ele.style.transform = "rotate(" + rot + "deg)";
+  });
+});
+
+document.querySelector("header").addEventListener("mousemove", funn);
+window.addEventListener("scroll", () => {
+  if (window.scrollY <= window.innerHeight) {
+    document.querySelector("header").addEventListener("mousemove", funn);
+  }
+});
+let vn = 0;
+document.querySelectorAll("section")[0].addEventListener("mousemove", funn);
+function funn(e) {
+  vn++;
+}
+let navv = 89;
+let navv1 = -40;
+
+window.addEventListener("mousemove", function (e) {
+  let carz = this.document.getElementById("hee").getBoundingClientRect(),
+    xaxis1z = e.pageX - window.scrollX - carz.left,
+    yaxis1z = e.pageY - window.scrollY - carz.top;
+
+  let cc = this.document.getElementById("hio").getBoundingClientRect(),
+    x = e.pageX - window.scrollX - cc.left,
+    y = e.pageY - window.scrollY - cc.top;
+
+  if (
+    xaxis1z < carz.width + 266 &&
+    xaxis1z > -266 &&
+    yaxis1z < carz.height + 266 &&
+    yaxis1z > -266
+  ) {
+    poss.style.setProperty("--xc", xaxis1z + "px");
+    poss.style.setProperty("--yc", yaxis1z + "px");
+  } else {
+    poss.style.setProperty("--xc", -266 + "px");
+    poss.style.setProperty("--yc", -266 + "px");
+  }
+  if (x < cc.width + navv && x > -navv && y < cc.height + navv && y > -navv) {
+    poss.style.setProperty("--xc1", x + "px");
+    poss.style.setProperty("--yc1", y + "px");
+  } else {
+    poss.style.setProperty("--xc1", -navv + "px");
+    poss.style.setProperty("--yc1", -navv + "px");
+  }
+
+  document.getElementById(
+    "hee"
+  ).style.background = `radial-gradient( circle at var(--xc) var(--yc), var(--colo) -329px, transparent 281px )`;
+  document.getElementById("hio").style.background = `radial-gradient(
+  circle at var(--xc1) var(--yc1),
+  transparent ${navv1}px,
+  #201f1f ${navv}px
+)`;
+
+  if (!(window.scrollY > 0)) {
+    document.getElementById("hg2").style.background = `radial-gradient(
+      circle at var(--xc) var(--yc),
+      transparent 3px,
+      #121212 66px
+    )`;
+  } else {
+    document.getElementById("hg2").style.background = `radial-gradient(
+      circle at var(--xc) var(--yc),
+      transparent 3px,
+      #1e1e1e 66px
+    )`;
+  }
+  //  this.window.addEventListener("click", (ea) => {
+  //     document.getElementById("hg2").style.background = `radial-gradient(
+  //       circle at var(--xc) var(--yc),
+  //       transparent 3px,
+  //       #1e1e1e 66px
+  //     )`;
+  //     console.log(ea.clientY - this.window.scrollY );
+  //   });
+});
+
+window.addEventListener("scroll", function () {
+  if (this.window.scrollY > 0) {
+    this.document.getElementById("hg2").style.backgroundColor = "#1e1e1e";
+    hea.style.height = "60px";
+
+    eren(false);
+  } else {
+    this.document.getElementById("hg2").style.backgroundColor = "#121212";
+    hea.style.height = "70px";
+
+    eren(true);
+  }
+});
+
+function eren(x) {
+  for (let i = 0; i < this.document.querySelectorAll("a").length; i++) {
+    if (x == true) {
+      document.querySelectorAll("a")[i].style.background = "#121212";
+      document.getElementById("hg2").style.background = `radial-gradient(
+        circle at -100px 0px,
+        rgb(30 30 30) -100px,
+        #121212 66px
+      )`;
+    } else {
+      document.querySelectorAll("a")[i].style.background = "#1e1e1e";
+      document.getElementById("hg2").style.background = `radial-gradient(
+        circle at -100px -100px,
+        rgb(50 50 50) 3px,
+        #1e1e1e 66px
+      )`;
+    }
+  }
+  document.querySelectorAll("a").forEach(function (ele) {
+    ele.addEventListener("mouseover", function () {
+      ele.style.backgroundColor = "rgb(30 30 30)";
+      ele.style.color = "var(--colo)";
+    });
+    ele.addEventListener("mouseout", function () {
+      if (x == true) {
+        ele.style.backgroundColor = "#121212";
+      } else {
+        ele.style.backgroundColor = "#1e1e1e";
+      }
+      ele.style.color = "#fff";
+    });
+  });
+}
+
+let span1 = document.querySelector(".sspan");
+let text = ["Delovober1", "Desiner1", "Programmer1"];
+let i = 0;
+let i1 = 0;
+
+let tv = setInterval(function () {
+  span1.innerHTML += text[i1][i];
+
+  i++;
+
+  if (i > text[i1].length - 1) {
+    i = 0;
+    i1++;
+    span1.innerHTML = "";
+  }
+
+  if (i1 > text.length - 1) {
+    i1 = 0;
+  }
+}, 200);
+
+let h2 = document.getElementById("h2");
+
+let ar = "Hello, My Name is";
+let a = new Array();
+let car1 = new Array();
+let car11 = new Array();
+let sum1 = 0;
+let sum12 = 0;
+let cx = false;
+
+for (let i = 0; i < ar.length; i++) {
+  a[i] = document.createElement("li");
+  a[i].className = "ll";
+
+  a[i].append(ar[i]);
+
+  a[i].style.transitionDuration = (i + Number(1)) * 60 + 200 + "ms";
+
+  window.addEventListener("mousemove", function (e) {
+    let car = h2.getBoundingClientRect();
+    if (
+      e.clientX >= car.left &&
+      e.clientX <= car.left + car.width &&
+      e.clientY >= car.top &&
+      e.clientY <= car.top + car.height
+    ) {
+      a[i].style.transform = " translateY(-70px)";
+      this.setTimeout(() => {
+        cx = true;
+      }, (ar.length - 1 + Number(1)) * 60 + 200);
+    } else {
+      if (cx == true) {
+        a[i].style.transform = " translateY(0px)";
+        if (i == ar.length - 1) {
+          cx = false;
+        }
+      }
+    }
+  });
+
+  h2.append(a[i]);
+  window.addEventListener("load", function (e) {
+    setTimeout(() => {
+      a[i].style.opacity = "1";
+      a[i].style.marginTop = "0px";
+      a[i].style.visibility = "unset";
+
+      car1[i] = a[i].getBoundingClientRect();
+
+      a[i].style.left = sum1 + 83 + "px";
+
+      sum1 += car1[i].width;
+    }, (i + Number(1)) * 60 + 200);
+  });
+}
+window.addEventListener("load", function (e) {
+  for (let i = 0; i < ar.length; i++) {
+    if (ar[i] == " ") {
+      sum12 += 10;
+
+      for (let i1 = ar.length - (ar.length - i); i1 < ar.length; i1++) {
+        car11[i] = a[i1].getBoundingClientRect();
+
+        a[i1].style.marginLeft = sum12 + "px";
+      }
+    }
+  }
+});
+
+let ii = document.getElementById("ii");
+let a1 = new Array();
+let car = new Array();
+let cara = new Array();
+let tt = new Array();
+let ar1 = "Tariq Mohammad";
+let sum = 0;
+let sum1c = 0;
+let day = new Date().getDay();
+let month = new Date().getMonth();
+if (Number(new Date().toDateString().split(" ")[2] - 1) == 0) {
+  document.getElementById("ddfx").innerHTML = vzs - 2004;
+} else {
+  document.getElementById("ddfx").innerHTML = vzs - 2004;
+}
+console.log(vzs - 1 - 2004);
+for (let i = 0; i < ar1.length; i++) {
+  a1[i] = document.createElement("li");
+  a1[i].className = "ll1";
+
+  a1[i].innerHTML = ar1[i];
+
+  if (i < ar1.indexOf(" ")) {
+    a1[i].style.color = "#fff";
+  }
+  a1[i].style.transition = (i + Number(1)) * 60 + "ms";
+  a1[i].style.marginLeft = i * -40 + "px";
+  this.setTimeout(() => {
+    setTimeout(() => {
+      a1[i].style.opacity = "1";
+      a1[i].style.marginTop = "0px";
+      a1[i].style.marginLeft = "0px";
+      a1[i].style.visibility = "unset";
+      if (i == 6 || i == ar1.length - 1) {
+        setTimeout(() => {
+          a1[i].style.transform = "rotate(360deg)";
+        }, 400);
+      }
+    }, (i + Number(1)) * 60 + 200);
+  }, 1000);
+  document.getElementById("ii").addEventListener("mouseover", function () {
+    document.getElementById("ii").style.pointerEvents = "none";
+    a1[i].style.pointerEvents = "none";
+    a1[i].style.animation = `animate ${i * 300 + 1000}ms alternate  both`;
+
+    tt[i] = setTimeout(function () {
+      a1[i].style.animation = `unset`;
+      document.getElementById("ii").style.pointerEvents = "unset";
+      a1[i].style.pointerEvents = "unset";
+      clearTimeout(tt[i]);
+    }, i * 300 + 1000);
+  });
+
+  ii.append(a1[i]);
+  window.addEventListener("load", function (e) {
+    car[i] = a1[i].getBoundingClientRect();
+
+    a1[i].style.left = sum + 83 + "px";
+
+    sum += car[i].width;
+    if (ar1[i] == " ") {
+      sum += car[i].width + 50;
+    }
+  });
+}
+
+let arn = new Array();
+let maxx = new Array();
+let sheck = true;
+let max = true;
+let vb = 0;
+let cc = 0;
+let v = 0;
+
+poss.style.setProperty("--h", 0 + "px");
+poss.style.setProperty("--w", 7 + "px");
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let ss = [
+  [
+    "C:\\Users\\WAFAco\\OneDrive\\Documents\\myprojects$\\webpro\\new\\websiteProject.html",
+    "boby.jpg",
+    "Meet Food",
+    0,
+  ],
+  [
+    "C:\\Users\\WAFAco\\OneDrive\\Documents\\myprojects$\\webpro\\proj\\indexx.html",
+    "menu2.jpg",
+    "Fresh Food",
+    -16,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/games/Game2/lopi.html",
+    "؟.jpg",
+    "Game 2",
+    -35,
+  ],
+  [
+    "C:\\Users\\WAFAco\\OneDrive\\Documents\\myprojects$\\webpro\\personalWebsite\\Document.html",
+    "src.jpg",
+    "Personal WebSite",
+    -52,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/jquery/project3d/--add3d/x1.html",
+    "sheet.jpg",
+    "3D Project",
+    0,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/games/Game1/%E2%80%8F%E2%80%8Fgame.s%20-%20%D9%86%D8%B3%D8%AE%D8%A9/gam.html",
+    "xo.jpg",
+    "Game 1",
+    0,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/games/snake/snake.html",
+    "snakk.jpg",
+    "Game 3",
+    0,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/moedern/tawjehy.html?#",
+    "calc.png",
+    "Calce Your Marks",
+    0,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/moedern/tr.html",
+    "car.png",
+    "3D Card",
+    0,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/moedern/inn.html",
+    "pp.jpg",
+    "Searsh in Cards",
+    -13,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/jquery/formes/form1.pro/form1.htm",
+    "ff.png",
+    "Form LogIn",
+    0,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/moedern/----ibex.html",
+    "ball3d.png",
+    "3D Ball Use Deves",
+    -12,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/webpro/personalWebsite/hacker.html",
+    "ss.png",
+    "Searsh Test",
+    -65,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/moedern/clock.html",
+    "clok.png",
+    "Clock Time",
+    0,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/webpro/personalWebsite/canvas%20Project/cc1.html",
+    "can1.png",
+    "Canvas JS 1",
+    0,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/webpro/personalWebsite/canvas%20Project/cc2.html",
+    "can2.png",
+    "Canvas JS 2",
+    -256,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/webpro/personalWebsite/canvas%20Project/cc3.html",
+    "can3.png",
+    "Canvas JS 3",
+    -469,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/webpro/personalWebsite/canvas%20Project/cc6.html",
+    "can4.png",
+    "Canvas JS 4",
+    -256,
+  ],
+  [
+    "file:///C:/Users/WAFAco/OneDrive/Documents/myprojects$/webpro/personalWebsite/canvas%20Project/cc7.html",
+    "can5.png",
+    "Canvas JS 5",
+    -256,
+  ],
+];
+console.log(ss.length);
+let incar = new Array();
+let h = new Array();
+let fo = new Array();
+let uphre = new Array();
+let hre = new Array();
+let bv = new Array();
+let upbv = document.createElement("div");
+let num = ss.length + 0;
+let sh = true;
+let view = 11;
+
+for (let i = 0; i < num; i++) {
+  card[i] = document.createElement("div");
+  incar[i] = document.createElement("div");
+  uphre[i] = document.createElement("a");
+  hre[i] = document.createElement("i");
+  h[i] = document.createElement("h4");
+  fo[i] = document.createElement("div");
+  fo[i].className = "fo";
+  uphre[i].append(hre[i]);
+  fo[i].append(h[i], uphre[i]);
+
+  incar[i].prepend(fo[i]);
+
+  fo[i].style.top = "100%";
+
+  card[i].className = "pro";
+  incar[i].className = "inpro";
+  hre[i].classList.add("fa-solid", "fa-share");
+  uphre[i].className = "hre";
+  h[i].className = "h";
+
+  h[i].innerHTML = "Hedeing" + (i + 1);
+
+  card[i].append(incar[i]);
+  document.getElementById("ca").append(card[i]);
+  if (i >= view) {
+    card[i].style.display = "none";
+  }
+  window.addEventListener("scroll", () => {
+    if (window.scrollY >= 1938 + 200) {
+      incar[0].style.visibility = "unset";
+      incar[0].style.opacity = "1";
+      incar[0].style.transform = "scale(1)";
+      setTimeout(() => {
+        incar[i].style.visibility = "unset";
+        incar[i].style.opacity = "1";
+        incar[i].style.transform = "scale(1)";
+      }, i * 100);
+    }
+  });
+}
+
+let upbv0 = new Array();
+let pre = document.createElement("button");
+let next = document.createElement("button");
+let n = 0;
+let vcx = 0;
+
+let vc1 = new Array();
+
+for (let i = 0; i < 2; i++) {
+  vc1[i] = document.createElement("div");
+
+  pre.innerHTML = "<i class='fa-solid fa-forward'></i>";
+  pre.children[0].style.transform = "rotateZ(180deg)";
+  next.innerHTML = "<i class='fa-solid fa-forward'></i>";
+  next.className = "bv";
+  pre.className = "bv";
+  vc1[i].className = "uppm";
+}
+vc1[0].addEventListener("click", () => {
+  foo(true);
+});
+
+vc1[1].addEventListener("click", () => {
+  foo(false);
+});
+
+function foo(vcs) {
+  if (vcs == true) {
+    vcx++;
+  } else if (vcs == false) {
+    vcx--;
+  }
+  if (vcx <= 0) {
+    vc1[1].style.visibility = "hidden";
+  } else {
+    vc1[1].style.visibility = "unset";
+  }
+  if (vcx >= Math.ceil(ss.length / view) - 1) {
+    vc1[0].style.visibility = "hidden";
+  } else {
+    vc1[0].style.visibility = "unset";
+  }
+  if (vcx <= 0) {
+    vcx = 0;
+  } else if (vcx > Math.ceil(ss.length / view) - 1) {
+    vcx = Math.ceil(ss.length / view) - 1;
+  }
+
+  bv[Number(vcx)].click();
+}
+for (let i = 0; i < Math.ceil(ss.length / view); i++) {
+  bv[i] = document.createElement("button");
+  upbv0[i] = document.createElement("div");
+  vc1[0].append(next);
+  vc1[1].append(pre);
+  bv[i].innerHTML = i + 1;
+  bv[i].className = "bv";
+  upbv0[i].className = "uppm";
+  upbv0[i].append(bv[i]);
+  upbv.append(upbv0[i]);
+  upbv.className = "upbv1";
+  document.getElementById("hr3").prepend(upbv);
+  bv[0].click();
+  bv[0].style.border = "1px solid #0ff";
+  bv[i].addEventListener("click", () => {
+    for (let s = 0; s < Math.ceil(ss.length / view); s++) {
+      bv[s].style.border = "none";
+    }
+    bv[i].style.border = "1px solid #0ff";
+    if (i <= 0) {
+      vc1[1].style.visibility = "hidden";
+    } else {
+      vc1[1].style.visibility = "unset";
+    }
+    if (i >= Math.ceil(ss.length / view) - 1) {
+      vc1[0].style.visibility = "hidden";
+    } else {
+      vc1[0].style.visibility = "unset";
+    }
+    n = i;
+    for (let k = 0; k < ss.length; k++) {
+      // document.getElementById("gg3").click();
+      if (k < view * (i + 1) && k >= view * i) {
+        card[k].style.display = "flex";
+      } else {
+        card[k].style.display = "none";
+      }
+    }
+  });
+}
+
+upbv.prepend(vc1[1]);
+upbv.append(vc1[0]);
+let carx = new Array();
+let x = new Array();
+let y = new Array();
+
+window.addEventListener("load", (e) => {
+  let car = card[0].getBoundingClientRect();
+
+  let ri = 15;
+  let ww = car.width - ri;
+  let hh = car.height - ri;
+  for (let i = 0; i < num; i++) {
+    card[i].addEventListener("mouseenter", (e) => {
+      // let car =  card[i].getBoundingClientRect(),
+      // x = e.clientX - car.left,
+      // y = e.clientY - car.top - window.scrollY;
+
+      // if (x > car.width / 2) {
+      //   fo[i].style.top = "0px";
+      //   fo[i].style.left = "100%";
+      //   setTimeout((e) => {
+      //     fo[i].style.top = "0px";
+      //     fo[i].style.left = "0%";
+      //   });
+      //   fo[i].style.transition = "0.3s";
+      // } else {
+      //   console.log(-1);
+      // }
+
+      fo[i].style.top = "0px";
+      fo[i].style.transition = "0.3s";
+    });
+
+    card[i].addEventListener("mouseleave", (e) => {
+      //  console.log(e.clientX);
+      let car = card[i].getBoundingClientRect(),
+        x = e.clientX - car.left,
+        y = e.clientY - car.top - window.scrollY;
+      //  console.log(car.width);
+
+      fo[i].style.top = "-100%";
+
+      setTimeout(() => {
+        fo[i].style.transition = "0s";
+        fo[i].style.top = "100%";
+      }, 300);
+    });
+
+    poss.style.setProperty("--ww", ww + "px");
+    poss.style.setProperty("--hh", hh + "px");
+
+    for (let i1 = 0; i1 < incar[i].children.length; i1++) {
+      if (i1 != 0) {
+        incar[i].children[i1].style.zIndex = "3";
+      }
+
+      incar[i].children[i1].style.position = "absolute";
+      if (i1 != 0 || i1 != 1) {
+        incar[i].children[i1].style.transition = "0.4s";
+      } else {
+        incar[i].children[i1].style.transition = "0.3s";
+      }
+    }
+  }
+});
+
+for (let i = 0; i < ss.length; i++) {
+  for (let i0 = 0; i0 < ss[i].length; i0++) {
+    if (i0 == 0) {
+      uphre[i].setAttribute("href", ss[i][i0]);
+      uphre[i].setAttribute("target", "_blank");
+    } else if (i0 == 1) {
+      incar[i].style.backgroundImage = `url("${ss[i][i0]}")`;
+    } else if (i0 == 2) {
+      h[i].innerHTML = ss[i][i0];
+    } else if (i0 == 3) {
+      incar[i].style.backgroundPosition = ss[i][i0] + "px";
+    }
+  }
+}
+
+window.addEventListener("mousemove", function (e) {
+  let car = this.document.querySelector(".hh").getBoundingClientRect(),
+    xaxis1 = e.pageX - window.scrollX - car.left,
+    yaxis1 = e.pageY - window.scrollY - car.top;
+
+  if (
+    xaxis1 < car.width + 66 &&
+    xaxis1 > -66 &&
+    yaxis1 < car.height + 66 &&
+    yaxis1 > -66
+  ) {
+    poss.style.setProperty("--xbn", xaxis1 + "px");
+    poss.style.setProperty("--ybn", yaxis1 + "px");
+  } else {
+    poss.style.setProperty("--xbn", -66 + "px");
+    poss.style.setProperty("--ybn", -66 + "px");
+  }
+
+  document.querySelector(".hh").style.background = `radial-gradient(
+  circle at var(--xbn) var(--ybn),
+  transparent -60px,
+  #121212 150px
+)`;
+});
+
+for (let i = 0; i < document.querySelector(".upp").children.length; i++) {
+  document.querySelector(".upp").children[i].style.margin = "0 25px";
+}
+
+let nav = document.getElementById("nav");
+let innav = new Array();
+let upnav = new Array();
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let inner = ["ABOUT ME", "SKILLS", "INFO"];
+let lent = document.querySelectorAll(".inupl").length;
+let ssp = document.getElementById("ssp");
+window.addEventListener("load", (e) => {
+  for (let i = 0; i < lent; i++) {
+    innav[i] = document.createElement("button");
+    upnav[i] = document.createElement("div");
+    let carb = upnav[0].getBoundingClientRect();
+    innav[i].classList.add("innav");
+    upnav[i].classList.add("upnav");
+    innav[i].innerHTML = inner[i];
+    upnav[i].append(innav[i]);
+    nav.prepend(upnav[i]);
+
+    innav[0].click();
+
+    innav[i].addEventListener("click", () => {
+      let car1 = document.querySelector(".upp").getBoundingClientRect();
+      let car = upnav[i].getBoundingClientRect();
+
+      for (let i1 = 0; i1 < lent; i1++) {
+        document.getElementById("inu" + i1).style.visibility = "hidden";
+        document.getElementById("inu" + i1).style.opacity = "0";
+        document.getElementById("inu" + i1).style.transform = "scale(1.3)";
+      }
+
+      document.getElementById("inu" + i).style.visibility = "unset";
+      document.getElementById("inu" + i).style.opacity = "1";
+      document.getElementById("inu" + i).style.transform = "scale(1)";
+
+      ssp.style.top = car.top - car1.top + "px";
+
+      ssp.style.height = car.height + "px";
+    });
+  }
+  let inupa = document.getElementById("inupa");
+  let upskil = new Array();
+  let inupskil = new Array();
+  let sp = new Array();
+  let dskil = new Array();
+  let indskil = new Array();
+  let dv = new Array();
+  let hesk = 39;
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  let info = [
+    ["CSS5", 77],
+    ["HTML5", 80],
+    ["XML", 77],
+    ["JAVA SCRIPT", 60],
+    ["POOT STRAP", 33],
+    ["JEQUERY", 10],
+    ["NODEJS", 20],
+    ["PHP", 40],
+    ["SQL", 10],
+  ];
+
+  let order = new Array();
+  let hio = document.getElementById("hio1");
+
+  for (let i = 0; i < info.length; i++) {
+    for (let i1 = 0; i1 < info[i].length; i1++) {
+      order[i] = info[i][i1];
+    }
+  }
+
+  for (let i = 0; i < info.length; i++) {
+    upskil[i] = document.createElement("div");
+    inupskil[i] = document.createElement("div");
+    sp[i] = document.createElement("span");
+    dskil[i] = document.createElement("div");
+    indskil[i] = document.createElement("div");
+    dv[i] = document.createElement("span");
+
+    upskil[i].classList.add("upskil");
+    inupskil[i].classList.add("inupskil");
+    sp[i].classList.add("sp");
+    dskil[i].classList.add("dskil");
+    indskil[i].classList.add("indskil");
+    dv[i].classList.add("dv");
+
+    upskil[i].style.order = order[i];
+    upskil[i].style.left = -(i * 30) + "px";
+    let rw = document.getElementById("upinupa").getBoundingClientRect();
+    inupa.style.height = hesk * info.length + 4 + "px";
+    if (hesk * info.length + 4 > rw.height) {
+      inupa.style.top = "0";
+    }
+    poss.style.setProperty("--hesk", hesk + "px");
+    dskil[i].prepend(indskil[i]);
+    inupskil[i].append(sp[i], dskil[i], dv[i]);
+    upskil[i].append(inupskil[i]);
+    document.getElementById("inupa").prepend(upskil[i]);
+
+    upskil[i].addEventListener("mouseenter", () => {
+      upskil[i].style.width = 103 + "%";
+    });
+
+    upskil[i].addEventListener("mouseleave", () => {
+      setTimeout(() => {
+        upskil[i].style.width = 100 + "%";
+      }, 400);
+    });
+  }
+
+  for (let i = 0; i < lent; i++) {
+    for (let i1 = 0; i1 < info.length; i1++) {
+      innav[1].addEventListener("click", () => {
+        let carr = dskil[i].getBoundingClientRect();
+
+        carr = dskil[i].getBoundingClientRect();
+
+        for (let i2 = 0; i2 < info[i1].length; i2++) {
+          if (i2 == 1) {
+            indskil[i1].style.background = `rgb(${
+              255 - (info[i1][i2] * (carr.width / 100)) / (carr.width / 255)
+            }, ${(info[i1][i2] * (carr.width / 100)) / (carr.width / 255)}, ${
+              (info[i1][i2] * (carr.width / 100)) / (carr.width / 255)
+            })`;
+          }
+        }
+
+        for (let i2 = 0; i2 < info[i1].length; i2++) {
+          if (i2 == 0) {
+            sp[i1].innerHTML = info[i1][i2];
+          } else if (i2 == 1) {
+            indskil[i1].style.width = info[i1][i2] + "%";
+
+            dv[i1].innerHTML = info[i1][i2] + "%";
+          }
+        }
+        upskil[i1].style.left = 0 + "px";
+      });
+
+      if (i != 1) {
+        innav[i].addEventListener("click", () => {
+          indskil[i1].style.width = 0 + "%";
+          upskil[i1].style.left = -(i1 * 30) + "px";
+        });
+      }
+    }
+  }
+});
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+window.addEventListener("load", (s) => {
+  document.querySelectorAll(".span").forEach((ele, ind) => {
+    ele.addEventListener("click", () => {
+      document.querySelectorAll(".upform input")[ind].focus();
+    });
+  });
+
+  let sss = 0;
+
+  let r01 = true;
+  let r01y = true;
+  let arr01 = new Array(2);
+  let arv = new Array(2);
+  let n01 = 0;
+
+  let pos01 = document.documentElement;
+  let count01 = 0;
+  let count101 = 0;
+  window.addEventListener("mousemove", (e) => {
+    sss++;
+
+    let car = document.querySelector(".ball").getBoundingClientRect();
+    let car1 = e.target.getBoundingClientRect();
+
+    document.querySelector(".ball").style.top =
+      e.clientY + window.scrollY + car.height / 2 + "px";
+    document.querySelector(".ball").style.left =
+      e.clientX + car.width / 2 + "px";
+    sss = 0;
+
+    n01++;
+
+    if (r01) {
+      arr01[0] = e.clientX;
+      r01 = false;
+    } else {
+      arr01[1] = e.clientX;
+      r01 = true;
+    }
+    if (r01y) {
+      arv[0] = e.clientY;
+      r01y = false;
+    } else {
+      arv[1] = e.clientY;
+      r01y = true;
+    }
+
+    if (arr01[0] != undefined && arr01[1] != undefined) {
+      if (n01 > 1) {
+        document.querySelector(".ball").style.width =
+          (Math.max(arr01[0], arr01[1]) -
+            Math.min(arr01[0], arr01[1]) +
+            Math.max(arv[0], arv[1]) -
+            Math.min(arv[0], arv[1]) +
+            10) /
+            3 +
+          30 +
+          "px";
+        document.querySelector(".ball").style.height =
+          (Math.max(arr01[0], arr01[1]) -
+            Math.min(arr01[0], arr01[1]) +
+            Math.max(arv[0], arv[1]) -
+            Math.min(arv[0], arv[1]) +
+            10) /
+            3 +
+          30 +
+          "px";
+        n01 = 0;
+      }
+    }
+    // }
+    //   }
+    // }, 100);
+  });
+  innav[1].addEventListener("click", () => {
+    window.addEventListener("mousemove", nn02);
+  });
+  innav[2].addEventListener("click", () => {
+    window.addEventListener("mousemove", nn01);
+  });
+  let vq = 200;
+  function nn01(e) {
+    let car1 = document.getElementById("inupa1").getBoundingClientRect(),
+      x1 = e.pageX - window.scrollX - car1.left,
+      y1 = e.pageY - window.scrollY - car1.top;
+    let vc = document.getElementById("inupa1").getBoundingClientRect();
+
+    if (x1 < car1.width + vq && x1 > -vq && y1 < car1.height + vq && y1 > -vq) {
+      poss.style.setProperty("--zfq", x1 + "px");
+      poss.style.setProperty("--zfyq", y1 + "px");
+      document.querySelector(".ball").style.background = `var(--colo)`;
+      document.querySelector(".ball").style.boxShadow = `0 0 80px var(--colo)`;
+      poss.style.setProperty(
+        "--colo",
+        `rgb(${255 - x1 / (vc.width / 255)}, ${255 - y1 / (vc.height / 255)}, ${
+          y1 / (vc.height / 255)
+        })`
+      );
+      poss.style.setProperty(
+        "--colo1",
+        `rgb(${255 - x1 / (vc.width / 255)}, ${255 - y1 / (vc.height / 255)}, ${
+          y1 / (vc.height / 255)
+        })`
+      );
+      poss.style.setProperty(
+        "--colo2",
+        `rgb(${255 - x1 / (vc.width / 255)}, ${255 - y1 / (vc.height / 255)}, ${
+          y1 / (vc.height / 255)
+        })`
+      );
+    } else {
+      poss.style.setProperty("--zfq", -vq + "px");
+      poss.style.setProperty("--zfyq", -vq + "px");
+      document.querySelector(".ball").style.background = `rgb(255, 255, 255)`;
+      document.querySelector(".ball").style.boxShadow = `0 0 80px #fff`;
+      poss.style.setProperty("--colo", `rgb(255, 255, 255)`);
+      poss.style.setProperty("--colo1", `rgb(255, 0, 0)`);
+      poss.style.setProperty("--colo2", `rgb(110 110 110)`);
+    }
+
+    document.getElementById("hhv").style.background = `radial-gradient(
+circle at calc(var(--zfq) - 1px) calc(var(--zfyq) - 1px),
+transparent 3px,
+#181818 66px
+)`;
+    document.getElementById("inupa1").style.background = `radial-gradient(
+  circle at var(--zfq) var(--zfyq),
+  var(--colo) -${vq}px,
+   #181818 ${vq}px
+  )`;
+    // let w = new Array();
+
+    // for (let j = 0; j < document.querySelectorAll(".ddf").length; j++) {
+    // w[j] = document.querySelectorAll(".ddf")[j].getBoundingClientRect();
+
+    //   document.querySelectorAll(".ddf")[j].style.color = `rgb(${255 - (vc.width - w[j].left) / (vc.width / 255)}, ${255 - (vc.height - w[0].top) / (vc.height / 255)}, ${
+    //     -(vc.height - w[0].top) / (vc.height / 255)
+    //   })`;
+
+    // }
+  }
+  function nn02(e) {
+    let cc1 = document.getElementById("hio1").getBoundingClientRect(),
+      x1 = e.pageX - window.scrollX - cc1.left,
+      y1 = e.pageY - window.scrollY - cc1.top;
+    if (
+      x1 < cc1.width + 100 &&
+      x1 > -100 &&
+      y1 < cc1.height + 100 &&
+      y1 > -100
+    ) {
+      poss.style.setProperty("--xcv", x1 + "px");
+      poss.style.setProperty("--ycv", y1 + "px");
+    } else {
+      poss.style.setProperty("--xcv", -100 + "px");
+      poss.style.setProperty("--ycv", -100 + "px");
+    }
+
+    document.getElementById("hio1").style.background = `radial-gradient(
+       circle at var(--xcv) var(--ycv),
+       transparent -${10}px,
+       #181818 ${100}px`;
+  }
+
+  for (let g = 0; g < inner.length; g++) {
+    if (g != 2) {
+      innav[g].addEventListener("click", () => {
+        window.removeEventListener("mousemove", nn01);
+        poss.style.setProperty("--colo", `rgb(255, 255, 255)`);
+        poss.style.setProperty("--colo1", `rgb(255, 0, 0)`);
+        poss.style.setProperty("--colo2", `rgb(110 110 110)`);
+      });
+    }
+    if (g != 1) {
+      innav[g].addEventListener("click", () => {
+        window.removeEventListener("mousemove", nn02);
+      });
+    }
+  }
+  let year = new Date().getFullYear();
+  let inet = `© copyright ${year} Tariq Mohammad All Right Reserved`;
+  let spx = new Array();
+  let cvx = new Array();
+  let sum = 0;
+
+  let cv1 = document.getElementById("fot").getBoundingClientRect();
+
+  for (let x = 0; x < inet.length; x++) {
+    spx[x] = document.createElement("span");
+    spx[0].style.fontSize = "30px";
+
+    spx[x].innerHTML = inet[x];
+
+    spx[x].className = "spx";
+    cvx[x] = spx[x].getBoundingClientRect();
+    spx[x].style.left = sum + "px";
+    if (x == 0) {
+      sum += cvx[x].width + 20;
+    } else {
+      if (inet[x] == " ") {
+        sum += cvx[x].width + 10;
+      } else {
+        sum += cvx[x].width;
+      }
+    }
+  }
+
+  let sum1 = 0;
+
+  window.addEventListener("mousemove", (e) => {
+    let car = document.querySelector(".infot").getBoundingClientRect(),
+      x = e.pageX - window.scrollX - car.left,
+      y = e.pageY - window.scrollY - car.top;
+
+    if (x < car.width + ofx && x > -ofx && y < car.height + ofx && y > -ofx) {
+      poss.style.setProperty("--pf", x + "px");
+      poss.style.setProperty("--pfy", y + "px");
+    } else {
+      poss.style.setProperty("--pf", -ofx + "px");
+      poss.style.setProperty("--pfy", -ofx + "px");
+    }
+
+    document.querySelector(".infot").style.background = `radial-gradient(
+    circle at var(--pf) var(--pfy),
+  transparent -${ofx}px,
+     #181818 ${ofx}px
+    )`;
+  });
+  let ser = new Array();
+  let inseri = new Array();
+  let spl = new Array();
+  let hs = new Array();
+  let p = new Array();
+  let vx1 = new Array();
+  let inform = [
+    [
+      "Front End Desiner",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam vel laboriosam sint in",
+    ],
+    [
+      "Back End Devolober",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam vel laboriosam sint in",
+    ],
+    [
+      "Web Application",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam vel laboriosam sint in",
+    ],
+  ];
+  let suml = 0;
+  let sumt = 0;
+  let mar = 48;
+  for (let i = 0; i < inform.length; i++) {
+    ser[i] = document.createElement("div");
+    inseri[i] = document.createElement("div");
+    spl[i] = document.createElement("span");
+    hs[i] = document.createElement("h4");
+    p[i] = document.createElement("p");
+
+    ser[i].className = "ser";
+    inseri[i].className = "inseri";
+    spl[i].className = "spl";
+
+    for (let i1 = 0; i1 < inform[i].length; i1++) {
+      if (i1 == 0) {
+        hs[i].innerHTML = inform[inform.length - 1 - i][i1];
+      } else if (i1 == 1) {
+        p[i].innerHTML = inform[i][i1];
+      }
+    }
+    inseri[i].append(spl[i], hs[i], p[i]);
+    ser[i].append(inseri[i]);
+
+    document.getElementById("inser").prepend(ser[i]);
+    vx1[i] = ser[i].getBoundingClientRect();
+    // window.addEventListener("resize", funm);
+    // funm();
+    // function funm() {
+
+    // ser[i].style.left = suml + "px";
+    // ser[i].style.top = sumt + "px";
+
+    // if (suml + (vx1[i].width * 2 + (mar * 2)) > window.innerWidth) {
+    //   suml = 0;
+    //   sumt += vx1[i].height + mar;
+    // } else {
+    //    suml += vx1[i].width + mar;
+    // }
+    // }
+
+    //   spl[i].style.background = `rgb(${
+    //     (vx1[i].left - 43) / (window.innerWidth / 255)
+    //   }, ${
+    //     255 - ((vx1[i].left - 43) / (window.innerWidth / 255))
+    //   }, ${
+    //     255 - ((vx1[i].left - 43) / (window.innerWidth / 255))
+    //   })`;
+
+    // if (i == 4) {
+    //   console.log(vx1[i].left, ser[i]);
+    // } else if (i == 3) {
+    //   console.log(vx1[i].left, ser[i]);
+    // }
+  }
+
+  for (let i1 = 0; i1 < ser[i].children.length; i1++) {
+    ser[i].children[i1].style.margin = "7px 0";
+  }
+  let gf = 100;
+  window.addEventListener("mousemove", (e) => {
+    let car = document.getElementById("hdi").getBoundingClientRect(),
+      x = e.pageX - window.scrollX - car.left,
+      y = e.pageY - window.scrollY - car.top;
+
+    if (x < car.width + gf && x > -gf && y < car.height + gf && y > -gf) {
+      poss.style.setProperty("--x1q", x + "px");
+      poss.style.setProperty("--y1q", y + "px");
+    } else {
+      poss.style.setProperty("--x1q", -ofx + "px");
+      poss.style.setProperty("--y1q", -ofx + "px");
+    }
+
+    document.getElementById("hdi").style.background = `radial-gradient(
+    circle at var(--x1q) var(--y1q),
+    transparent -${gf}px,
+    #151515 ${gf}px
+    )`;
+  });
+  let cxz = document.querySelector("footer").getBoundingClientRect();
+  document.querySelectorAll("section")[
+    document.querySelectorAll("section").length - 1
+  ].style.marginBottom = cxz.height + "px";
+});
+window.addEventListener("load", () => {
+  function tar(e) {
+    let car = this.document.querySelector(".hi").getBoundingClientRect(),
+      x = e.pageX - window.scrollX - car.left,
+      y = e.pageY - window.scrollY - car.top;
+
+    let car1 = this.document.querySelector(".upform").getBoundingClientRect(),
+      x1 = e.pageX - window.scrollX - car1.left,
+      y1 = e.pageY - window.scrollY - car1.top;
+
+    let car2 = this.document.querySelector(".hi1").getBoundingClientRect(),
+      x2 = e.pageX - window.scrollX - car2.left,
+      y2 = e.pageY - window.scrollY - car2.top;
+
+    let car3 = this.document.querySelector(".conn").getBoundingClientRect(),
+      x3 = e.pageX - window.scrollX - car3.left,
+      y3 = e.pageY - window.scrollY - car3.top;
+
+    if (x < car.width + ofx && x > -ofx && y < car.height + ofx && y > -ofx) {
+      poss.style.setProperty("--x_", x + "px");
+      poss.style.setProperty("--y_", y + "px");
+    } else {
+      poss.style.setProperty("--x_", -ofx + "px");
+      poss.style.setProperty("--y_", -ofx + "px");
+    }
+
+    if (
+      x2 < car.width + ofx &&
+      x2 > -ofx &&
+      y2 < car.height + ofx &&
+      y2 > -ofx
+    ) {
+      poss.style.setProperty("--x2_", x2 + "px");
+      poss.style.setProperty("--y2_", y2 + "px");
+    } else {
+      poss.style.setProperty("--x2_", -ofx + "px");
+      poss.style.setProperty("--y2_", -ofx + "px");
+    }
+
+    document.querySelector(
+      ".hi"
+    ).style.background = `radial-gradient( circle at var(--x_) var(--y_), transparent -${ofx}px, #262626 ${ofx}px )`;
+    document.querySelector(
+      ".upform"
+    ).style.background = `radial-gradient( circle at var(--x_) var(--y_), #fff -${ofx}px, #262626 ${ofx}px )`;
+    document.querySelector(
+      ".hi1"
+    ).style.background = `radial-gradient( circle at var(--x2_) var(--y2_), transparent -${ofx}px, #262626 ${ofx}px )`;
+    document.querySelector(
+      ".conn"
+    ).style.background = `radial-gradient( circle at var(--x2_) var(--y2_), #fff -${ofx}px, #262626 ${ofx}px )`;
+  }
+
+  let car = document.querySelector(".span").getBoundingClientRect();
+  let car1 = document.querySelector(".inp").getBoundingClientRect();
+
+  document.querySelector(".up1b").style.marginLeft = car.width + "px";
+  document.querySelector(".up1b").style.width = car1.width + "px";
+  document.querySelector(`input[type="submit"]`).style.marginLeft =
+    car.width + "px";
+
+  for (let i = 0; i < document.querySelectorAll(`.ss`).length; i++) {
+    document.querySelectorAll(`.ss`)[i].style.marginLeft = car.width + "px";
+  }
+  for (let i = 0; i < document.querySelectorAll(`.ss1`).length; i++) {
+    document.querySelectorAll(`.ss1`)[i].style.left = car.width + "px";
+  }
+  document.querySelectorAll(`.ss`)[
+    document.querySelectorAll(".ss").length - 1
+  ].style.marginLeft = 0 + "px";
+  document.querySelectorAll(`.ss1`)[
+    document.querySelectorAll(".ss1").length - 1
+  ].style.left = 0 + "px";
+
+  let arr = [
+    "First Name",
+    "Last Name",
+    "+91 165 876 7685",
+    "Name@Example.gmail.com",
+  ];
+  document.querySelector("textarea").addEventListener("focus", () => {
+    document.querySelectorAll(`.ss`)[
+      document.querySelectorAll(".ss").length - 1
+    ].style.width = car1.width + "px";
+    document.querySelectorAll(`.ss1`)[
+      document.querySelectorAll(".ss1").length - 1
+    ].style.height = 100 + "%";
+    document.querySelectorAll(`.ss`)[
+      document.querySelectorAll(".ss").length - 1
+    ].style.transitionDelay = "0.3s";
+    document.querySelectorAll(`.ss1`)[
+      document.querySelectorAll(".ss1").length - 1
+    ].style.transitionDelay = "0s";
+  });
+  document.querySelector("textarea").addEventListener("blur", () => {
+    document.querySelectorAll(`.ss`)[
+      document.querySelectorAll(".ss").length - 1
+    ].style.width = 0 + "px";
+    document.querySelectorAll(`.ss1`)[
+      document.querySelectorAll(".ss1").length - 1
+    ].style.height = 0 + "%";
+    document.querySelectorAll(`.ss`)[
+      document.querySelectorAll(".ss").length - 1
+    ].style.transitionDelay = "0s";
+    document.querySelectorAll(`.ss1`)[
+      document.querySelectorAll(".ss1").length - 1
+    ].style.transitionDelay = "0.5s";
+  });
+
+  document.querySelector("textarea").addEventListener("blur", funcs2);
+  for (
+    let i = 0;
+    i < document.querySelectorAll(".upform input").length - 1;
+    i++
+  ) {
+    document
+      .querySelectorAll(".upform input")
+      [i].addEventListener("focus", funcs1);
+    function funcs1() {
+      document.querySelectorAll(".upform input")[i].placeholder = "";
+      document.querySelectorAll(`.ss`)[i].style.width = car1.width + "px";
+      document.querySelectorAll(`.ss1`)[i].style.height = 100 + "%";
+      document.querySelectorAll(`.span`)[i].style.color = "#0ff";
+      document.querySelectorAll(`.ss`)[i].style.transitionDelay = "0.3s";
+      document.querySelectorAll(`.ss1`)[i].style.transitionDelay = "0s";
+    }
+
+    document
+      .querySelectorAll(".upform input")
+      [i].addEventListener("blur", funcs2);
+    function funcs2() {
+      for (
+        let i = 0;
+        i < document.querySelectorAll(".upform input").length;
+        i++
+      ) {
+        document.querySelectorAll(".upform input")[i].placeholder =
+          document.querySelectorAll(".upform input")[i].placeholder = arr[i];
+      }
+      document.querySelectorAll(`.ss`)[i].style.width = 0 + "px";
+      document.querySelectorAll(`.ss`)[i].style.transitionDelay = "0s";
+      document.querySelectorAll(`.ss1`)[i].style.transitionDelay = "0.5s";
+      document.querySelectorAll(`.ss1`)[i].style.height = 0 + "%";
+      document.querySelectorAll(`.span`)[i].style.color = "#fff";
+    }
+  }
+
+  let bb = new Array();
+  let sumi = 0;
+
+  for (let i = 0; i < document.querySelectorAll("section").length - 2; i++) {
+    bb[i] = document.querySelectorAll("section")[i].getBoundingClientRect();
+
+    sumi += bb[i].height;
+  }
+
+  window.addEventListener("scroll", (e) => {
+    if (window.scrollY >= sumi + 668) {
+      window.addEventListener("mousemove", tar);
+    } else {
+      window.removeEventListener("mousemove", tar);
+    }
+    if (window.scrollY >= sumi) {
+      document.querySelectorAll("section")[
+        document.querySelectorAll("section").length - 2
+      ].style.marginBottom =
+        document
+          .querySelectorAll("section")
+          [
+            document.querySelectorAll("section").length - 1
+          ].getBoundingClientRect().height + "px";
+      document.querySelectorAll("section")[
+        document.querySelectorAll("section").length - 1
+      ].style.position = "fixed";
+      document.querySelectorAll("section")[
+        document.querySelectorAll("section").length - 1
+      ].style.bottom = "-100px";
+      document.querySelectorAll("section")[
+        document.querySelectorAll("section").length - 1
+      ].style.zIndex = "-2";
+    } else {
+      document.querySelectorAll("section")[
+        document.querySelectorAll("section").length - 3
+      ].style.marginBottom = "unset";
+      document.querySelectorAll("section")[
+        document.querySelectorAll("section").length - 1
+      ].style.position = "unset";
+      document.querySelectorAll("section")[
+        document.querySelectorAll("section").length - 1
+      ].style.bottom = "unset";
+    }
+  });
+});
+//////////////////canvas////////////
+
+let cax = document.getElementById("canvas"),
+  ctxx = cax.getContext("2d");
+let w1 = (cax.width = window.innerWidth);
+let h1 = (cax.height = window.innerHeight);
+window.addEventListener("resize", () => {
+  w1 = cax.width = window.innerWidth;
+  h1 = cax.height = window.innerHeight;
+});
+let Timer = 3000;
+let areac = new Array();
+let area1l = new Array();
+let step = 1;
+let num1 = w1 / 80;
+let mas = 200;
+ctxx.imageSmoothingQuality = "high";
+ctxx.fillStyle = "#f00";
+
+ctxx.lineCap = "round";
+ctxx.lineJoin = "round";
+let gf = true;
+function circle(x, y, rad, arrv1, arrv2) {
+  this.x = x;
+  this.y = y;
+  this.arrv1 = arrv1;
+  this.arrv2 = arrv2;
+  this.e = Math.random() * 1;
+  this.ma = 2;
+  this.pls = 0.1;
+  this.m = 10;
+  this.m1 = 20;
+
+  ctxx.beginPath();
+  ctxx.moveTo(this.x, this.y);
+
+  this.draw = function () {
+    ctxx.lineWidth = 1;
+    ctxx.strokeStyle = `rgb(0, 255, 255, ${(this.m1 -= 0.1 * this.m1)})`;
+    ctxx.lineTo(this.x, this.y);
+    ctxx.stroke();
+
+    ctxx.beginPath();
+    ctxx.fillStyle = `rgb(${this.x / (w1 / 255)}, ${
+      255 - this.y / (h1 / 255)
+    }, ${this.y / (h1 / 255)}, ${(this.m1 -= 0.1 * this.m1)})`;
+    ctxx.arc(this.x, this.y, rad, 2 * Math.PI, false);
+    ctxx.fill();
+  };
+  this.update = function () {
+    this.e += this.pls;
+
+    this.y += this.arrv1 * 2;
+    this.x += this.arrv2 * 2;
+    this.draw();
+  };
+}
+function lines(x, y, rad, dx, dy) {
+  this.x = x;
+  this.y = y;
+  this.m = 10;
+  this.m1 = 20;
+  this.dx = dx;
+  this.dy = dy;
+  this.radus = rad;
+  let currentPoint = new Array();
+  let otherPoint = new Array();
+  let distance = 0;
+  this.draw1_ = () => {
+    for (let i = 0; i < areac.length; i++) {
+      currentPoint = areac[i];
+      for (let j = 0; j < areac.length; j++) {
+        otherPoint = areac[j];
+        if (otherPoint == currentPoint) {
+          continue;
+        }
+
+        distance = Math.sqrt(
+          (otherPoint.x - currentPoint.x) * (otherPoint.x - currentPoint.x) +
+            (otherPoint.y - currentPoint.y) * (otherPoint.y - currentPoint.y)
+        );
+
+        if (distance <= mas) {
+          ctxx.strokeStyle = `rgb(87, 87, 87, ${1 - distance / mas})`;
+          ctxx.lineWidth = 1;
+          ctxx.beginPath();
+          ctxx.moveTo(currentPoint.x, currentPoint.y);
+          ctxx.lineTo(otherPoint.x, otherPoint.y);
+          ctxx.stroke();
+        }
+      }
+    }
+  };
+}
+function circlec(x, y, rad, dx, dy) {
+  this.x = x;
+  this.y = y;
+  this.e = Math.random() * 1;
+  this.ma = Math.random() * 2;
+  this.pls = Math.random() * 0.1;
+  this.m = 10;
+  this.m1 = 20;
+  this.dx = dx;
+  this.dy = dy;
+  this.radus = rad;
+
+  this.draw_ = function () {
+    ctxx.beginPath();
+    ctxx.fillStyle = `rgb(87 87 87)`;
+    ctxx.arc(this.x, this.y, rad, 2 * Math.PI, false);
+    ctxx.fill();
+  };
+  this.update_ = function () {
+    if (this.x + this.radus > w1 || this.x - this.radus < 0) {
+      this.dx = -this.dx;
+    }
+    if (this.y + this.radus > h1 || this.y - this.radus < 0) {
+      this.dy = -this.dy;
+    }
+
+    this.y += this.dy;
+    this.x += this.dx;
+    this.draw_();
+  };
+}
+let area = new Array();
+let cur = 100;
+let arrv = [-1, 1];
+
+window.addEventListener("mousemove", (e) => {
+  if (window.scrollY < window.innerHeight) {
+    let rad = 1;
+    let x = e.clientX + cur;
+    let y = e.clientY + cur / 2 + window.scrollY;
+
+    area.push(
+      new circle(
+        x,
+        y,
+        rad,
+        arrv[(Math.random() * (arrv.length - 1)).toFixed("")],
+        arrv[(Math.random() * (arrv.length - 1)).toFixed("")]
+      )
+    );
+
+    setTimeout(() => {
+      area.shift();
+    }, Timer);
+  }
+});
+for (let i = 0; i < num1; i++) {
+  let rad = 3;
+  let x = Math.random() * w1;
+  let y = Math.random() * h1;
+  let dx = Math.random() * step;
+  let dy = Math.random() * step;
+
+  areac.push(new circlec(x, y, rad, dx, dy));
+}
+
+area1l.push(new lines(w1 / 2, h1 / 2, 60, 6, 6));
+
+function animate1() {
+  requestAnimationFrame(animate1);
+
+  if (window.scrollY <= h1) {
+    ctxx.clearRect(0, 0, w1, h1);
+    for (let i = 0; i < area.length; i++) {
+      area[i].update();
+    }
+    for (let i = 0; i < areac.length; i++) {
+      areac[i].update_();
+    }
+    for (let i = 0; i < area1l.length; i++) {
+      area1l[i].draw1_();
+    }
+  }
+}
+animate1();
+
+window.addEventListener("load", () => {
+  const canvas = document.getElementById("canvas1"),
+    ctx = canvas.getContext("2d");
+
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = 100;
+  ctx.imageSmoothingQuality = "high";
+  class particle {
+    constructor(effect, x, y, color) {
+      this.effect = effect;
+      this.x = Math.random() * this.effect.canvasWidth;
+      this.y = h;
+      this.color = color;
+      this.originX = x;
+      this.originY = y;
+      this.size = this.effect.gap;
+      this.dx = 0;
+      this.dy = 0;
+      this.vx = 0;
+      this.vy = 0;
+      this.dy = 0;
+      this.force = 0;
+      this.angle = 0;
+      this.distance = 0;
+      this.fraction = 0.2;
+      this.ease = 0.1;
+    }
+    draw() {
+      this.effect.context.fillStyle = this.color;
+      this.effect.context.fillRect(this.x, this.y, this.size, this.size);
+    }
+    update() {
+      this.dx = this.effect.mouse.x - this.x;
+      this.dy = this.effect.mouse.y - this.y;
+      this.distance = this.dx * this.dx + this.dy * this.dy;
+      this.force = -this.effect.mouse.radiues / this.distance;
+      if (this.distance < this.effect.mouse.radiues) {
+        this.angle = Math.atan2(this.dy, this.dx);
+        this.vx += this.force * Math.cos(this.angle);
+        this.vy += this.force * Math.sin(this.angle);
+      }
+      this.x +=
+        (this.vx *= this.fraction) + (this.originX - this.x) * this.ease;
+      this.y +=
+        (this.vy *= this.fraction) + (this.originY - this.y) * this.ease;
+    }
+  }
+
+  class Effect {
+    constructor(context, canvasWidth, canvasHeight) {
+      this.context = context;
+      this.canvasWidth = canvasWidth;
+      this.canvasHeight = canvasHeight;
+      this.textX = this.canvasWidth / 2;
+      this.textY = this.canvasHeight / 2;
+      this.fontSize = 22;
+      this.maxTextWidth = w * 0.8;
+      this.lineHeight = this.fontSize * 0.8;
+ 
+
+      //partecle text
+      this.particle = new Array();
+      this.gap = 1;
+      this.mouse = {
+        radiues: 6000,
+        x: 0,
+        y: 0,
+      };
+      window.addEventListener("mousemove", (e) => {
+        this.mouse.x = e.x;
+        this.mouse.y =
+          e.y -
+          document
+            .querySelectorAll("section")
+            [
+              document.querySelectorAll("section").length - 1
+            ].getBoundingClientRect().height +
+          document.querySelector("footer").getBoundingClientRect().height;
+      });
+    }
+    wrapText(text) {
+      const gradient = this.context.createLinearGradient(0, 0, w, h);
+      gradient.addColorStop(0.2, "red");
+      gradient.addColorStop(0.8, "#0ff");
+
+      this.context.fillStyle = gradient;
+      this.context.font = this.fontSize + "px cursive";
+      this.context.textAlign = "center";
+      this.context.textBaseline = "middle";
+
+      this.context.lineWidth = 1;
+      // this.context.fillText(text, this.textX, this.textY);
+      // this.context.strokeText(text, this.textX, this.textY);
+      //break
+
+      this.context.fillText(text, this.textX, this.textY);
+
+      this.convertToParticles();
+    }
+    convertToParticles() {
+      this.particles = new Array();
+      const pixels = this.context.getImageData(
+        0,
+        0,
+        this.canvasWidth,
+        this.canvasHeight
+      ).data;
+      this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+      for (let y = 0; y < this.canvasHeight; y += this.gap) {
+        for (let x = 0; x < this.canvasWidth; x += this.gap) {
+          const index = (y * this.canvasWidth + x) * 4;
+          const alpha = pixels[index + 3];
+          if (alpha > 0) {
+            const red = pixels[index];
+            const green = pixels[index + 1];
+            const blue = pixels[index + 2];
+            const color = `rgb( ${red}, ${green}, ${blue})`;
+            this.particles.push(new particle(this, x, y, color));
+          }
+        }
+      }
+    }
+    render() {
+      this.particles.forEach((particle) => {
+        particle.update();
+        particle.draw();
+      });
+    }
+  }
+
+  const effect = new Effect(ctx, w, h);
+  effect.wrapText(`© copyright ${new Date().getFullYear()} Tariq Mohammad All Right Reserved`);
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    effect.render();
+    requestAnimationFrame(animate);
+  }
+  animate();
+}); -->

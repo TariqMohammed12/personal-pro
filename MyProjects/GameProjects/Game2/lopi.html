@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    body {
+      background: url("c6.jpg");
+      min-height: 100vh;
+      overflow: hidden;
+      background-size: cover;
+    }
+
+    .parent {
+      margin: 4% auto;
+      width: 861px;
+      height: 861px;
+      background-color: rgb(255, 255, 255);
+      display: flex;
+      border-radius: 23px;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      box-shadow: 6px 5px 14px 0 rgb(0 0 0 / 38%);
+      z-index: 7777;
+    }
+
+    .up {
+      perspective: 400px;
+      transition: 30.3s;
+      width: 194px;
+      height: 194px;
+      margin: 7px;
+      box-shadow: 6px 5px 14px 0 rgb(0 0 0 / 38%);
+      border-radius: 23px;
+      opacity: 0;
+    }
+
+    .box {
+      position: relative;
+      width: 194px;
+      height: 194px;
+      transition: 0.2s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      /* transform: rotateY(180deg);   */
+    }
+
+    .chi {
+      position: absolute;
+      color: #fff;
+      padding: 20px;
+      font-size: 77px;
+      font-weight: bold;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 194px;
+      height: 194px;
+      border-radius: 23px;
+      user-select: none;
+    }
+
+    .chi:hover {
+      background-color: rgb(194, 0, 113);
+    }
+
+    .child {
+      background-color: rgb(255, 0, 149);
+    }
+
+    .child1 {
+      backface-visibility: hidden;
+      transform: rotateY(180deg);
+      background-size: 100% 100%;
+    }
+
+    .upset {
+      top: 37px;
+      width: 10%;
+      height: 547px;
+      background: #d900ff00;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-content: space-around;
+    }
+
+    .sitteng {
+      position: relative;
+      width: 57px;
+      height: 57px;
+      background-color: rgb(255, 0, 149);
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      flex-direction: column;
+      top: -215px;
+      justify-content: center;
+      box-shadow: 6px 5px 14px 0 rgb(0 0 0 / 38%);
+      transition: 0.2s;
+    }
+
+    .sitteng:hover {
+      background-color: rgb(194, 0, 113);
+    }
+
+    .sitteng div {
+      background-color: #fff;
+      width: 70%;
+      height: 4px;
+      margin: 4px 0;
+      border-radius: 13px;
+    }
+
+    .menu {
+      width: 84px;
+      height: 0;
+      background-color: rgb(225, 0, 255);
+      position: absolute;
+      border-radius: 13px;
+      overflow: hidden;
+      transition: 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 105px;
+      box-shadow: 6px 5px 14px 0 rgb(0 0 0 / 38%);
+    }
+
+    .befo {
+      width: 52px;
+      height: 52px;
+      background-color: rgb(255, 0, 0);
+      position: absolute;
+      transform: rotateZ(45deg);
+      left: 27px;
+      top: 115px;
+      z-index: -8;
+    }
+
+    .reset {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: rgba(0, 255, 255, 0);
+      border: 2px solid #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .reset:hover {
+      background-color: rgba(255, 0, 0, 0.521);
+      transform: rotateZ(360deg);
+    }
+
+    .block {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: rgb(255, 0, 0);
+      border: 1px solid #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .suptime {
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 20px;
+      background-color: rgb(255, 0, 0);
+    }
+
+    .time {
+      text-align: center;
+      color: #fff;
+      top: 0;
+      border-radius: 9px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #d800ff;
+      font-size: 41px;
+      position: absolute;
+      top: -10px;
+      width: 354px;
+    }
+
+    .set {
+      position: absolute;
+      top: 74px;
+      right: 0;
+      height: 100%;
+      width: 290px;
+      background-color: rgba(165, 42, 42, 0);
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .fill {
+      position: relative;
+      width: 50px;
+      height: 302px;
+      position: absolute;
+      background-color: rgb(255, 255, 255);
+      border: 2px solid #c000ff;
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 5px 3px 5px 0px rgb(0 0 0 / 40%);
+      backdrop-filter: blur(13px);
+      animation: animated 3s infinite both;
+    }
+
+    @keyframes animated {
+      0% {
+        border: 2px solid #c000ff;
+      }
+
+      10% {
+        border: 2px solid #c000ff;
+      }
+
+      20% {
+        border: 2px solid #001aff;
+      }
+
+      50% {
+        border: 2px solid #1eff00;
+      }
+
+      70% {
+        border: 2px solid #ffd900;
+      }
+
+      100% {
+        border: 2px solid #ff0000;
+      }
+    }
+
+    .rang {
+      width: 100%;
+      height: 0px;
+      position: absolute;
+      background-color: red;
+      right: 0;
+      bottom: 0;
+      transition: 1600ms;
+      border-radius: 26px;
+      animation: animate1 3s infinite both;
+    }
+
+    @keyframes animate1 {
+      0% {
+        background-color: #c000ff;
+      }
+
+      10% {
+        background-color: #c000ff;
+      }
+
+      20% {
+        background-color: #001aff;
+      }
+
+      50% {
+        background-color: #1eff00;
+      }
+
+      70% {
+        background-color: #ffd900;
+      }
+
+      100% {
+        background-color: #ff0000;
+      }
+    }
+
+    footer {
+      position: relative;
+      width: 100%;
+      background-color: rgb(255 230 0);
+    }
+
+    .butt {
+      width: 101px;
+      height: 57px;
+      background: #c000ff;
+      position: absolute;
+      margin-top: 429px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      border-radius: 16px;
+      font-size: 19px;
+      pointer-events: none;
+      cursor: pointer;
+      z-index: 90000000;
+      user-select: none;
+      transition: 0.2s;
+    }
+
+    .butto {
+      width: 101px;
+      height: 57px;
+      background: #c000ff;
+      position: absolute;
+      margin-top: 429px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      border-radius: 16px;
+      font-size: 19px;
+      pointer-events: none;
+      cursor: pointer;
+      z-index: 90000000;
+      user-select: none;
+      transition: 0.2s;
+      animation: animate 3s infinite both;
+    }
+
+    @keyframes animate {
+      0% {
+        background-color: #c000ff;
+        transform: rotateZ(360deg);
+      }
+
+      10% {
+        background-color: #c000ff;
+        transform: rotateZ(360deg);
+      }
+
+      20% {
+        background-color: #001aff;
+      }
+
+      50% {
+        background-color: #1eff00;
+        width: 110px;
+        height: 67px;
+      }
+
+      70% {
+        background-color: #ffd900;
+      }
+
+      100% {
+        background-color: #ff0040;
+        width: 101px;
+        height: 57px;
+      }
+    }
+
+    .butt:hover {
+      background-color: #600080;
+    }
+
+    .sda {
+      position: absolute;
+      background-color: #f00;
+      width: 614px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.4s;
+      z-index: 1000;
+    }
+  </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body onload="opacit()">
+  <div class="upset">
+    <div class="sitteng" onclick="open1()" id="meen">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="menu" id="op">
+      <div class="reset" onclick="res()">REST</div>
+    </div>
+  </div>
+
+  <div class="suptime">
+    <div class="time">
+      <div id="minutes">00</div>
+      <div id="seconds">00</div>
+    </div>
+  </div>
+  <div class="set">
+    <div class="fill">
+      <div class="rang" id="we"></div>
+    </div>
+    <div class="butt" onclick="butt()" id="bn">
+      <p>surprise</p>
+    </div>
+  </div>
+  <div class="parent" id="parent">
+    <div class="sda" id="vpn">
+      <p>you win</p>
+    </div>
+    <div class="sda" id="vpn1">
+      <p>you loser</p>
+    </div>
+    <script>
+      var arr = [
+        "c1.jpg",
+        "c2.jpg",
+        "c3.jpg",
+        "c4.jpg",
+        "c5.jpg",
+        "c6.jpg",
+        "c7.jpg",
+        "c8.jpg",
+        "c1.jpg",
+        "c2.jpg",
+        "c3.jpg",
+        "c4.jpg",
+        "c5.jpg",
+        "c6.jpg",
+        "c7.jpg",
+        "c8.jpg",
+      ];
+
+      for (let i = 0; i < 16; i++) {
+        let vv = Math.random();
+        document.write(`<div class=" up" onclick="hh(${i})" id="lo${i}" style="order:${Math.floor(
+          vv * 8 + 1
+        )};">
+        <div class="box" id="ko${i}">
+            <div class="child chi">?</div>
+            <div class="child1 chi" style="background-image: url(${arr[i]});">
+                <div class="block" id="mon${i}" style="display:none;"></div></div>
+        </div>
+    </div>`);
+      }
+
+      // var ray = new Array(3);
+      // for (let i = 0; i < 16; i++) {
+      //     let fg1 = Math.floor(Math.random() * 10) + 5;
+      //     if (fg1 > 11) {
+
+      //         document.getElementById("mon" + fg1).style.display = "block";
+      //         ray[i] = fg1;
+      //     }
+      // }
+      // function kok() {
+      //     for (let i = 0; i < ray.length; i++) {
+
+      //         for (let i1 = 0; i1 < 16; i1++) {
+      //             document.getElementById("ko" + ray[i]).style.transform =
+      //                 "rotate3d(0, 1, 0, 0deg)";
+
+      //         }
+
+      //     }
+      // }
+      let ho = null;
+
+      function res() {
+        for (let i = 0; i < 16; i++) {
+          document.getElementById("lo" + i).style.order = Math.floor(
+            Math.random() * 2
+          );
+          document.getElementById("lo" + i).style.opacity = "1";
+          document.getElementById("lo" + i).style.pointerEvents = "auto";
+          document.getElementById("ko" + i).style.transform =
+            "rotate3d(0, 1, 0, 0deg)";
+
+          document.getElementById("lo" + i).style.opacity = "0";
+          document.getElementById("lo" + i).style.transition = "0.3s";
+        }
+        document.getElementById("we").style.height = "0px";
+        pol = 0;
+        document.getElementById("bn").classList = "butt";
+        document.getElementById("bn").style.pointerEvents = "none";
+        ho = setInterval(opacit, 120);
+        document.getElementById("vpn").style.visibility = "hidden";
+        document.getElementById("vpn").style.opacity = "0";
+      }
+    </script>
+  </div>
+
+  <script>
+    var pp = 0;
+    var t = null;
+    let w = 0,
+      g = 0,
+      vz = 0,
+      sd = null;
+
+    var nan = new Array(2);
+
+    function hh(mm) {
+      for (let i = 0; i < 16; i++) {
+        if (mm == i) {
+          if (pp == 0) {
+            document.getElementById("ko" + mm).style.transform =
+              "rotate3d(0, 1, 0, 180deg)";
+
+            num(mm);
+            pp = pp + 1;
+          } else if (pp == 1) {
+            document.getElementById("ko" + mm).style.transform =
+              "rotate3d(0, 1, 0, 180deg)";
+
+            num(mm);
+
+            pp = 1;
+          }
+        }
+      }
+    }
+
+    var pol = 0;
+    let rty = 0;
+
+    function num(bb) {
+      nan[w] = bb;
+      w += 1;
+
+      if (w == 2) {
+        for (let i = 0; i < 9; i++) {
+          if (
+            (nan[0] == i && nan[1] == i + 8) ||
+            (nan[0] == i + 8 && nan[1] == i)
+          ) {
+            document.getElementById("lo" + nan[0]).style.opacity = "0";
+            document.getElementById("lo" + nan[0]).style.pointerEvents =
+              "none";
+            document.getElementById("lo" + nan[1]).style.opacity = "0";
+            document.getElementById("lo" + nan[1]).style.pointerEvents =
+              "none";
+            rty++;
+            pol += 302 / 4;
+            document.getElementById("we").style.height = pol + "px";
+            if (pol == 302) {
+              document.getElementById("bn").style.pointerEvents = "auto";
+              document.getElementById("bn").classList = "butto";
+            }
+            for (let i1 = 0; i1 < 16; i1++) {
+              document.getElementById("lo" + i1).style.transition = "1.6s";
+            }
+            if (rty == 8) {
+              document.getElementById("vpn").style.visibility = "unset";
+              document.getElementById("vpn").style.opacity = "1";
+              clearInterval(tbb);
+            }
+            g = 1;
+          }
+        }
+        if (g == 0) {
+          t = setInterval(num1, 500);
+
+          vz = 1;
+        } else {
+          vz = 2;
+        }
+        g = 0;
+        var polt = 0,
+          glo = 0;
+        function num1() {
+          for (let i = 0; i < 16; i++) {
+            document.getElementById("ko" + nan[0]).style.transform =
+              "rotate3d(0, 1, 0, 0deg)";
+            document.getElementById("ko" + nan[1]).style.transform =
+              "rotate3d(0, 1, 0, 0deg)";
+          }
+          clearInterval(t);
+          for (let i = 0; i < 16; i++) {
+            document.getElementById("lo" + i).style.pointerEvents = "auto";
+          }
+        }
+        for (let i = 0; i < 16; i++) {
+          document.getElementById("lo" + i).style.pointerEvents = "none";
+        }
+        if (vz == 1) {
+          for (let i = 0; i < 16; i++) {
+            document.getElementById("lo" + i).style.pointerEvents = "none";
+          }
+        } else {
+          sd = setInterval(function () {
+            for (let i = 0; i < 16; i++) {
+              document.getElementById("lo" + i).style.pointerEvents = "auto";
+            }
+          }, 1100);
+        }
+
+        w = 0;
+      }
+      return pol;
+    }
+
+    let mn = null;
+    function butt() {
+      for (let i = 0; i < 16; i++) {
+        document.getElementById("ko" + i).style.transform =
+          "rotate3d(0, 1, 0, 180deg)";
+        document.getElementById("lo" + i).style.pointerEvents = "none";
+      }
+      pol = 0;
+      document.getElementById("we").style.height = "0px";
+      document.getElementById("bn").style.pointerEvents = "none";
+      mn = setInterval(butt1, 1500);
+    }
+    function butt1() {
+      for (let i = 0; i < 16; i++) {
+        document.getElementById("ko" + i).style.transform =
+          "rotate3d(0, 1, 0, 0deg)";
+        document.getElementById("lo" + i).style.pointerEvents = "auto";
+      }
+      document.getElementById("bn").classList = "butt";
+
+      clearInterval(mn);
+    }
+    var li = 1;
+    function open1() {
+      if (li == 1) {
+        document.getElementById("op").style.height = "303px";
+        document.getElementById("meen").style.transform = "rotateZ(180deg)";
+        li = 0;
+      } else if (li == 0) {
+        document.getElementById("op").style.height = "0";
+        document.getElementById("meen").style.transform = "rotateZ(0deg)";
+        li = 1;
+      }
+    }
+    function opacit() {
+      for (let i = 0; i < 16; i++) {
+        document.getElementById("lo" + i).style.transition = "1.3s";
+        document.getElementById("lo" + i).style.opacity = "1";
+      }
+      clearInterval(ho);
+    }
+
+    let minutes = document.getElementById("minutes");
+    let seconds = document.getElementById("seconds");
+    let tbb = null,
+      io = 0,
+      vc = 0;
+
+    tbb = setInterval(() => {
+      io++;
+      if (io == 60) {
+        vc++, (io = -1);
+
+        minutes.innerText = vc < 10 ? "0" + vc : vc;
+        if (vc == 2) {
+          vc11();
+        }
+      } else {
+        seconds.innerText = io < 10 ? ":0" + io : ":" + io;
+      }
+    }, 1000);
+
+    function vc11() {
+      clearInterval(tbb);
+
+      for (let ic = 0; ic < 16; ic++) {
+        document.getElementById("lo" + ic).style.pointerEvents = "none";
+      }
+
+      document.getElementById("vpn1").style.visibility = "unset";
+      document.getElementById("vpn1").style.opacity = "1";
+    }
+  </script>
+</body>
+
+</html>

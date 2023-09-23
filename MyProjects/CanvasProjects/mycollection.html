@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            color: #fff;
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        let arrParticles = new Array();
+        let numOfParticles = 10;
+
+        function distance(currentParticleX, currentParticleY, otherParticleX, otherParticleY) {
+            return Math.sqrt((otherParticleX - currentParticleX) * (otherParticleX - currentParticleX)
+                + (otherParticleY - currentParticleY) * (otherParticleY - currentParticleY));
+        }
+
+        function rotate(velocity, angle) {
+            const rotateVelocity = {
+                x: velocity.x * Math.cos(angle) - velocity.y * Math.sin(angle),
+                y: velocity.x * Math.sin(angle) + velocity.y * Math.cos(angle),
+            };
+            return rotateVelocity;
+        }
+
+
+        function resolveCollection(currentParticle, otherParticle) {
+            const xvelcoty = currentParticle.velocity.x - otherParticle.velocity.x;
+            const yvelcoty = currentParticle.velocity.y - otherParticle.velocity.y;
+
+            const xDiff = otherParticle.x - currentParticle.x;
+            const yDiff = otherParticle.y - currentParticle.y;
+
+            if (xvelcoty * xDiff + yvelcoty * yDiff >= 0) {
+
+                const angle = -Math.atan2(otherParticle.y - currentParticle.y, otherParticle.x - currentParticle.x);
+
+
+                const m1 = currentParticle.mass;
+                const m2 = otherParticle.mass;
+
+                const u1 = rotate(currentParticle.velocity, angle);
+                const u2 = rotate(otherParticle.velocity, angle);
+
+                const v1 = {
+                    x: u1.x * ((m1 - m2) / (m1 + m2)) + u2.x * 2 * m2 / (m1 + m2),
+                    y: u1.y,
+                }
+                const v2 = {
+                    x: u2.x * ((m1 - m2) / (m1 + m2)) + u1.x * 2 * m2 / (m1 + m2),
+                    y: u2.y,
+                }
+
+                const xFinal1 = rotate(v1, -angle);
+                const xFinal2 = rotate(v2, -angle);
+
+                currentParticle.velocity.x = xFinal1.x;
+                currentParticle.velocity.y = xFinal1.y;
+                otherParticle.velocity.x = xFinal2.x;
+                otherParticle.velocity.y = xFinal2.y;
+            }
+        }
+
+
+        class Particle {
+            constructor(x, y, rad, color) {
+                this.x = x;
+                this.y = y;
+                this.rad = rad;
+                this.color = color;
+                this.velocity = {
+                    x: Math.random() * 1,
+                    y: Math.random() * 1,
+                };
+                this.mass = 1;
+                this.fraction = 0.99;
+                this.graph = 1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, this.rad, 2 * Math.PI, false);
+                ctx.fill();
+                // ctx.stroke();
+            }
+            update() {
+                this.draw();
+
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                if (this.x + this.rad > w || this.x < this.rad) {
+                    this.velocity.x = -this.velocity.x;
+                }
+                if (this.y + this.rad > h) {
+                    this.velocity.y = -this.velocity.y * this.fraction;
+                } else {
+                    this.velocity.y += this.graph;
+                }
+
+                for (let i = 0; i < arrParticles.length; i++) {
+                    if (this == arrParticles[i]) {
+                        continue;
+                    }
+                    if (distance(this.x, this.y, arrParticles[i].x, arrParticles[i].y) <= this.rad * 2) {
+                        resolveCollection(this, arrParticles[i]);
+                    }
+
+                }
+            }
+
+        }
+
+        function init() {
+            let rad = 50;
+            for (let i = 0; i < numOfParticles; i++) {
+
+                let x = Math.random() * (w - (rad * 2)) + rad;
+                let y = Math.random() * (h - (rad * 2)) + rad;
+
+                if (i !== 0) {
+                    for (let j = 0; j < arrParticles.length; j++) {
+
+                        if (distance(x, y, arrParticles[j].x, arrParticles[j].y) <= rad * 2) {
+
+                            x = Math.random() * (w - (rad * 2)) + rad;
+                            y = Math.random() * (h - (rad * 2)) + rad;
+
+                            j = -1;
+                        }
+
+                    }
+                }
+
+                let color = `rgb(${x / (w / 255)}, ${y / (h / 255)}, ${255 - (y / (h / 255))})`;
+                arrParticles.push(new Particle(x, y, rad, color));
+            }
+            window.addEventListener("mousedown", (e) => {
+                move(e);
+                window.addEventListener("mousemove", move);
+            });
+            function move(e) {
+                arrParticles.push(new Particle(e.clientX, e.clientY, rad, `rgb(${e.clientX / (w / 255)}, ${e.clientY / (h / 255)}, ${255 - (e.clientY / (h / 255))})`));
+            }
+            window.addEventListener("mouseup", (e) => {
+                window.removeEventListener("mousemove", move);
+            });
+        }
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+
+            requestAnimationFrame(animate);
+
+            for (let i = 0; i < arrParticles.length; i++) {
+                arrParticles[i].update();
+
+            }
+        }
+        init();
+        animate();
+
+      
+    </script>
+</body>
+
+</html>

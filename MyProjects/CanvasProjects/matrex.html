@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #fff;
+
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        let xx = w / 2;
+        let yy = h / 2;
+
+        let arrParticle = new Array();
+
+        class Particle {
+            constructor(x, y, i) {
+                this.x = x;
+                this.y = y;
+                this.i = i;
+                this.r = (Math.random() * 255).toFixed("");
+                this.g = (Math.random() * 255).toFixed("");
+                this.b = (Math.random() * 255).toFixed("");
+                this.color = `rgb(${this.r}, ${this.g}, ${this.b})`;
+                this.count = 0;
+                this.fraction = 0.01;
+                this.ease = 10;
+                this.angle = 0;
+                
+            }
+            draw() {
+
+                if (this.i == 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(xx, yy);
+                }
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = this.color;
+                // ctx.quadraticCurveTo(this.x + (673.2 / 8), this.y - 957.3 / 8, this.x + 1060.6 / 8, this.y - 996.1 / 8);
+                ctx.quadraticCurveTo(this.x, this.y, this.x, this.y);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.lineWidth = 0;
+                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, 5, 2 * Math.PI, false);
+                ctx.fill();
+
+            }
+            update() {
+                this.draw();
+                this.angle += Math.atan2(this.x, this.y);
+                this.count += 0.03;
+                // this.x += (((Math.sin(this.count * this.angle) * this.fraction)) * this.i) * this.ease;
+                // this.y += (((Math.cos(this.count * this.angle) * this.fraction)) * this.i) * this.ease;
+                this.x += (((Math.sin(this.count) * this.fraction)) * this.i * Math.sin(this.i)) * this.ease;
+                this.y += (((Math.cos(this.count) * this.fraction)) * this.i * Math.cos(this.i)) * this.ease;
+            }
+        }
+        function init() {
+            let rad = 60;
+            for (let i = 0; i < 100; i++) {
+                let x = xx + (Math.sin(i) * rad);
+                let y = yy + (Math.cos(i) * rad);
+
+                arrParticle.push(new Particle(x, y, i));
+
+            }
+        }
+        function animate() {
+
+            // ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = `rgb(18, 18, 18, 0.10)`;
+            ctx.fillRect(0, 0, w, h);
+            requestAnimationFrame(animate);
+            for (let i = 0; i < arrParticle.length; i++) {
+                arrParticle[i].update();
+
+            }
+        }
+        init();
+        animate();
+    </script>
+</body>
+
+</html>

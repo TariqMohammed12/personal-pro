@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        let canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+        let arrLine = new Array();
+        let num = 100;
+        let otherPoint = new Array();
+        let distance = 0;
+        let mass = 200;
+
+
+        window.addEventListener("resize", (e) => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        });
+        class Line {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.originX = x;
+                this.originY = y;
+                this.dx = 0;
+                this.dy = 0;
+                this.vx = 0;
+                this.vy = 0;
+                this.dy = 0;
+                this.force = 0;
+                this.angle = 0;
+                this.distance = 0;
+                this.fraction = 0.9;
+                this.ease = 0.1;
+                this.mousex = w / 2;
+                this.mousey = h / 2;
+                this.radiues = 160000;
+                this.down = false;
+                this.mx = 10;
+                this.my = 10;
+            }
+            draw = function () {
+                ctx.beginPath();
+
+                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, 4, 2 * Math.PI, false);
+                ctx.fill();
+
+
+            }
+            update = function () {
+                this.draw();
+                this.dx = this.mousex - this.x;
+                this.dy = this.mousey - this.y;
+                this.distance = this.dx * this.dx + this.dy * this.dy;
+                if (this.down) {
+                    this.force = this.radiues / this.distance;
+                } else {
+                    this.force = -this.radiues / this.distance;
+                }
+
+                this.angle = Math.atan2(this.dy, this.dx);
+                this.vx += this.force * Math.cos(this.angle);
+                this.vy += this.force * Math.sin(this.angle);
+
+                this.x += (this.vx *= this.fraction) + (this.originX - this.x) * this.ease;
+                this.y += (this.vy *= this.fraction) + (this.originY - this.y) * this.ease;
+                this.mousex += this.mx;
+                this.mousey += this.my;
+                if (this.mousex + this.force * Math.cos(this.angle) > w || this.mousex < this.force * Math.cos(this.angle)) {
+                    this.mx = -this.mx;
+                }
+                if (this.mousey + this.force * Math.cos(this.angle) > h || this.mousey < this.force * Math.cos(this.angle)) {
+                    this.my = -this.my;
+                }
+
+                for (let i = 0; i < arrLine.length; i++) {
+
+                    otherPoint = arrLine[i];
+
+                    distance = Math.sqrt((otherPoint.x - this.x) * (otherPoint.x - this.x) +
+                        (otherPoint.y - this.y) * (otherPoint.y - this.y));
+
+                    if (distance < mass) {
+                        ctx.beginPath();
+                        ctx.lineWidth = 1;
+                        ctx.strokeStyle = this.color.slice(0, this.color.length - 1) + `, ${1 - (distance / mass)}`;
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(otherPoint.x, otherPoint.y);
+                        ctx.stroke();
+                    }
+
+                }
+            }
+
+
+        }
+        function init() {
+            let x = 0;
+            for (let i = 0; i < num; i++) {
+
+                x = Math.random() * w;
+                let y = Math.random() * h;
+                let color = `rgb(${x / (w / 255)}, ${y / (h / 255)}, ${255 - (y / (h / 255))})`;
+                arrLine.push(new Line(x, y, color));
+
+            }
+            window.addEventListener("mousemove", (e) => {
+                for (let i = 0; i < arrLine.length; i++) {
+                    arrLine[i].mousex = e.clientX;
+                    arrLine[i].mousey = e.clientY;
+
+                }
+            });
+            window.addEventListener("mousedown", (e) => {
+                for (let i = 0; i < arrLine.length; i++) {
+                    arrLine[i].down = true;
+
+
+                }
+            });
+            window.addEventListener("mouseup", (e) => {
+                for (let i = 0; i < arrLine.length; i++) {
+                    arrLine[i].down = false;
+
+
+                }
+            });
+        }
+        function animate() {
+            ctx.fillStyle = `rgb(18, 18, 18, 1)`;
+            ctx.fillRect(0, 0, w, h);
+
+            requestAnimationFrame(animate);
+            for (let i = 0; i < arrLine.length; i++) {
+                arrLine[i].update();
+
+            }
+        }
+        init();
+        animate();
+
+    </script>
+</body>
+
+</html>

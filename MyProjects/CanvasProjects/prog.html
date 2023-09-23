@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #fff;
+
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+        let arrParticle = new Array();
+        let numOfParticle = 100;
+        class Prticle {
+            constructor(x, y, dx, dy, rad, arr, color) {
+                this.x = x;
+                this.y = y;
+                this.dx = dx;
+                this.dy = dy;
+                this.rad = rad;
+                this.arr = arr;
+                this.color = color;
+                this.angle = 0;
+                this.ease = 0.999;
+            }
+            draw = function () {
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, this.rad, 2 * Math.PI, false);
+                ctx.fill();
+            }
+            update = function () {
+                this.draw();
+                this.angle += Math.atan2(this.dx, this.dy) * 0.01;
+                this.x += (Math.sin(this.dx * this.angle) * this.arr) * this.ease;
+                this.y += (Math.cos(this.dy * this.angle) * this.arr) * this.ease;
+
+                if (this.x + this.rad > w || this.x < this.rad) {
+                    this.dx = -this.dx;
+                }
+                if (this.y + this.rad > h || this.y < this.rad) {
+                    this.dy = -this.dy;
+                }
+            }
+        }
+        function init() {
+            let plus = 3;
+            let arr = [plus, -plus];
+            for (let i = 0; i < numOfParticle; i++) {
+                let rad = 10;
+                let x = Math.random() * (w - (rad * 2)) + rad;
+                let y = Math.random() * (h - (rad * 2)) + rad;
+                let step = 10;
+                let dx = Math.random() * step;
+                let dy = Math.random() * step;
+                let arrr = arr[(Math.random() * (arr.length - 1)).toFixed("")];
+                let color = `rgb(${x / (w / 255)}, ${y / (h / 255)}, ${255 - (y / (h / 255))})`;
+                arrParticle.push(new Prticle(x, y, dx, dy, rad, arrr, color));
+            }
+        }
+        function animate() {
+            ctx.fillStyle = `rgb(18, 18, 18, 0.04)`;
+            ctx.fillRect(0, 0, w, h);
+            
+            requestAnimationFrame(animate);
+            for (let i = 0; i < arrParticle.length; i++) {
+                arrParticle[i].update();
+
+            }
+        }
+        init();
+        animate();
+    </script>
+</body>
+
+</html>

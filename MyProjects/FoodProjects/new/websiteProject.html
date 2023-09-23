@@ -1,0 +1,1454 @@
+<!-- <?php
+
+
+$con=mysqli_connect('localhost','root','tariq mohammad','student_databace');
+
+if(mysqli_connect_errno ()){
+    echo "<p class='tagami1' id='loop1'><span class='times1' onclick=\"close1()\">&times;</span>error in the connect with databace!!</span><p>";
+}
+
+
+if(isset($_POST['signup'])){
+
+    $user=$_POST['username'];
+    $email=$_POST['email'];
+    $pass=$_POST['password'];
+    $pass1=$_POST['password1'];
+   $hid=$_POST['number1'];
+   $id1=$_POST['id'];
+   $t1=random_int(1,33);
+  $id1=$t1;
+     $t=random_int(11111111,33333333);
+    $hid=$t;
+    $qu= "insert into form(username,email,password)
+    value ('$user','$email','$pass','$hid')";
+
+if (empty($user)) {
+     echo "<p class='tagami1' id='loop1' style=\"padding-bottom:0;color:rgb(255,0,0);\"><span class='times1'onclick=\"close1()\" >&times;</span>please enter the user name</span><p>";
+}
+//  else if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+//      echo "<p class='tagami1' id='loop1' style=\"padding-bottom:0;color:rgb(255,0,0);\"><span class='times1'onclick=\"close1()\" >&times;</span>please enter the email</span><p>";
+
+//}
+else if(empty($pass)){
+    echo "<p class='tagami1' id='loop1' style=\"padding-bottom:0;color:rgb(255,0,0);\"><span class='times1'onclick=\"close1()\" >&times;</span>please enter password</span><p>";
+
+}else if(empty($pass1)){
+     echo "<p class='tagami1' id='loop1' style=\"padding-bottom:0;color:rgb(255,0,0);\"><span class='times1'onclick=\"close1()\" >&times;</span>please confirm the password</span><p>";
+
+ }
+
+if ($pass1==$pass) {
+
+if (mysqli_query($con,$qu)) {
+
+
+
+echo "<center><div><p class='tagami1' id='loop1'><span class='times1' onclick=\"close1()\">&times;</span>your account has been successfully ,recorded<br>save this number to log in by a second time <br><span style='color:rgb(255,0,0);'>". $t."</span><p></div></center>";
+
+}
+}else{
+    echo "<p class='tagami1' id='loop1' style=\"padding-bottom:0;color:rgb(255,0,0);\"><span class='times1'onclick=\"close1()\" >&times;</span>please confirm the password correctly</span><p>";
+}
+}
+session_start();
+
+if(isset($_POST['login'])){
+    
+    $hid=$_POST['number1'];
+    $pass=$_POST['password'];
+
+    $qu= "select * from form where number1='$hid' && password ='$pass'";
+
+if (mysqli_num_rows(mysqli_query($con,$qu)) > 0) {
+ 
+  $_SESSION['number1']=$hid;
+  
+  header("location: cp.php");
+  echo "<p class='tagami1' id='loop1' style=\"padding-bottom:0;color:rgb(255,0,255);\"><span class='times1' onclick=\"close1()\">&times;</span>Login successfully logged</span><p>";
+
+ }else{
+    echo "<p class='tagami1' id='loop1' style=\"padding-bottom:0;color:rgb(255,0,0);\"><span class='times1' onclick=\"close1()\">&times;</span>the password or user name is wrong!!</span><p>";
+
+     }
+}
+
+?> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+    integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="indexx.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <header>
+    <a href="#" class="logo">.<span>f</span>resh</a>
+
+    <ul class="navigation">
+      <li><a href="#banner" onclick="toggleMenu()">Home</a></li>
+      <li><a href="#About" onclick="toggleMenu()">About</a></li>
+      <li><a href="#Menu" onclick="toggleMenu()">Menu</a></li>
+      <li><a href="#Expert" onclick="toggleMenu()">Expert</a></li>
+      <li><a href="#Testimonials" onclick="toggleMenu()">Testimonials</a></li>
+      <li><a href="#contact" onclick="toggleMenu()">contact</a></li>
+      <li><a style="white-space: nowrap; cursor: pointer;" onclick="toggleMenu()" id="lo">Log In</a></li>
+    </ul>
+
+
+    <ul class="search">
+      <a class="menuToggle" onclick="toggleMenu()"></a>
+      <li><a class="fa fa-heart" onclick="hear()"></a></li>
+      <li><a class="fa fa-search" onclick="opennav()"></a></li>
+    </ul>
+  </header>
+
+  <!-- <div class="heart" id="he">
+
+  </div> -->
+
+
+  <div class="containermm" id="cont">
+    <div class="boxmm" id="box">
+      <div class="connect0mm">
+
+        <h3 class="h3mm">Log In</h3>
+        <form action="#" class="formm" id="for0" style="height: 63%;">
+          <div class="updivmm" style="height: 83px;">
+            <p class="pmm" style="font-size: 21px;">Email :</p>
+            <div class="divinputmm" id="div5">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="text" name="UserName0" id="user5" class="input inmm" placeholder="Lorem@email.com" />
+            </div>
+            <div class="upmssmm" id="mad5">
+              <div class="setmm"></div>
+              <div class="massegmm mass5"></div>
+            </div>
+          </div>
+
+          <div class="updivmm" style="height: 83px;">
+            <p class="pmm" style="font-size: 21px;">Password :</p>
+
+            <div class="divinputmm" id="div6">
+              <i class="fa-solid fa-lock"></i>
+              <i class="fa-solid fa-eye fa-eye-slash" id="eye3"></i>
+              <input type="password" name="UserName1" id="user6" class="input inmm" placeholder="Maximum 22"
+                style="width: calc(100% - 107px);" />
+            </div>
+            <div class="upmssmm" id="mad6">
+              <div class="setmm"></div>
+              <div class="massegmm mass6"></div>
+            </div>
+          </div>
+
+
+
+          <input type="submit" name="sub" id="sub" class="submm" value="Log In" />
+
+        </form>
+        <div class="upicnesmm">
+          <div class="ddmm">
+            <p class="parimm">Follow Us</p>
+            <i class="fa-solid fa-share-from-square"></i>
+          </div>
+          <div class="icnesmm">
+
+
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-facebook-messenger"></i>
+            <i class="fa-brands fa-instagram-square"></i>
+            <i class="fa-brands fa-youtube"></i>
+            <i class="fa-brands fa-linkedin"></i>
+            <i class="fa-brands fa-twitter"></i>
+          </div>
+        </div>
+
+
+        <button type="button" class="logmm" id="log1">Sign Up</button>
+      </div>
+      <div class="connectmm">
+        <h3 class="h3mm">Sign Up</h3>
+        <form action="#" class="formm" id="for">
+          <div class="updivmm">
+            <p class="pmm">First Name :</p>
+            <div class="divinputmm" id="div0">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" name="UserName" id="user0" class="input inmm" placeholder="Do not put spaces" />
+            </div>
+            <div class="upmssmm" id="mad0">
+              <div class="setmm"></div>
+              <div class="massegmm mass0"></div>
+            </div>
+          </div>
+
+          <div class="updivmm">
+            <p class="pmm">Last Name :</p>
+            <div class="divinputmm" id="div1">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" name="UserName" id="user1" class="input inmm" placeholder="Do not put spaces" />
+            </div>
+            <div class="upmssmm" id="mad1">
+              <div class="setmm"></div>
+              <div class="massegmm mass1"></div>
+            </div>
+          </div>
+
+          <div class="updivmm">
+            <p class="pmm">Email :</p>
+            <div class="divinputmm" id="div2">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="text" name="UserName" id="user2" class="input inmm" placeholder="Lorem@email.com" />
+            </div>
+            <div class="upmssmm" id="mad2">
+              <div class="setmm"></div>
+              <div class="massegmm mass2"></div>
+            </div>
+          </div>
+
+          <div class="updivmm" style="height: 86px;">
+            <div class="uppmm">
+              <p class="pmm" style="margin-left: 0; margin-right: 10px;">Password :</p>
+              <p class="inpmm" id="inp"></p>
+            </div>
+            <div class="divinputmm" id="div3">
+              <i class="fa-solid fa-lock"></i>
+              <i class="fa-solid fa-eye fa-eye-slash" id="eye1"></i>
+              <input type="password" name="UserName" id="user3" class="input inmm" placeholder="Maximum 22"
+                style="width: calc(100% - 107px);" />
+            </div>
+            <div class="divsmm">
+              <div class="spanmm" id="idd"></div>
+            </div>
+            <div class="upmssmm" id="mad3">
+              <div class="setmm"></div>
+              <div class="massegmm mass3"></div>
+            </div>
+          </div>
+
+          <div class="updivmm">
+            <p class="pmm">Recent Password :</p>
+            <div class="divinputmm" id="div4">
+              <i class="fa-solid fa-lock"></i>
+              <i class="fa-solid fa-eye fa-eye-slash" id="eye2"></i>
+              <input type="password" name="UserName" id="user4" class="input inmm" placeholder="Pass rece"
+                style="width: calc(100% - 107px);" />
+            </div>
+            <div class="upmssmm" id="mad4">
+              <div class="setmm"></div>
+              <div class="massegmm mass4"></div>
+            </div>
+          </div>
+
+          <input type="submit" name="sub" id="sub" class="submm" value="Sign Up" />
+        </form>
+        <button type="button" class="logmm" id="log">Log In</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    let user = [];
+    let div = [];
+    let masseg = [];
+    let upmasseg = [];
+    let forrm = document.getElementById("for");
+    let forrm0 = document.getElementById("for0");
+    let idd = document.getElementById('idd');
+    let eye1 = document.getElementById('eye1');
+    let eye2 = document.getElementById('eye2');
+    let eye3 = document.getElementById('eye3');
+    let inp = document.getElementById('inp');
+    let lo = document.getElementById('lo');
+    let t = null;
+    let eren = true;
+    let eren1 = true;
+    let erenq = true;
+    let log = document.getElementById('log');
+    let log1 = document.getElementById('log1');
+    let cont = document.getElementById('cont');
+    let box = document.getElementById('box');
+
+
+
+    for (let i = 0; i < 7; i++) {
+      user[i] = document.getElementById("user" + i);
+      div[i] = document.getElementById("div" + i);
+      masseg[i] = document.querySelector(".mass" + i);
+      upmasseg[i] = document.getElementById("mad" + i);
+    }
+
+    for (let i = 0; i < 7; i++) {
+      div[i].addEventListener("click", function () {
+        for (let i1 = 0; i1 < 7; i1++) {
+          div[i1].style.boxShadow = "none";
+        }
+
+        this.style.boxShadow = "rgb(0 0 0 / 30%) 4px 6px 9px 5px";
+        if (i == 3) {
+          div[i].style.boxShadow = "none";
+        }
+      });
+
+      div[i].addEventListener("mouseover", function () {
+        for (let i1 = 0; i1 < 7; i1++) {
+          div[i1].style.backgroundColor = "#0000002e";
+        }
+
+        this.style.backgroundColor = "transparent";
+      });
+    }
+
+
+
+
+    eye1.addEventListener('click', function () {
+
+
+      this.classList.toggle('fa-eye-slash');
+      eye2.classList.toggle('fa-eye-slash');
+
+      if (eren) {
+        user[3].setAttribute('type', 'text');
+        user[4].setAttribute('type', 'text');
+        eren = false;
+      } else if (eren == false) {
+        user[3].setAttribute('type', 'password');
+        user[4].setAttribute('type', 'password');
+        eren = true;
+      }
+
+
+    });
+    eye2.addEventListener('click', function () {
+      this.classList.toggle('fa-eye-slash');
+      eye1.classList.toggle('fa-eye-slash');
+
+      if (eren) {
+        user[3].setAttribute('type', 'text');
+        user[4].setAttribute('type', 'text');
+        eren = false;
+      } else if (eren == false) {
+        user[3].setAttribute('type', 'password');
+        user[4].setAttribute('type', 'password');
+        eren = true;
+      }
+
+
+    });
+
+    eye3.addEventListener('click', function () {
+      this.classList.toggle('fa-eye-slash');
+
+
+      if (erenq) {
+        user[6].setAttribute('type', 'text');
+
+        erenq = false;
+      } else if (erenq == false) {
+        user[6].setAttribute('type', 'password');
+
+        erenq = true;
+      }
+
+
+    });
+
+
+    let oo = true;
+    lo.addEventListener('click', function () {
+
+
+      if (oo) {
+        box.style.cssText = "transform: unset; opacity: 1; visibility: unset;";
+        cont.style.cssText = "visibility: unset; opacity: 1;";
+        oo = false;
+      } else if (oo == false) {
+        box.style.cssText = "transform: scale(0.8); opacity: 0; visibility: hidden;";
+        cont.style.cssText = "visibility: hidden; opacity: 0;";
+        oo = true;
+      }
+
+
+
+
+
+    });
+
+
+
+
+    //the sheek of form//
+
+    for (let f = 0; f < 2; f++) {
+      user[f].addEventListener("input", function (ev) {
+        let state = true;
+        let letter = "";
+
+        this.value = this.value.trim();
+
+        for (let i = 0; i < this.value.length; i++) {
+          if (this.value[i] == this.value[i + 1]) {
+            if (this.value[i + 1] == this.value[i + 2]) {
+              state = false;
+              letter = this.value[i];
+            }
+          }
+        }
+
+        // if (this.value.length > 0) {
+        //     this.value[0] = this.value[0].toUpperCase();
+        // }
+
+        if (this.value == "") {
+          funccc1(f);
+        } else if (this.value.length > 11 || this.value.length < 4) {
+          funccc("Please enter between 4 to 11 characters", f);
+        } else if (state == false) {
+          funccc(`Please do not repeat the symbol " ${letter} "`, f);
+        } else if (this.value.includes(" ") == true) {
+          funccc("Please do not add spaces", f);
+        } else {
+          funccc1(f);
+        }
+      });
+    }
+
+    user[2].addEventListener("input", function () {
+      let sheeck = 0;
+
+      this.value = this.value.trim();
+
+      for (let v = 0; v < this.value.length; v++) {
+        if (this.value[v] == "@") {
+          sheeck++;
+        }
+      }
+
+      if (this.value == "") {
+        funccc1(2);
+      } else if (this.value.includes("@") == false) {
+        funccc("Please enter the code '@'", 2);
+      } else if (this.value[0] == "@") {
+        funccc("Please enter a caracters before '@'", 2);
+      } else if (sheeck > 1) {
+        funccc("Please enter the '@' code once", 2);
+      } else if (this.value[this.value.length - 1] == "@") {
+        funccc("Please enter a caracters after '@'", 2);
+      } else if (this.value.includes(" ") == true) {
+        funccc("Please do not add spaces", 2);
+      } else {
+        upmasseg[2].style.cssText = "visibility: unset; opacity: 0;";
+      }
+    });
+
+    user[3].addEventListener("input", function () {
+      let state = true;
+      let letter = "";
+      let couunt = 0;
+      let couunt1 = 0;
+      let x = 0;
+      let dd = 100;
+
+
+
+      for (let i = 0; i < this.value.length; i++) {
+        if (this.value[i] == this.value[i + 1]) {
+          if (this.value[i + 1] == this.value[i + 2]) {
+            state = false;
+            letter = this.value[i];
+          }
+        }
+
+        if (isNaN(+this.value[i]) == false) {
+          couunt++;
+        }
+
+        if (
+          this.value[i].includes("@") ||
+          this.value[i].includes("$") ||
+          this.value[i].includes("&") ||
+          this.value[i].includes("#") ||
+          this.value[i].includes("!") ||
+          this.value[i].includes(")") ||
+          this.value[i].includes("(") ||
+          this.value[i].includes("{") ||
+          this.value[i].includes("}") ||
+          this.value[i].includes("]") ||
+          this.value[i].includes("[") ||
+          this.value[i].includes("^") ||
+          this.value[i].includes("%") ||
+          this.value[i].includes("?") ||
+          this.value[i].includes(">") ||
+          this.value[i].includes("<")
+        ) {
+          couunt1++;
+        }
+      }
+
+      if (this.value == "") {
+        funccc1(3);
+
+
+      } else if (this.value.length > 22 || this.value.length < 7) {
+        funccc("Enter a word larger than 6 and less than 23", 3);
+
+
+      } else if (state == false) {
+        funccc(`Please do not repeat the symbol " ${letter} "`, 3);
+
+
+      } else if (couunt < 3) {
+        funccc("Please enter at least 3 numbers", 3);
+
+
+      } else if (couunt1 < 1) {
+        funccc("Please contain the floor at least 1 symbol such as(&,$,!,#,@)", 3);
+
+
+      } else {
+        funccc1(3);
+      }
+
+
+
+
+      if (this.value.length > 22 || this.value.length < 7) {
+        dd -= 25;
+
+      } if (state == false) {
+
+        dd -= 25;
+
+      } if (couunt < 3) {
+
+        dd -= 25;
+
+      } if (couunt1 < 1) {
+
+        dd -= 25;
+
+      } if (this.value == "") {
+        dd = 0;
+
+      }
+
+
+      if (dd == 25) {
+        idd.style.backgroundColor = "rgb(255,0,0)";
+        inp.innerHTML = "The Password Is Very Weak 25%";
+        inp.style.color = "rgb(255,0,0)";
+      } else if (dd == 50) {
+        idd.style.backgroundColor = "rgb(255 177 0)";
+        inp.innerHTML = "The Password Is Medium 50%";
+        inp.style.color = "rgb(255 177 0)";
+      } else if (dd == 75) {
+        idd.style.backgroundColor = "rgb(251 255 0)";
+        inp.innerHTML = "Good Password 75%";
+        inp.style.color = "rgb(251 255 0)";
+      } else if (dd == 100) {
+        idd.style.backgroundColor = "rgb(0,255,0)";
+        inp.innerHTML = "The Password Is Very Strong 100%";
+        inp.style.color = "rgb(0,255,0)";
+      } else {
+
+        inp.innerHTML = "";
+
+      }
+
+
+      idd.style.width = dd + "%";
+
+    });
+
+
+
+
+    user[4].addEventListener("input", function () {
+      let hh = 0;
+      // let tt = "kjdgffgj";
+      // tt.
+      //  if (this.value.length > 1) {
+      //     this.value = this.value.trim();
+      //     this.value[0] = "uu";
+      //     console.log(this.value[0].toUpperCase());
+      //  }
+
+      // this.value = "";
+
+      if (this.value == "") {
+        funccc1(4);
+      } else if (user[3].value != user[4].value) {
+        funccc(`Please confirm the password correctly`, 4);
+      } else {
+        funccc1(4);
+      }
+    });
+
+
+    user[5].addEventListener("input", function () {
+      let sheeck = 0;
+
+      this.value = this.value.trim();
+
+      for (let v = 0; v < this.value.length; v++) {
+        if (this.value[v] == "@") {
+          sheeck++;
+        }
+      }
+
+      if (this.value == "") {
+        funccc1(5);
+      } else if (this.value.includes("@") == false) {
+        funccc("Please enter the code '@'", 5);
+      } else if (this.value[0] == "@") {
+        funccc("Please enter a caracters before '@'", 5);
+      } else if (sheeck > 1) {
+        funccc("Please enter the '@' code once", 5);
+      } else if (this.value[this.value.length - 1] == "@") {
+        funccc("Please enter a caracters after '@'", 5);
+      } else if (this.value.includes(" ") == true) {
+        funccc("Please do not add spaces", 5);
+      } else {
+        funccc1(5);
+      }
+    });
+
+
+    user[6].addEventListener("input", function () {
+      let state = true;
+      let letter = "";
+      let couunt = 0;
+      let couunt1 = 0;
+
+      this.value = this.value.trim();
+
+      for (let i = 0; i < this.value.length; i++) {
+        if (this.value[i] == this.value[i + 1]) {
+          if (this.value[i + 1] == this.value[i + 2]) {
+            state = false;
+            letter = this.value[i];
+          }
+        }
+
+        if (isNaN(+this.value[i]) == false) {
+          couunt++;
+        }
+
+        if (
+          this.value[i].includes("@") ||
+          this.value[i].includes("$") ||
+          this.value[i].includes("&") ||
+          this.value[i].includes("#") ||
+          this.value[i].includes("!") ||
+          this.value[i].includes(")") ||
+          this.value[i].includes("(") ||
+          this.value[i].includes("{") ||
+          this.value[i].includes("}") ||
+          this.value[i].includes("]") ||
+          this.value[i].includes("[") ||
+          this.value[i].includes("^") ||
+          this.value[i].includes("%") ||
+          this.value[i].includes("?") ||
+          this.value[i].includes(">") ||
+          this.value[i].includes("<")
+        ) {
+          couunt1++;
+        }
+      }
+
+      if (this.value == "") {
+        funccc1(6);
+      } else if (this.value.length > 22 || this.value.length < 7) {
+        funccc("Enter a word larger than 6 and less than 23", 6);
+      } else if (state == false) {
+        funccc(`Please do not repeat the symbol " ${letter} "`, 6);
+      } else if (couunt < 3) {
+        funccc(`Please enter at least 3 numbers `, 6);
+      } else if (couunt1 < 1) {
+        funccc(
+          `Please contain the floor at least 1 symbol such as(&,$,!,#,@)`,
+          6
+        );
+      } else {
+        funccc1(6);
+      }
+    });
+
+
+
+
+    forrm.addEventListener("submit", function (event) {
+      for (let f = 0; f < 2; f++) {
+        let state = true;
+        let letter = "";
+
+        for (let i = 0; i < user[f].value.length; i++) {
+          if (user[f].value[i] == user[f].value[i + 1]) {
+            if (user[f].value[i + 1] == user[f].value[i + 2]) {
+              state = false;
+              letter = user[f].value[i];
+            }
+          }
+        }
+
+        if (user[f].value == "") {
+          funccc0("Please fill out the field", f);
+          event.preventDefault();
+        } else if (user[f].value.length > 11 || user[f].value.length < 4) {
+          funccc("Please enter between 4 to 11 characters", f);
+          event.preventDefault();
+        } else if (state == false) {
+          funccc(`Please do not repeat the symbol " ${letter} "`, f);
+          event.preventDefault();
+        } else if (user[f].value.includes(" ") == true) {
+          funccc("Please do not add spaces", f);
+          event.preventDefault();
+        } else {
+          funccc1(f);
+        }
+      }
+      // ////////////////////////////////////////////////////////////////////////////////
+
+      let sheeck = 0;
+
+      for (let v = 0; v < user[2].value.length; v++) {
+        if (user[2].value[v] == "@") {
+          sheeck++;
+        }
+      }
+
+      if (user[2].value == "") {
+        funccc0("Please fill out the field", 2);
+        event.preventDefault();
+      } else if (user[2].value.includes("@") == false) {
+        funccc("Please enter the code '@'", 2);
+        event.preventDefault();
+      } else if (user[2].value[0] == "@") {
+        funccc("Please enter a caracters before '@'", 2);
+        event.preventDefault();
+      } else if (sheeck > 1) {
+        funccc("Please enter the '@' code once", 2);
+        event.preventDefault();
+      } else if (user[2].value[user[2].value.length - 1] == "@") {
+        funccc("Please enter a caracters after '@'", 2);
+        event.preventDefault();
+      } else if (user[2].value.includes(" ") == true) {
+        funccc("Please do not add spaces", 2);
+        event.preventDefault();
+      } else {
+        upmasseg[2].style.cssText = "visibility: unset; opacity: 0;";
+      }
+      sheeck = 0;
+
+      ///////////////////////////////////////////////////////////////////////////////////////////
+
+      let state = true;
+      let letter = "";
+      let couunt = 0;
+      let couunt1 = 0;
+
+      for (let i = 0; i < user[3].value.length; i++) {
+        if (user[3].value[i] == user[3].value[i + 1]) {
+          if (user[3].value[i + 1] == user[3].value[i + 2]) {
+            state = false;
+            letter = user[3].value[i];
+          }
+        }
+
+        if (isNaN(+user[3].value[i]) == false) {
+          couunt++;
+        }
+
+        if (
+          user[3].value[i].includes("@") ||
+          user[3].value[i].includes("$") ||
+          user[3].value[i].includes("&") ||
+          user[3].value[i].includes("#") ||
+          user[3].value[i].includes("!") ||
+          user[3].value[i].includes(")") ||
+          user[3].value[i].includes("(") ||
+          user[3].value[i].includes("{") ||
+          user[3].value[i].includes("}") ||
+          user[3].value[i].includes("]") ||
+          user[3].value[i].includes("[") ||
+          user[3].value[i].includes("^") ||
+          user[3].value[i].includes("%") ||
+          user[3].value[i].includes("?") ||
+          user[3].value[i].includes(">") ||
+          user[3].value[i].includes("<")
+        ) {
+          couunt1++;
+        }
+      }
+
+      if (user[3].value == "") {
+        funccc0("Please fill out the field", 3);
+        event.preventDefault();
+      } else if (user[3].value.length > 22 || user[3].value.length < 7) {
+        funccc("Enter a word larger than 6 and less than 23", 3);
+        event.preventDefault();
+      } else if (state == false) {
+        funccc(`Please do not repeat the symbol " ${letter} "`, 3);
+        event.preventDefault();
+      } else if (couunt < 3) {
+        funccc(`Please enter at least 3 numbers `, 3);
+        event.preventDefault();
+      } else if (couunt1 < 1) {
+        funccc(
+          `Please contain the floor at least 1 symbol such as(&,$,!,#,@)`,
+          3
+        );
+        event.preventDefault();
+      } else {
+        funccc1(3);
+      }
+
+      /////////////////////////////////////////////////////////////////////////////////////////////////
+
+      let hh = 0;
+
+      if (user[4].value == "") {
+        funccc0("Please fill out the field", 4);
+        event.preventDefault();
+      } else if (user[3].value != user[4].value) {
+        funccc(`Please confirm the password correctly`, 4);
+        event.preventDefault();
+      } else {
+        funccc1(4);
+      }
+    });
+
+
+
+
+
+    forrm0.addEventListener("submit", function (event) {
+
+
+
+      let sheeck = 0;
+
+      for (let v = 0; v < user[2].value.length; v++) {
+        if (user[5].value[v] == "@") {
+          sheeck++;
+        }
+      }
+
+      if (user[5].value == "") {
+        funccc0("Please fill out the field", 5);
+        event.preventDefault();
+      } else if (user[5].value.includes("@") == false) {
+        funccc("Please enter the code '@'", 5);
+        event.preventDefault();
+      } else if (user[5].value[0] == "@") {
+        funccc("Please enter a caracters before '@'", 5);
+        event.preventDefault();
+      } else if (sheeck > 1) {
+        funccc("Please enter the '@' code once", 5);
+        event.preventDefault();
+      } else if (user[5].value[user[5].value.length - 1] == "@") {
+        funccc("Please enter a caracters after '@'", 5);
+        event.preventDefault();
+      } else if (user[5].value.includes(" ") == true) {
+        funccc("Please do not add spaces", 5);
+        event.preventDefault();
+      } else {
+        upmasseg[5].style.cssText = "visibility: unset; opacity: 0;";
+      }
+      sheeck = 0;
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      let state = true;
+      let letter = "";
+      let couunt = 0;
+      let couunt1 = 0;
+
+      for (let i = 0; i < user[6].value.length; i++) {
+        if (user[6].value[i] == user[6].value[i + 1]) {
+          if (user[6].value[i + 1] == user[6].value[i + 2]) {
+            state = false;
+            letter = user[6].value[i];
+          }
+        }
+
+        if (isNaN(+user[6].value[i]) == false) {
+          couunt++;
+        }
+
+        if (
+          user[6].value[i].includes("@") ||
+          user[6].value[i].includes("$") ||
+          user[6].value[i].includes("&") ||
+          user[6].value[i].includes("#") ||
+          user[6].value[i].includes("!") ||
+          user[6].value[i].includes(")") ||
+          user[6].value[i].includes("(") ||
+          user[6].value[i].includes("{") ||
+          user[6].value[i].includes("}") ||
+          user[6].value[i].includes("]") ||
+          user[6].value[i].includes("[") ||
+          user[6].value[i].includes("^") ||
+          user[6].value[i].includes("%") ||
+          user[6].value[i].includes("?") ||
+          user[6].value[i].includes(">") ||
+          user[6].value[i].includes("<")
+        ) {
+          couunt1++;
+        }
+      }
+      if (user[6].value == "") {
+        funccc0("Please fill out the field", 6);
+        event.preventDefault();
+      } else if (user[6].value.length > 22 || user[6].value.length < 7) {
+        funccc("Enter a word larger than 6 and less than 23", 6);
+        event.preventDefault();
+      } else if (state == false) {
+        funccc(`Please do not repeat the symbol " ${letter} "`, 6);
+        event.preventDefault();
+      } else if (couunt < 3) {
+        funccc(`Please enter at least 3 numbers `, 6);
+        event.preventDefault();
+      } else if (couunt1 < 1) {
+        funccc(
+          `Please contain the floor at least 1 symbol such as(&,$,!,#,@)`,
+          6
+        );
+        event.preventDefault();
+      } else {
+        funccc1(6);
+      }
+    });
+
+
+
+
+    function funccc(f, h) {
+      masseg[h].innerHTML = f;
+      upmasseg[h].style.cssText = "visibility: unset; opacity: 1;";
+    }
+
+    function funccc0(f, h) {
+      masseg[h].innerHTML = f;
+      upmasseg[h].style.cssText = "visibility: unset; opacity: 1;";
+      t = setTimeout(function () {
+        funccc1(h);
+      }, 1500);
+    }
+
+    function funccc1(h1) {
+      upmasseg[h1].style.cssText = "visibility: unset; opacity: 0;";
+    }
+
+
+    log.addEventListener('click', function () {
+      box.style.cssText = "transform: rotateY(0deg); visibility: unset; opacity: 1;";
+    });
+    log1.addEventListener('click', function () {
+      box.style.cssText = "transform: rotateY(180deg);  visibility: unset; opacity: 1;";
+    });
+
+
+
+
+  </script>
+</body>
+
+</html>
+
+
+<div class="click1">
+  <input type="text" id="ser" onclick="focuss()" placeholder="SEARCH HEARE..." />
+</div>
+<section class="home" id="banner">
+  <div class="content">
+    <h1>FRESH <span>FOOD IN THE</span>MORNING</h1>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius ipsam
+      praesentium unde, assumenda tenetur voluptas. Illo vel qui,
+      exercitationem aliquam facere aut perferendis quidem aliquid!
+      Doloribus tempore assumenda tempora saepe? Lorem, ipsum dolor sit amet
+      consectetur adipisicing elit. Eius ipsam praesentium unde, assumenda
+      tenetur voluptas. Illo vel qui, exercitationem aliquam facere aut
+      perferendis quidem aliquid!
+    </p>
+
+    <a href="#" class="btn">Get Yours Now</a>
+  </div>
+</section>
+
+<section class="about" id="About">
+  <div class="row">
+    <div class="col501">
+      <h2 class="titleText"><span>A</span>bout Us</h2>
+      <p class="text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum,
+        consequatur mollitia, vitae minus veniam deleniti neque accusamus
+        nam quos perspiciatis commodi. Temporibus cum, accusantium nihil
+        reiciendis architecto doloremque qui a. Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Rerum, consequatur mollitia, vitae
+        minus veniam deleniti neque accusamus nam quos perspiciatis commodi.
+        Temporibus cum, accusantium nihil reiciendis architecto doloremque
+        qui a. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Rerum, consequatur mollitia, vitae minus veniam deleniti neque
+        accusamus nam quos perspiciatis commodi. Temporibus cum, accusantium
+        nihil reiciendis architecto doloremque qui a. Lorem ipsum dolor sit
+        amet consectetur adipisicing elit. Rerum, consequatur mollitia,
+        vitae minus veniam deleniti neque accusamus nam quos perspiciatis
+        commodi. Temporibus cum, accusantium nihil reiciendis architecto
+        doloremque qui a. accusamus nam quos perspiciatis commodi.
+        Temporibus cum, accusantium nihil reiciendis architecto doloremque
+        qui a. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Rerum, consequatur mollitia, vitae minus veniam deleniti neque
+        accusamus nam quos perspiciatis commodi. Temporibus cum, accusantium
+        nihil reiciendis architecto doloremque qui a.
+      </p>
+    </div>
+    <div class="col50">
+      <div class="imgBx">
+        <img src="wallpaperbetter (6).jpg" alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="Menu" style="padding: 1px">
+  <div class="tittle">
+    <h2 class="titleText">Our<span>M</span>enu</h2>
+    <p>
+      Lorem ipsum dolor sit, amet deserunt laudantium modi nonem illo aut
+      quibusdam neque!
+    </p>
+  </div>
+  <div class="content">
+
+
+
+
+
+
+
+    <script>
+
+      let array1 = ["name of food", "name of food", "name of food", "name of food", "name of food", "name of food", "name of food", "name of food"];
+      let price = [10, 20, 5, 7, 9, 7, 20, 15, 6];
+      let imag1 = ["mmenu3.jpg", "mmenu5.jpg", "mmenu9.jpg", "mmenu13.jpg", "mmenu3.jpg", "mmenu1.jpg", "mmenu12.jpg"];
+      let parr = [" Lorem ipsum dolor sit, amet consectetur adipisicing elit .Aspernatur et molest",
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit .Aspernatur et molest",
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit .Aspernatur et molest",
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit .Aspernatur et molest",
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit .Aspernatur et molest",
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit .Aspernatur et molest"];
+
+
+
+      for (let ie = 0; ie < 6; ie++) {
+
+        document.write(`  <div class="containear2" onmouseover="rot(${ie})" onmouseout="unrot(${ie})">
+        <div class="box2" id="bock${ie}">
+          <div class="card12" style="background-image: url(${imag1[ie]})">
+            <div class="glass2"></div>
+            <div class="wahm" style="background: radial-gradient(252px, transparent, black)"></div>
+          </div>
+
+          <div class="card22">
+            <div class="sharp">
+              <div>
+                <p class="bob">${price[ie]}$</p>
+              </div>
+            </div>
+            <div class="mon12"></div>
+            <div class="mon22"></div>
+            <div class="mon32"></div>
+            <div class="mon42"></div>
+            <div class="mon52"></div>
+            <div class="mon62"></div>
+            <div class="shareet2">
+              <marquee loop="-1" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                <a>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Enim</a>
+              </marquee>
+            </div>
+            <h3>${array1[0] + (ie + Number(1))}</h3>
+            <p class="par">
+             ${parr[ie] + (ie + Number(1))}
+            </p>
+            <div class="back">
+              <div class="relat6">
+                <input type="radio" name="rad1" class="pop6" />
+                <input type="radio" name="rad1" class="pop6" />
+                <input type="radio" name="rad1" class="pop6" />
+                <input type="radio" name="rad1" class="pop6" />
+                <input type="radio" name="rad1" class="pop6" />
+                <input type="radio" name="rad1" class="pop6" />
+                <input type="radio" name="rad1" class="pop6" />
+                <input type="radio" name="rad1" class="pop6" />
+                <input type="radio" name="rad1" class="pop6" />
+                <input type="radio" name="rad1" class="pop6" />
+              </div>
+            </div>
+            <button type="button" class="button">By Naw</button>
+
+            <ul class="ul">
+              <li><a href="#" class="fa fa-heart"></a></li>
+              <li><a href="#" class="fa fa-eye"></a></li>
+              <li><a href="#" class="fa fa-envelope"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+`);
+      }
+    </script>
+
+
+    <div class="tittle">
+      <a href="#" class="bth" title="view all" aria-label="view all">View All</a>
+    </div>
+</section>
+
+<section class="expert" id="Expert">
+  <div class="gro"></div>
+  <div class="tittle" style="z-index: 1">
+    <h2 class="titleText">
+      Our kitchen<span style="color: rgb(88, 0, 0)"> E</span>xpert
+    </h2>
+    <p>
+      Lorem ipsum dolor sit, amet deserunt laudantium modi nonem illo aut
+      quibusdam neque!
+    </p>
+  </div>
+
+  <div class="contai">
+
+
+    <script>
+
+      let im = ["expert1.jpg", "expert2.jpg", "expert3.jpg", "expert4.jpg"];
+      let expert = ["Someone famous", "Someone famous", "Someone famous", "Someone famous"];
+      let par = ["Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur architecto tenetur itaque excepturi dolores Debitis.",
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur architecto tenetur itaque excepturi dolores Debitis.",
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur architecto tenetur itaque excepturi dolores Debitis.",
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur architecto tenetur itaque excepturi dolores Debitis."];
+
+
+      for (let iq = 0; iq < 4; iq++) {
+        document.write(` <div class="car" onmouseover="on(${iq})" onmouseout="un(${iq})">
+        <div class="fog" id="im${iq}">
+          <h2>${expert[iq] + (iq + Number(1))}</h2>
+          <p>
+            ${par[iq]}
+          </p>
+          <a href="#">READ MORE</a>
+        </div>
+        <img src="${im[iq]}" alt="" />
+      </div>`);
+
+      }
+    </script>
+  </div>
+</section>
+
+<section class="testimonials" id="Testimonials">
+  <div class="khodai">
+    <div class="tittle" style="margin-top: 155px">
+      <h2 class="titleText">They <span>S</span>aid About Us</h2>
+      <p>
+        Lorem ipsum dolor sit, amet deserunt laudantium modi nonem illo aut
+        quibusdam neque!
+      </p>
+    </div>
+
+    <div class="contai">
+
+
+      <script>
+
+
+        let im1 = ["testi1.jpg", "testi2.jpg", "testi3.jpg"];
+        let p1 = ["Lorem ipsum dolor, sit amet consectetur adipisicing elit.Consequuntur architecto tenetur itaque excepturi dolores Debitis.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur architecto tenetur itaque excepturi dolores Debitis",
+          "Lorem ipsum dolor, sit amet consectetur adipisicing elit.Consequuntur architecto tenetur itaque excepturi dolores Debitis.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur architecto tenetur itaque excepturi dolores Debitis",
+          "Lorem ipsum dolor, sit amet consectetur adipisicing elit.Consequuntur architecto tenetur itaque excepturi dolores Debitis.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur architecto tenetur itaque excepturi dolores Debitis"];
+        let famous = ["Someone famous", "Someone famous", "Someone famous"];
+
+
+        for (let il = 0; il < 3; il++) {
+          document.write(`  <div class="car1">
+          <div class="circle">
+            <img src="${im1[il]}" alt="" />
+          </div>
+
+          <p class="p">
+            ${p1[il]}
+          </p>
+          <h2 style="color: #fff">${famous[il] + (il + Number(1))}</h2>
+        </div>`);
+
+        }
+      </script>
+
+
+
+
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" style="padding: 17px 0">
+  <div class="tittle" style="background: radial-gradient(900px,black, transparent);padding: 1px 0;">
+    <h2 class="titleText"><span>C</span>ontact Us</h2>
+    <p>
+      Lorem ipsum dolor sit, amet deserunt laudantium modi nonem illo aut
+      quibusdam neque!
+    </p>
+    <div class="titler">
+      <h2>Get in touch</h2>
+    </div>
+  </div>
+
+
+
+  <div class="contactusr">
+
+    <div class="boxr">
+      <div class="contactr formr">
+        <h3>send a massege</h3>
+        <form action="#">
+          <div class="formBoxr">
+            <div class="row50r">
+              <div class="inputBoxr">
+                <span>First Name</span>
+                <input type="text" placeholder="John" />
+              </div>
+              <div class="inputBoxr">
+                <span>Last Name</span>
+                <input type="text" placeholder="Doe" />
+              </div>
+            </div>
+            <div class="row50r">
+              <div class="inputBoxr">
+                <span>Email</span>
+                <input type="text" placeholder="Johndoe@email.com" />
+              </div>
+              <div class="inputBoxr">
+                <span>Mobile</span>
+                <input type="text" placeholder="+91 165 876 7685" />
+              </div>
+            </div>
+            <div class="row100r">
+              <div class="inputBoxr">
+                <span>Massege</span>
+                <textarea placeholder="write your massege here..."></textarea>
+              </div>
+            </div>
+            <div class="row100r">
+              <div class="inputBoxr">
+                <input type="submit" value="Send" />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="contactr infor">
+        <h3>Content Info</h3>
+        <div class="infoBoxr">
+          <div>
+            <span>
+              <ion-icon name="location"></ion-icon>
+            </span>
+            <p>Cannaught palace, New Delhi <br />INDIA</p>
+          </div>
+
+          <div>
+            <span>
+              <ion-icon name="mail"></ion-icon>
+            </span>
+            <a href="mailto:loremipesum@email.com">loremipesum@email.com</a>
+          </div>
+          <div>
+            <span>
+              <ion-icon name="call"></ion-icon>
+            </span>
+            <a href="tel:+919873878278">+91 987 387 8278</a>
+          </div>
+          <ul class="scir">
+            <li>
+              <a href="#">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="contactr mapr">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d27232.224027549928!2d34.3834624!3d31.440896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sar!2s!4v1654446816834!5m2!1sar!2s"
+          style="border: 0" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="copyrightText">
+    <p>copyright 2022 <a href="#">Online Tutorials</a>. All Right Reserved</p>
+  </div>
+</footer>
+
+<script type="text/javascript">
+  window.addEventListener("scroll", function () {
+    const header = document.querySelector("header");
+    const click1 = document.querySelector(".click1");
+    const click2 = document.querySelector(".all");
+    header.classList.toggle("sticky", window.scrollY > 0);
+    click1.classList.toggle("sticky1", window.scrollY > 0);
+    // click2.classList.toggle("sticky2", window.scrollY > 0);
+  });
+  function toggleMenu() {
+    const menuToggle = document.querySelector(".menuToggle");
+    const navigation = document.querySelector(".navigation");
+    menuToggle.classList.toggle("active");
+    navigation.classList.toggle("active");
+  }
+</script>
+<script>
+  function rot(ss) {
+
+
+    document.getElementById("bock" + ss).style.transform =
+      "rotateY(180deg)";
+  }
+
+
+  function unrot(dd) {
+
+
+    document.getElementById("bock" + dd).style.transform =
+      "rotateY(0deg)";
+
+
+  }
+
+  function on(ff) {
+
+    document.getElementById("im" + ff).style.height = "525px";
+    document.getElementById("im" + ff).style.padding = "25px";
+
+  }
+  function un(ff1) {
+
+    document.getElementById("im" + ff1).style.height = "0";
+    document.getElementById("im" + ff1).style.padding = "0";
+
+  }
+  var j = 1;
+  function opennav() {
+    if (j == 1) {
+      document.getElementById("ser").style.height = "44px";
+      document.getElementById("ser").style.boxShadow =
+        "rgb(0 0 0 / 80%) 3px 20px 17px 0px";
+
+      let t1 = null,
+        i1 = -1;
+      let v1 = null;
+      letvc = "SEARCH HEARE...";
+      let array1 = [
+        "S",
+        "SE",
+        "SEA",
+        "SEAR",
+        "SEARC",
+        "SEARCH",
+        "SEARCH H",
+        "SEARCH HE",
+        "SEARCH HEA",
+        "SEARCH HEAR",
+        "SEARCH HEARE",
+        "SEARCH HEARE.",
+        "SEARCH HEARE..",
+        "SEARCH HEARE...",
+      ];
+      t1 = setInterval(frame1, 100);
+      function frame1() {
+        if (i1 < 13) {
+          i1++;
+          document.getElementById("ser").ariaPlaceholder = array1[i1];
+        } else if (i1 > 13) {
+          clearInterval(t1);
+        }
+      }
+      j = 0;
+    } else if (j == 0) {
+      document.getElementById("ser").style.height = "0";
+      document.getElementById("ser").style.boxShadow =
+        "9px 9px 20px 0 rgba(0,0,0,0.0)";
+      document.getElementById("ser").value = "";
+
+      j = 1;
+    }
+  }
+  function focuss() {
+    let re = document.getElementById("ser").value;
+    if (re == "SEARCH HEARE...") {
+      document.getElementById("ser").value = "";
+    } else {
+    }
+  }
+  function hear() {
+    document.getElementById("he").style.width = "32%";
+
+  }
+
+  function rotate() {
+
+    document.getElementById("cont2").style.height = "613px";
+
+  }
+  function rotate1() {
+    document.getElementById("cont2").style.height =
+      "0";
+  }
+  var kl = 1;
+
+</script>
+<script type="text/javascript" src="vanilla-tilt.js"></script>
+<script type="text/javascript">
+  VanillaTilt.init(document.querySelectorAll(".car1"), {
+    max: 25,
+    speed: 400,
+  });
+</script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="light1.js"></script>
+</body>
+
+</html>

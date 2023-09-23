@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #fff;
+
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+        let arrParticle = new Array();
+        class Particle {
+            constructor(x, y, arr, i1) {
+                this.x = x;
+                this.y = y;
+                this.arr = arr;
+                this.i1 = i1;
+                this.PI = 2 * Math.PI;
+                this.i = 0;
+                this.ease = 10;
+                this.fraction = 0.1 / 2;
+            }
+            draw = function () {
+                ctx.beginPath();
+                // ctx.lineWidth = 1;
+                // ctx.strokeStyle = `rgb(${this.x / (w / 255)}, ${this.y / (h / 255)}, ${255 - (this.y / (h / 255))})`;
+                ctx.fillStyle = `rgb(${this.x / (w / 255)}, ${this.y / (h / 255)}, ${255 - (this.y / (h / 255))})`;
+                ctx.arc((w / 2) + this.x, (h / 2) + this.y, 10, 2 * Math.PI, false);
+                ctx.fill();
+            }
+            ubdate = function () {
+                this.draw();
+                this.i += this.fraction;
+                this.x += (Math.sin(this.i) * Math.tan(Math.sin(this.i1) * 20)) * Math.tan(Math.cos(this. i1 * 20)) * this.ease;
+                this.y += (Math.sin(this.i) * Math.tan(Math.cos(this.i1) * 20)) * Math.tan(Math.sin(this. i1 * 20)) * this.ease;
+            }
+        }
+        function init() {
+            let arr = [1, -1];
+            for (let i = 0; i < 1000; i++) {
+                let plus = 200;
+                let x = Math.sin(i) * plus;
+                let y = Math.cos(i) * plus;
+                let arrr = arr[(Math.random() * (arr.length - 1)).toFixed("")];
+
+                arrParticle.push(new Particle(x, y, arrr, i));
+
+            }
+        }
+        function animate() {
+           
+            ctx.fillStyle = `rgb(18, 18, 18, 0.10)`;
+             ctx.fillRect(0, 0, w, h);
+            requestAnimationFrame(animate);
+            for (let i = 0; i < arrParticle.length; i++) {
+
+                arrParticle[i].ubdate();
+
+            }
+        }
+        init();
+        animate();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            color: #fff;
+
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .up {
+            padding: 12px 6px;
+            background-color: #3a3a3a;
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            flex-direction: column;
+            border-radius: 0 0 0 7px;
+        }
+
+        .exit {
+            width: 61px;
+            height: 44px;
+            position: absolute;
+            top: 0;
+            left: -61px;
+            background-color: #424242;
+            cursor: pointer;
+            font-size: 24px;
+            border: none;
+            border-radius: 7px 0 0 7px;
+        }
+
+        .range {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 5px;
+            border-radius: 5px;
+            background-size: 100%;
+            outline: none;
+            cursor: grab;
+            transition: 0.2s;
+            margin: 13px 15px;
+            width: 242px;
+        }
+
+        .range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            border-radius: 50%;
+            background-color: rgb(0, 195, 255);
+        }
+
+        .rangee0::-webkit-slider-thumb {
+            background-color: #f00;
+        }
+
+        .rangee1::-webkit-slider-thumb {
+            background-color: #0f0;
+        }
+
+        .rangee2::-webkit-slider-thumb {
+            background-color: #ff0;
+        }
+
+        .upRange {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin: 0 0 9px 0;
+            background: #2c2c2c;
+            padding: 8px 10px;
+            border-radius: 7px;
+
+        }
+
+        .upRange input[type="text"] {
+            width: 50px;
+            height: 29px;
+            border: 1px solid #fff;
+            outline: none;
+            text-align: center;
+            background: transparent;
+            border-radius: 5px;
+        }
+
+        .upsh {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            background: #2c2c2c;
+            padding: 8px 10px;
+            border-radius: 7px;
+            margin: 0 0 9px 0;
+        }
+
+        .shek {
+            appearance: none;
+            width: 57px;
+            height: 24px;
+            background-color: #fff;
+            border-radius: 51px;
+            position: relative;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .shek::after {
+            content: "";
+            height: 21px;
+            width: 21px;
+            background-color: #525252;
+            position: absolute;
+            top: 50%;
+            border-radius: 25px;
+            transform: translate(0, -50%);
+            box-shadow: -4px 0px 1px rgb(0 0 0 / 40%);
+            left: 2px;
+            transition: 0.2s;
+        }
+
+        .shek:checked {
+            background-color: #00adff;
+
+        }
+
+        .shek:checked::after {
+            background-color: #525252;
+            right: 0px;
+            left: 59%;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="up" id="up">
+        <button type="button" class="exit" id="exit"><i class="fa-solid fa-gear"></i></button>
+
+    </div>
+    <script>
+        const canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        let arrParticles = new Array();
+        let otherParticle = new Array();
+        let mass = 200;
+        let blur1 = 0.10;
+        let arrColor = ["#f00", "#0ff", "#f0f", "#0f0", "#ff0", "#ff7600", "#2700ff", "#ff00b1", "#00ffc4", "#9100ff"];
+
+
+        function distance(currentParticle, otherParticle) {
+            return Math.sqrt((otherParticle.x - currentParticle.x) * (otherParticle.x - currentParticle.x) +
+                (otherParticle.y - currentParticle.y) * (otherParticle.y - currentParticle.y));
+        }
+
+
+        class Checkbox {
+            constructor(inner, i) {
+                this.i = i;
+                this.inner = inner;
+                this.ss = true;
+                this.upsh = document.createElement("div");
+                this.label = document.createElement("label");
+                this.input = document.createElement("input");
+                this.property();
+                this.functions();
+            }
+            property() {
+                this.upsh.className = "upsh";
+                this.label.setAttribute("for", "sh");
+                this.label.innerHTML = this.inner;
+                this.input.type = "checkbox";
+                this.input.className = "shek";
+                this.upsh.append(this.label, this.input);
+                document.getElementById("up").append(this.upsh);
+            }
+            functions() {
+                if (this.i == 0) {
+
+                    this.input.addEventListener("click", () => {
+                        if (this.ss) {
+
+                            for (let i = 0; i < arrParticles.length; i++) {
+                                arrParticles[i].dx = 0;
+                                arrParticles[i].dy = 0;
+                                arrParticles[i].strong = 0;
+
+                            }
+                            this.ss = false;
+                        } else {
+
+                            for (let i = 0; i < arrParticles.length; i++) {
+                                arrParticles[i].dx = Math.random() * speed.range.value;
+                                arrParticles[i].dy = Math.random() * speed.range.value;
+                                arrParticles[i].strong = stronge.range.value;
+                            }
+
+                            this.ss = true;
+                        }
+                    });
+                } else if (this.i == 1) {
+                    this.input.addEventListener("click", () => {
+                        if (this.ss) {
+
+
+                            arrParticles.length = 0;
+                            productParticleProberty(300, +(fraction.text.value), Number(stronge.text.value), false);
+
+
+                            this.ss = false;
+                           
+                        } else {
+
+
+
+                            arrParticles.length = 0;
+                            productParticleProberty(300, +(fraction.text.value), Number(stronge.text.value), true);
+
+
+                            this.ss = true;
+                           
+                        }
+                    });
+                }
+            }
+        }
+
+        class SittingRange {
+            constructor(dis = "diceription", min = 0, max = 100, value = 0, i) {
+                this.dis = dis;
+                this.min = min;
+                this.max = max;
+
+                this.value = value;
+                this.i = i;
+                this.upRange = document.createElement("div");
+                this.disc = document.createElement("span");
+                this.range = document.createElement("input");
+                this.text = document.createElement("input");
+
+                this.elements();
+                this.functions();
+            }
+            elements() {
+
+                this.upRange.className = "upRange";
+                this.disc.innerHTML = this.dis;
+                this.range.type = "range";
+                this.range.min = this.min;
+                this.range.classList.add("range", "rangee" + this.i);
+                this.range.max = this.max;
+                this.range.value = this.value;
+                this.range.step = 0.000125;
+                this.text.type = "text";
+                this.text.value = this.value;
+                this.upRange.append(this.disc, this.range, this.text);
+                document.getElementById("up").append(this.upRange);
+            }
+            functions() {
+
+                this.range.addEventListener("input", () => {
+
+                    this.text.value = this.range.value;
+                    if (this.i == 0) {
+                        for (let i = 0; i < arrParticles.length; i++) {
+                            arrParticles[i].fraction = this.range.value;
+
+                        }
+                    } else if (this.i == 1) {
+                        for (let i = 0; i < arrParticles.length; i++) {
+                            arrParticles[i].strong = this.range.value;
+
+                        }
+                    } else if (this.i == 2) {
+                        for (let i = 0; i < arrParticles.length; i++) {
+                            arrParticles[i].dx = Math.random() * Number(this.range.value);
+                            arrParticles[i].dy = Math.random() * Number(this.range.value);
+
+                        }
+                    } else if (this.i == 4) {
+
+
+                        arrParticles.length = 0;
+
+
+                        productParticleProberty(Number(this.range.value).toFixed(""));
+
+
+                    } else if (this.i == 5) {
+
+
+
+
+                        for (let i = 0; i < arrParticles.length; i++) {
+                            arrParticles[i].rad = Number(this.range.value);
+
+                        }
+
+                    } else if (this.i == 6) {
+
+                        for (let i = 0; i < arrParticles.length; i++) {
+                            arrParticles[i].lineWidth = Number(this.range.value);
+
+                        }
+
+                    }
+                });
+                this.text.addEventListener("input", () => {
+                    this.range.value = this.text.value;
+                    if (this.i == 0) {
+                        for (let i = 0; i < arrParticles.length; i++) {
+                            arrParticles[i].fraction = this.text.value;
+
+                        }
+                    } else if (this.i == 1) {
+                        for (let i = 0; i < arrParticles.length; i++) {
+                            arrParticles[i].strong = this.text.value;
+
+                        }
+                    } else if (this.i == 2) {
+                        for (let i = 0; i < arrParticles.length; i++) {
+                            arrParticles[i].dx = Math.random() * Number(this.text.value);
+                            arrParticles[i].dy = Math.random() * Number(this.text.value);
+                        }
+                    } else if (this.i == 4) {
+
+                        arrParticles.length = 0;
+
+                        productParticleProberty(Number(this.text.value).toFixed(""));
+
+
+                    } else if (this.i == 5) {
+
+
+                        for (let i = 0; i < arrParticles.length; i++) {
+                            arrParticles[i].rad = Number(this.text.value);
+
+                        }
+
+
+                    }
+                    else if (this.i == 6) {
+
+                        for (let i = 0; i < arrParticles.length; i++) {
+                            arrParticles[i].lineWidth = Number(this.text.value);
+
+                        }
+
+
+                    }
+                });
+            }
+        }
+        class Particles {
+            constructor(x, y, rad, arr, color, i, strong, dx, dy) {
+                this.x = x;
+                this.y = y;
+                this.dx = dx;
+                this.dy = dy;
+                this.rad = rad;
+                this.arr = arr;
+                this.color = color;
+                this.i = i;
+                this.count = 0;
+                this.strong = strong;
+                this.fraction = Number(fraction.text.value);
+                this.angle = 0;
+                this.otherAngle = 0;
+                this.lineWidth = Number(lineWidth.text.value);
+                this.sh = true;
+
+
+            }
+            draw() {
+
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, this.rad, 2 * Math.PI, false);
+                ctx.fill();
+
+            }
+            effect() {
+                this.count += 0.1;
+                for (let i = 0; i < arrParticles.length; i++) {
+
+                    otherParticle = arrParticles[i];
+
+
+                    if (distance(this, otherParticle) <= mass && this.color == otherParticle.color) {
+                        this.angle += Math.atan2(Math.sin(this.x), Math.cos(this.y));
+                        this.otherAngle += Math.atan2(Math.sin(otherParticle.x), Math.cos(otherParticle.y));
+                        otherParticle.x += (Math.sin(this.x * this.fraction) * this.strong);
+                        otherParticle.y += (Math.cos(this.y * this.fraction) * this.strong);
+                        this.x += (Math.sin(otherParticle.x * this.fraction) * this.strong);
+                        this.y += ((Math.cos(otherParticle.y * this.fraction) * this.strong));
+
+
+                        ctx.beginPath();
+                        ctx.lineCap = "round";
+                        ctx.lineWidth = this.lineWidth;
+                        ctx.strokeStyle = this.color;
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(otherParticle.x, otherParticle.y);
+                        ctx.stroke();
+
+
+
+                    }
+
+                }
+            }
+            update() {
+                this.draw();
+
+                this.x += this.dx * this.arr;
+                this.y += this.dy * this.arr;
+
+                if (this.x + this.rad > w) {
+                    this.dx = -this.dx;
+                    this.x = w - this.rad;
+                }
+                if (this.x < this.rad) {
+                    this.dx = -this.dx;
+                    this.x = this.rad;
+                }
+                if (this.y + this.rad > h) {
+                    this.dy = -this.dy;
+                    this.y = h - this.rad;
+                }
+                if (this.y < this.rad) {
+                    this.dy = -this.dy;
+                    this.y = this.rad;
+                }
+                this.effect();
+            }
+
+        }
+
+
+        let fraction1 = 0.009625;
+        let blurr1 = 0.10;
+        let stronge1 = 6;
+        let fraction = new SittingRange(`<i class="fa-solid fa-florin-sign"></i>`, 0, 0.01425, fraction1, 0);
+        let stronge = new SittingRange(`<i class="fa-brands fa-react"></i>`, 0, 100, stronge1, 1);
+        let speed = new SittingRange(`<i class="fa-solid fa-clock"></i>`, 0, 50, 0, 2);
+        let blurr = new SittingRange(`<i class="fa-brands fa-soundcloud"></i>`, 0, 1, 0.10, 3);
+        let numOfParticles = new SittingRange(`<i class="fa-solid fa-bowling-ball"></i>`, 1, 1000, 400, 4);
+        let sizeCircle = new SittingRange(`<i class="fa-solid fa-yin-yang"></i>`, 0, 100, 2, 5);
+        let lineWidth = new SittingRange(`<i class="fa-solid fa-lines-leaning"></i>`, Number(blurr1), 10, 0.1, 6);
+
+        ////////////////////////////////////
+
+        let sheckStop = new Checkbox(`<i class="fa-solid fa-hand"></i>`, 0);
+        let sheckConnection = new Checkbox(`connecion`, 1);
+        
+
+        function productParticleProberty(num = 300, frac = +(fraction.text.value), stronge1 = Number(stronge.text.value), sh = true) {
+
+            let plus = 1;
+            let arr = [plus, -plus];
+
+            for (let i = 0; i < num; i++) {
+                let rad = Number(sizeCircle.range.value);
+                let x = Math.random() * (w - (rad * 2)) + rad;
+                let y = Math.random() * (h - (rad * 2)) + rad;
+                let dx1 = Math.random() * Number(speed.range.value);
+                let dy1 = Math.random() * Number(speed.range.value);
+                let arrr = arr[(Math.random() * (arr.length - 1)).toFixed("")];
+                let color = '';
+                if (sh == true) {
+                    color = arrColor[(Math.random() * (arrColor.length - 1)).toFixed("")];
+                } else {
+                    color = `rgb(${x / (w / 255)}, ${y / (h / 255)}, ${255 - (y / (h / 255))})`;
+                }
+
+               
+
+                arrParticles.push(new Particles(x, y, rad, arrr, color, i, stronge1, dx1, dy1));
+
+            }
+
+            console.log(sh);
+        }
+        function init() {
+
+            productParticleProberty();
+            let sh = true;
+            document.getElementById("exit").addEventListener("click", () => {
+                if (sh) {
+                    document.getElementById("up").style.right = -(document.getElementById("up").getBoundingClientRect().width) + "px";
+                    sh = false;
+                } else {
+                    document.getElementById("up").style.right = "0px";
+                    sh = true;
+                }
+            });
+        }
+
+        function animate() {
+
+
+            ctx.fillStyle = `rgb(18, 18, 18, ${blurr.text.value})`;
+            ctx.fillRect(0, 0, w, h);
+
+            requestAnimationFrame(animate);
+
+            for (let i = 0; i < arrParticles.length; i++) {
+
+                arrParticles[i].update();
+
+            }
+        }
+
+        init();
+        animate();
+        let sh = true;
+
+
+    </script>
+</body>
+
+</html>

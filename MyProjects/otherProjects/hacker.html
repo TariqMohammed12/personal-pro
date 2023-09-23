@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: rgb(27, 27, 27);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            overflow-x: hidden;
+        }
+
+        .cont {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .inc {
+            background-color: #2c2c2c;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            position: fixed;
+            top: 0;
+            height: 100px;
+            z-index: 2;
+            flex-direction: column;
+        }
+
+        .numm {
+            font-size: 20px;
+        }
+
+        .inp {
+            margin: 0;
+            width: 50%;
+            height: 44px;
+            outline: none;
+            border: 1px solid #fff;
+            background-color: #2e2e2e;
+            text-align: center;
+            color: #fff;
+            font-size: 22px;
+        }
+
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: center;
+        }
+
+        .inn {
+            width: 300px;
+            height: 100px;
+            margin: 3px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff;
+            position: relative;
+        }
+
+        .hid {
+
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background: rgb(27 27 27);
+            top: 0;
+        }
+
+        .inn1 {
+            width: 100%;
+            height: 100%;
+            background-color: rgb(48 48 48);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            letter-spacing: 1px;
+            font-weight: 100;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .but {
+
+            position: absolute;
+            z-index: 2;
+            right: 70px;
+            background: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 7px 27px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let text = "qwertyuiopasdfghjklzxcvbnm ";
+
+        let cont = document.createElement("div");
+        let incont = document.createElement("div");
+        let inp = document.createElement("input");
+        let hid = document.createElement("div");
+        let box = document.createElement("div");
+        let but = document.createElement("button");
+        let numm = document.createElement("div");
+        let poss = document.documentElement;
+
+        let ch = true;
+        let z = 0;
+        let pop = 80;
+        let t = 0;
+        let tx = 0;
+        let nu = 100;
+
+        let arr = new Array();
+        let inarr = new Array();
+        let sor = new Array();
+        let spa = new Array();
+        let r = new Array();
+        let r1 = new Array();
+        let rx = new Array();
+        let r1x = new Array();
+        let b = new Array();
+
+        box.className = "box";
+        cont.className = "cont";
+        incont.className = "inc";
+        inp.className = "inp";
+        inp.placeholder = `Search in ${nu} product`;
+        hid.className = "hid";
+        numm.className = "numm";
+        numm.innerHTML = nu + " Product";
+        box.style.width = window.innerWidth + "px";
+        but.innerHTML = "flex";
+        but.className = "but";
+
+        but.addEventListener("click", () => {
+            if (ch) {
+                box.style.flexDirection = "column";
+                ch = false;
+            } else {
+                box.style.flexDirection = "row";
+                ch = true;
+            }
+        });
+
+        window.addEventListener("load", () => {
+            let car = incont.getBoundingClientRect();
+            box.style.marginTop = car.height + "px";
+            hid.style.top = car.height + "px";
+        });
+
+        for (let i = 0; i < nu; i++) {
+            let rr = Math.floor(Math.random() * 10 + 5).toFixed();
+            arr[i] = document.createElement("div");
+            inarr[i] = document.createElement("div");
+
+            arr[i].className = "inn";
+            inarr[i].className = "inn1";
+            arr[i].id = "x" + i;
+
+            for (let i1 = 0; i1 < rr; i1++) {
+                spa[i1] = document.createElement("span");
+                let rand = (Math.random() * text.length).toFixed();
+                spa[i1].innerHTML += text.charAt(rand).trim();
+                spa[i1].id = i1;
+                inarr[i].append(spa[i1]);
+            }
+            arr[i].append(inarr[i]);
+            box.append(arr[i], hid);
+
+
+            window.addEventListener("mousemove", (e) => {
+
+                let ca = hid.getBoundingClientRect(),
+                    x = e.pageX - ca.left,
+                    y = e.pageY - window.scrollY - ca.top;
+
+                if (
+                    x < ca.width + pop &&
+                    x > -pop &&
+                    y < ca.height + pop &&
+                    y > -pop
+                ) {
+                    poss.style.setProperty("--x", x + "px");
+                    poss.style.setProperty("--y", y + "px");
+                } else {
+                    poss.style.setProperty("--x", -pop + "px");
+                    poss.style.setProperty("--y", -pop + "px");
+                }
+
+                hid.style.background = `radial-gradient(
+  circle at var(--x) var(--y),
+  transparent -60px,
+  rgb(27 27 27) ${pop + 20}px
+)`;
+
+            });
+
+
+
+
+
+
+        }
+
+        for (let i = 0; i < nu; i++) {
+            rx[i] = "";
+            for (let i2 = 0; i2 < inarr[i].children.length; i2++) {
+
+                rx[i] += inarr[i].children[i2].innerHTML;
+            }
+            if (rx[i] != undefined) {
+                r1x[t] = rx[i];
+                tx++;
+            }
+            b[i] = r1x[0];
+            inarr[i].id = b[i];
+
+
+        }
+        let ss = 0;
+
+        incont.append(inp, numm, but);
+        cont.append(incont, box);
+        document.body.append(cont);
+        let v = 0;
+        let num = 0;
+        inp.addEventListener("input", () => {
+            num = 0;
+            for (let i = 0; i < arr.length; i++) {
+
+                r[i] = "";
+                for (let i2 = 0; i2 < inarr[i].children.length; i2++) {
+
+                    r[i] += inarr[i].children[i2].innerHTML;
+                }
+                if (r[i] != undefined) {
+                    r1[t] = r[i];
+                    t++;
+                }
+
+                let boxin = r1[i];
+                let val = inp.value;
+                ss = val.length;
+                if (val != "") {
+
+                    for (let i1 = 0; i1 < val.length; i1++) {
+                        if (boxin.includes(val.charAt(i1)) == true ||
+                            (boxin.toUpperCase()).includes((val.charAt(i1)).toUpperCase()) == true) {
+                            ss = boxin.toUpperCase().indexOf(((val.charAt(0)).toUpperCase())) - boxin.toUpperCase().indexOf(((val.charAt(1)).toUpperCase()));
+                            
+                         if (val.length > 1) {
+                            console.log(ss);
+                         }
+                           
+                     
+
+                            // for (let l = 0; l < document.querySelectorAll("span").length; l++) {
+
+                            //     if (document.querySelectorAll("span")[l].innerHTML.includes(val.charAt(i1)) == true) {
+                            //         document.querySelectorAll("span")[l].style.color = "#f00";
+                            //     }
+
+                            // }
+
+                            v++;
+
+                        }
+                    }
+
+                    numm.innerHTML = num + " Product";
+
+               
+
+                    if (v == val.length) {
+                    
+                        arr[i].style.order = ss;
+
+                        z++;
+                        num++;
+                        arr[i].style.display = "flex";
+                    } else {
+                        arr[i].style.display = "none";
+                        for (let l = 0; l < document.querySelectorAll(`#x${i} div span`).length; l++) {
+
+                            document.querySelectorAll(`#x${i} div span`)[l].style.color = "#fff";
+
+                        }
+                        // console.log(document.querySelectorAll(`#x${i} div span`).length);
+
+                    }
+
+
+                    v = 0;
+                } else {
+                    for (let i1 = 0; i1 < arr.length; i1++) {
+                        arr[i1].style.display = "flex";
+
+                    }
+                    numm.innerHTML = nu + " Product";
+                }
+
+            }
+
+            z = 0;
+
+        });
+        // let arrc = [];
+        // let vb = true;
+        // window.addEventListener("mousedown", (e) => {
+        //     window.addEventListener("mousemove", nn201);
+        // });
+
+
+        // let r201 = true;
+        // let arr201 = new Array(2);
+        // let n201 = 0;
+        // function nn201(em) {
+
+        //     n201++;
+        //     if (r201) {
+        //         arr201[0] = em.clientY;
+        //         r201 = false;
+        //     } else {
+        //         arr201[1] = em.clientY;
+        //         r201 = true;
+        //     }
+
+        //     if (arr201[0] != undefined && arr201[1] != undefined) {
+        //         if (n201 > 1) {
+        //             if (arr201[0] < arr201[1]) {
+                     
+        //                 window.scrollTo(0, window.scrollY - 30);
+        //             } else if (arr201[0] > arr201[1]) {
+                      
+        //                 window.scrollTo(0, window.scrollY + 30);
+        //             }
+
+        //             n201 = 0;
+        //         }
+        //     }
+
+        // }
+
+
+
+
+        // window.addEventListener("mouseup", () => {
+        //     window.removeEventListener("mousemove", nn201);
+        // });
+
+    </script>
+</body>
+
+</html>

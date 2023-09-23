@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            color: #fff;
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        let canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        let arrcir = new Array();
+        let arrline = new Array();
+        let sar = new Array();
+        let cc = new Array();
+
+        function Circle(x, y, dx, dy, rad, arr) {
+            this.x = x;
+            this.y = y;
+            this.dx = dx;
+            this.dy = dy;
+            this.rad = rad;
+            this.divid = 1;
+            this.arr = arr;
+            this.re = 0;
+            this.r = 1;
+            this.ey = h / 2;
+            this.ex = w / 2;
+            this.mmas = 200;
+            let distance = 0;
+            let step = 20;
+            let xx = step;
+            let yy = step;
+
+            this.draw = function () {
+                ctx.beginPath();
+                ctx.fillStyle = `rgb(${this.x / (w / 255)}, ${this.y / (h / 255)}, ${255 - (this.y / (h / 255))})`;
+                ctx.arc(this.x, this.y, this.rad, 2 * Math.PI, false);
+                ctx.fill();
+            }
+
+            // window.addEventListener("mousemove", (e) => {
+            //     this.ex = e.x;
+            //     this.ey = e.y;
+
+            // });
+
+
+            this.update = function () {
+
+                this.re += 0.01 / 5;
+                this.x += (Math.cos(this.dy * (2 * Math.PI) * this.re) * this.arr) * this.r;
+                this.y += (Math.sin(this.dy * (2 * Math.PI) * this.re) * this.arr) * this.r;
+                this.ex += xx;
+                this.ey += yy;
+
+                if (this.ex > w - this.rad || this.ex < this.rad) {
+                    xx = -xx;
+                }
+                if (this.ey > h - this.rad || this.ey < this.rad) {
+                    yy = -yy;
+                }
+
+                this.draw();
+
+            }
+
+        }
+
+        function Lines() {
+            this.m = 0;
+
+            let distance = 0;
+            let currentPoint = new Array();
+            let otherPoint = new Array();
+            this.mas = 100;
+
+
+            this.draw = function () {
+
+                for (let i = 0; i < arrcir.length; i++) {
+                    currentPoint = arrcir[i];
+                    for (let j = 0; j < arrcir.length; j++) {
+
+                        otherPoint = arrcir[j];
+
+                        distance = Math.sqrt((otherPoint.x - currentPoint.x) * (otherPoint.x - currentPoint.x) +
+                            (otherPoint.y - currentPoint.y) * (otherPoint.y - currentPoint.y));
+
+                        if (distance < this.mas) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgb(${otherPoint.x / (w / 255)}, ${otherPoint.y / (h / 255)},
+                             ${255 - (otherPoint.y / (h / 255))}, ${1})`;
+                            ctx.lineWidth = 0.1;
+                            ctx.moveTo(currentPoint.x, currentPoint.y);
+                            ctx.lineTo(otherPoint.x, otherPoint.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+        }
+        function Sar(x, y) {
+            this.x = x;
+            this.y = y;
+            this.xx = w / 2;
+            this.yy = h / 2;
+            let mmas = 700;
+            let currentPoint = new Array();
+
+            let otherPoint = new Array();
+
+            this.draw = function () {
+                for (let i = 0; i < cc.length; i++) {
+                    currentPoint = cc[i];
+                    for (let j = 0; j < arrcir.length; j++) {
+                        otherPoint = arrcir[j];
+
+
+
+                        distance = Math.sqrt((otherPoint.x - currentPoint.x) * (otherPoint.x - currentPoint.x) +
+                            (otherPoint.y - currentPoint.y) * (otherPoint.y - currentPoint.y));
+
+
+
+
+                        if (distance < mmas) {
+                            ctx.beginPath();
+                            ctx.lineWidth = 1;
+                            ctx.strokeStyle = `rgb(${otherPoint.x / (w / 255)}, ${otherPoint.y / (h / 255)},
+                             ${255 - (otherPoint.y / (h / 255))}, ${1})`;
+                            ctx.moveTo(currentPoint.x, currentPoint.y);
+                            ctx.lineTo(otherPoint.x, otherPoint.y);
+
+                            ctx.stroke();
+
+                        }
+                    }
+
+                }
+            }
+
+            this.update = function () {
+                // this.x += this.xx;
+                // this.y += this.yy;
+                // if (this.x > w || this.x < 0) {
+                //     this.xx = -this.xx;
+                // }
+                // if (this.y > h || this.y < 0) {
+                //     this.yy = -this.yy;
+                // }
+                this.draw();
+            }
+        }
+        function CC(x, y, rad, dy, dx) {
+            this.x = x;
+            this.y = y;
+            this.rad = rad;
+            this.dy = dy;
+            this.dx = dx;
+
+            this.draw = function () {
+                ctx.beginPath();
+                ctx.fillStyle = `rgb(${this.x / (w / 255)}, ${this.y / (h / 255)}, ${255 - (this.y / (h / 255))})`;
+                ctx.arc(this.x, this.y, this.rad, 2 * Math.PI, false);
+                ctx.fill();
+            }
+            this.update = function () {
+
+
+
+
+                this.x += this.dx;
+                this.y += this.dy;
+                if (this.x > w || this.x < 0) {
+                    this.dx = -this.dx;
+                }
+                if (this.y > h || this.y < 0) {
+                    this.dy = -this.dy;
+                }
+
+                this.draw();
+            }
+
+        }
+
+        let arr = [1, -1];
+
+        let rad = 5;
+        let x = Math.random() * (w - rad);
+        let y = Math.random() * (h - rad);
+
+        sar.push(new Sar(x, y));
+
+        for (let i = 0; i < 10; i++) {
+            let rad = 5;
+            let x = Math.random() * (w - rad);
+            let y = Math.random() * (h - rad);
+            let d = 10;
+            let dx = (Math.random() * d) * arr[(Math.random() * (arr.length - 1)).toFixed("")];
+            let dy = (Math.random() * d) * arr[(Math.random() * (arr.length - 1)).toFixed("")];
+
+
+            cc.push(new CC(x, y, rad, dx, dy));
+        }
+
+        for (let i = 0; i < 600; i++) {
+            let rad = 3;
+            let x = Math.random() * (w - rad);
+            let y = Math.random() * (h - rad);
+            let d = 10;
+            let dx = (Math.random() * d) * arr[(Math.random() * (arr.length - 1)).toFixed("")];
+            let dy = (Math.random() * d) * arr[(Math.random() * (arr.length - 1)).toFixed("")];
+
+            arrcir.push(new Circle(x, y, dx, dy, rad, arr[(Math.random() * (arr.length - 1)).toFixed("")]))
+
+        }
+        arrline.push(new Lines());
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            requestAnimationFrame(animate);
+
+            for (let i = 0; i < arrcir.length; i++) {
+                arrcir[i].update();
+
+
+            }
+            // for (let i = 0; i < arrline.length; i++) {
+            //     arrline[i].draw();
+
+            // }
+            for (let i = 0; i < sar.length; i++) {
+
+                sar[i].update();
+            }
+            for (let i = 0; i < cc.length; i++) {
+
+                cc[i].update();
+            }
+        }
+        animate();
+    </script>
+
+</body>
+
+</html>

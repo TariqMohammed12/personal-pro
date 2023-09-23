@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        let canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+        window.addEventListener("resize", () => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            window.location.reload();
+        });
+        let circle = new Array();
+        let grafity = 1;
+
+        function randomInt(min, max) {
+            return Math.floor(Math.floor(Math.random() * (max - min + 1) + min));
+        }
+        class Circle {
+            constructor(x, y, dx, dy, rad, arr, fraction) {
+                this.x = x;
+                this.y = y;
+                this.x1 = x;
+                this.y1 = y;
+                this.arr = arr;
+                this.dx = dx * this.arr;
+                this.dy = dy;
+                this.rad = rad;
+                this.fraction = fraction;
+
+            }
+
+            draw = function () {
+                ctx.beginPath();
+                ctx.fillStyle = `rgb(${this.x1 / (w / 255)}, ${this.y1 / (h / 255)}, ${255 - (this.y1 / (h / 255))})`;
+                ctx.arc(this.x, this.y, this.rad, 2 * Math.PI, false);
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            update = function () {
+
+
+                if (this.y + this.rad + this.dy > h) {
+                    this.dy = -this.dy * this.fraction;
+                } else {
+                    this.dy += grafity;
+                }
+                if (this.x + this.rad + this.dx > w || this.x - this.rad <= 0) {
+                    this.dx = -this.dx;
+                }
+                this.x += this.dx;
+                this.y += this.dy;
+
+                this.draw();
+            }
+        }
+        let arr = [1, -1];
+        for (let i = 0; i < 400; i++) {
+            let rad = randomInt(10, 20);
+            let x = randomInt(rad, w - rad);
+            let y = randomInt(0, h - rad);
+            let step = 1;
+            let dx = Math.random() * 10;
+            let dy = 1;
+            let fraction = Math.random() * 0.99;
+
+            circle.push(new Circle(x, y, dx, dy, rad, arr[(Math.random() * (arr.length - 1)).toFixed("")], fraction));
+
+        }
+        window.addEventListener("click", () => {
+            window.location.reload();
+        });
+        function animate() {
+
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, w, h);
+            for (let i = 0; i < circle.length; i++) {
+                circle[i].update();
+
+            }
+        }
+        animate();
+
+
+
+    </script>
+</body>
+
+</html>

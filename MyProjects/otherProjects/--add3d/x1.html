@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="x1.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="up1" id="co">
+
+
+        <div class="vc" id="vc"></div>
+
+
+
+
+    </div>
+    <div class="up" id="pl">
+        <div class="resize" id="rez"></div>
+        <div class="sharet">
+            <div class="shar1">
+                <div class="click" id="clic" title="s">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                </div>
+                <div class="click click1" id="clic1" title="r">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="uu" id="uu">
+            <div class="cont" id="cc">
+
+                <div class="inu" id="bee">
+                    <div class="wid">
+
+                        <div class="cube7 cube" id="cube6" onclick="func(5),func1(5),func2(5)" title="Select All">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <div class="cube1 cube" id="cube0" onclick="func(0),func1(0),func2(0)"></div>
+                        <div class="cube2 cube" id="cube1" onclick="func(1),func1(1),func2(1)"></div>
+                        <div class="cube3 cube" id="cube2" onclick="func(2),func1(2),func2(2)"></div>
+                        <div class="cube4 cube" id="cube3" onclick="func(3),func1(3),func2(3)"></div>
+                        <div class="cube5 cube" id="cube4" onclick="func(4),func1(4),func2(4)"></div>
+                        <div class="cube6 cube" id="cube5" onclick="func(5),func1(5),func2(5)"></div>
+
+                    </div>
+                </div>
+                <div class="side" id="si">
+                    <div class="insid" id="insid"></div>
+                </div>
+                <div class="between">
+                    <div class="buut" id="buut0" title="Review 3d, f">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <div class="buut" id="buut5" title="Show, k">
+                        <i class="fa-solid fa-vr-cardboard"></i>
+                    </div>
+                    <div class="buut" id="buut1" title="Drowing, g">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <div class="buut" id="buut2" title="site, h">
+                        <i class="fa-brands fa-unity"></i>
+                    </div>
+                    <div class="buut" id="buut3" title="speed, j">
+                        <i class="fa-solid fa-gauge-simple"></i>
+                    </div>
+                    <div class="buut" id="buut4" title="Show, k">
+                        <i class="fa-solid fa-vr-cardboard"></i>
+                    </div>
+
+
+                </div>
+                <div class="in">
+                    <div class="vin0 vin" id="vin0">
+                        <!-- <div class="up01" id="up01">
+                            <button type="button" class="button01" id="b101">&lt;</button>
+                            <input type="text" class="text01" id="fog0" value="0" />
+                            <button type="button" class="button01" id="b201">&gt;</button>
+                          </div> -->
+                        <div class="eren">
+                            <p class="p">X</p>
+                            <input type="range" class="ran1 ran" id="fog0" min="0" max="360" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="lu0" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">Y</p>
+                            <input type="range" class="ran1 ran" id="fog1" min="0" max="360" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="lu1" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">Z</p>
+                            <input type="range" class="ran1 ran" id="fog2" min="0" max="360" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="lu2" class="input1" value="0" />
+                            </div>
+                        </div>
+
+                        <div class="eren">
+                            <p class="p">P</p>
+                            <input type="range" class="ran1 ran" id="fog4" min="0" max="2000" value="700"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="lu4" class="input1" value="700" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="vin1 vin" id="vin1">
+
+                        <div class="eren">
+                            <p class="p">R</p>
+                            <input type="range" class="rran1 ran" id="fogr0" min="0" max="255" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="lud0" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">G</p>
+                            <input type="range" class="rran1 ran" id="fogr1" min="0" max="255" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="lud1" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">B</p>
+                            <input type="range" class="rran1 ran" id="fogr2" min="0" max="255" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="lud2" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">A</p>
+                            <input type="range" class="rran1 ran" id="fogr3" min="0" max="1" value="1"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="lud3" class="input1" value="1" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">P</p>
+                            <input type="range" class="rran1 ran" id="fogr4" min="0" max="50" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="lud4" class="input1" value="0" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="vin2 vin" id="vin2">
+
+                        <div class="eren">
+                            <p class="p">X</p>
+                            <input type="range" class="rran2 ran" id="fogrx0" min="-12550" max="12550" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="ludx0" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">Y</p>
+                            <input type="range" class="rran2 ran" id="fogrx1" min="-12550" max="12550" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="ludx1" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">Z</p>
+                            <input type="range" class="rran2 ran" id="fogrx2" min="-12550" max="12550" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="ludx2" class="input1" value="0" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="vin3 vin" id="vin3">
+
+                        <div class="eren">
+                            <p class="p">R</p>
+                            <input type="range" class="rran3 ran" id="fogrz0" min="0.1" max="11000" value="4000"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="ludz0" class="input1" value="4000" />
+                            </div>
+                        </div>
+
+                        <div class="middle">
+                            <div class="bb" id="iddd">
+                                <i class="fa-solid fa-arrow-rotate-left"></i>
+                            </div>
+                        </div>
+
+                        <div class="eren">
+                            <p class="p">G</p>
+                            <input type="range" class="rran3 ran" id="fogrz1" min="0" max="1" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="ludz1" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">B</p>
+                            <input type="range" class="rran3 ran" id="fogrz2" min="-5" max="5" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="ludz2" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">A</p>
+                            <input type="range" class="rran3 ran" id="fogrz3" min="0" max="1" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="ludz3" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">P</p>
+                            <input type="range" class="rran3 ran" id="fogrz4" min="-5" max="5" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="ludz4" class="input1" value="0" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vin4 vin" id="vin4">
+
+                        <div class="show">
+                            <div class="df df1">
+                                <i class="fa-solid fa-cube"></i>
+                                <label for="she1" id="k1" class="vbn">Review</label>
+                            </div> <input type="checkbox" name="bb" id="she1" class="shek">
+                        </div>
+                        <hr>
+                        <div class="show">
+                            <div class="df df2">
+                                <i class="fa-solid fa-repeat"></i>
+                                <label for="she2" id="k2" class="vbn">Repeat</label>
+                            </div> <input type="checkbox" name="bb" id="she2" class="shek"
+                                style="pointer-events: none; opacity: 0.6;" onclick="ff()">
+                        </div>
+                        <hr>
+                        <div class="show">
+                            <div class="df df3">
+                                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                                <label for="she3" id="k3" class="vbn">Repeat-R</label>
+                            </div><input type="checkbox" name="bb" id="she3" class="shek"
+                                style="pointer-events: none; opacity: 0.6;">
+                        </div>
+                    </div>
+
+
+
+                    <div class="vin5 vin" id="vin5">
+                        <div class="eren">
+                            <p class="p">X</p>
+                            <input type="range" class="rran4 ran" id="vfogrx0" min="0" max="1000" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="vnb0" class="input1" value="0" />
+                            </div>
+                        </div>
+
+                        <div class="eren">
+                            <p class="p">Y</p>
+                            <input type="range" class="rran4 ran" id="vfogrx1" min="0" max="1000" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="vnb1" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">Z</p>
+                            <input type="range" class="rran4 ran" id="vfogrx2" min="0" max="1000" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="vnb2" class="input1" value="0" />
+                            </div>
+                        </div>
+                        <div class="eren">
+                            <p class="p">w</p>
+                            <input type="range" class="rran4 ran" id="vfogrx3" min="0" max="1000" value="0"
+                                step="0.000125" />
+                            <div class="beran">
+                                <input type="text" id="vnb3" class="input1" value="0" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="x1.js"></script>
+    <script src="light.js"></script>
+    <!-- <script src="cc.js"></script> -->
+
+</body>
+
+</html>

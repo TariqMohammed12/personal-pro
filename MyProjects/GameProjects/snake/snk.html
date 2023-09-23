@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        canvas = document.getElementById("canvas"),
+            ctx = canvas.getContext('2d');
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        let numOfCircle = 400;
+        let arrCircle = new Array();
+
+        class Circle {
+            constructor(x, y, rad, color, i) {
+                this.x = x;
+                this.y = y;
+                this.rad = rad;
+                this.color = color;
+                this.i = i;
+
+
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, this.rad, 2 * Math.PI, false);
+                ctx.fill();
+
+
+            }
+            update() {
+                this.draw();
+
+
+            }
+            func(x, y) {
+
+
+                setTimeout(() => {
+                    this.x = x;
+                    this.y = y;
+
+                }, this.i * 100);
+
+            }
+
+
+
+        }
+
+
+        function init() {
+            for (let i = 0; i < numOfCircle; i++) {
+                let rad = 10;
+                let x = w / 2;
+                let y = h / 2
+                let color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+
+                arrCircle[i] = new Circle(x, y, rad, color, i);
+            }
+            window.addEventListener("mousedown", (e) => {
+                window.addEventListener("mousemove", move);
+                window.addEventListener("click", move);
+            });
+            function move(e) {
+
+                for (let i = 0; i < arrCircle.length; i++) {
+
+                    arrCircle[i].func(e.clientX, e.clientY);
+
+                }
+            }
+
+            window.addEventListener("mouseup", (e) => {
+                window.removeEventListener("mousemove", move);
+            });
+
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+
+            requestAnimationFrame(animate);
+
+            for (let i = 0; i < arrCircle.length; i++) {
+                arrCircle[i].update();
+
+
+            }
+        }
+        init();
+        animate();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <style>
+      * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         font-family: sans-serif;
+         color: #fff;
+         outline: none;
+      }
+
+      body {
+         background-color: rgb(29, 29, 29);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         height: 100vh;
+         transform-style: preserve-3d;
+      }
+
+      ::selection {
+         background-color: rgb(255, 255, 255);
+         color: rgb(0, 0, 0);
+      }
+
+      .up {
+         width: 100%;
+         height: 100%;
+         position: relative;
+         top: 0;
+         left: 0;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-direction: row;
+      }
+
+      .form {
+         width: 441px;
+         height: 851px;
+         position: relative;
+         top: 0;
+         left: 0;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         box-shadow: 9px 9px 20px 0 rgb(0 0 0 / 50%);
+         padding: 14px 33px;
+         border-radius: 14px;
+         background-color: #1c1c1c;
+      }
+
+      .inf {
+         width: calc(100% - 2px);
+         height: calc(100% - 2px);
+         position: absolute;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         padding: 14px 33px;
+         border-radius: 14px;
+         background-color: #1c1c1c;
+      }
+
+      .slid {
+         width: 100%;
+         position: relative;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 77px;
+         margin: 10px;
+         background-color: rgb(0 0 0);
+         border-radius: 14px;
+         background: linear-gradient(90deg, black, transparent);
+         box-shadow: 5px 5px 20px 0 rgb(0 0 0 / 40%);
+         transition: 0.5s;
+         cursor: pointer;
+      }
+
+      .slid:hover {
+         background: #000;
+      }
+
+      .slid p {
+         position: absolute;
+         left: 25px;
+         font-size: 22px;
+      }
+
+      .input {
+         background-color: #2a2a2a;
+
+         outline: none;
+         color: rgb(255 255 255);
+         width: calc(100% - 2px);
+         height: calc(100% - 2px);
+         font-size: 30px;
+         text-align: center;
+         position: absolute;
+         border: none;
+
+         border-radius: 9px;
+      }
+
+      .innn {
+         width: 72px;
+         height: 92%;
+
+         position: relative;
+         border-radius: 9px;
+         right: 25px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+      }
+
+      .out {
+         padding: 1px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         background-color: #434343;
+         border-radius: 14px;
+         margin-left: 3px;
+      }
+
+      .sub {
+         color: #fff;
+         padding: 10px 60px;
+         font-size: 28px;
+         display: inline-block;
+         background: black;
+         transition: 0.3s;
+         cursor: pointer;
+         border-radius: 13px;
+         border: none;
+         box-shadow: 5px 5px 20px 0 rgb(0 0 0 / 40%);
+      }
+
+      .sub:hover {
+         background-color: #fff;
+         color: rgb(0, 0, 0);
+      }
+
+      .di {
+         width: 441px;
+         height: 851px;
+         position: relative;
+         top: 0;
+         left: 0;
+         display: flex;
+         justify-content: center;
+         align-items: flex-start;
+         flex-direction: column;
+         box-shadow: 9px 9px 20px 0 rgb(0 0 0 / 50%);
+         padding: 14px 33px;
+         display: none;
+         border-radius: 14px;
+         background-color: #1a1a1a;
+      }
+
+      .none {
+         width: 100%;
+         height: 100%;
+         position: relative;
+         visibility: collapse;
+         opacity: 0;
+         transition: 0.2s;
+      }
+
+      .par {
+         background: #383838;
+         margin: 20px 0;
+         display: none;
+         padding: 10px 14px;
+         border-radius: 7px;
+      }
+
+      .sucsess {
+         background: linear-gradient(38deg, black, #000000ab);
+         padding: 20px;
+
+         border-radius: 13px;
+         box-shadow: 5px 5px 20px 0 rgb(0 0 0 / 40%);
+      }
+
+      .sucsess1 {
+         height: 138px;
+         display: flex;
+         flex-direction: column;
+         justify-content: space-around;
+         align-items: flex-start;
+         font-size: 20px;
+         box-shadow: 5px 5px 20px 0 rgb(0 0 0 / 40%);
+      }
+
+      .suk {
+         padding: 1px;
+         margin: 9px;
+         border-radius: 13px;
+      }
+
+      .mass {
+         background-color: #434343;
+         width: 470px;
+         height: 191px;
+         position: absolute;
+         z-index: 1;
+         border-radius: 11px;
+         box-shadow: 9px 9px 20px 0 rgb(0 0 0 / 30%);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         flex-direction: column;
+         justify-content: space-around;
+         visibility: collapse;
+         transition: 0.2s;
+         opacity: 1;
+         text-align: center;
+         transform: scale3d(0, 0, 1);
+         padding: 12px;
+
+      }
+
+      .bu {
+         color: #000;
+         width: 143px;
+         height: 35px;
+         border-radius: 5px;
+         border: 1px solid #fff;
+         transition: 0.2s;
+         cursor: pointer;
+      }
+
+      .bu:hover {
+         background-color: #383838;
+         color: #fff;
+      }
+
+      .pp {
+         line-height: 26px;
+         letter-spacing: 1.5px;
+      }
+
+      .ppp {
+         width: 100%;
+         height: 20px;
+         background-color: rgb(255, 255, 255);
+         position: relative;
+      }
+
+      .ness {
+
+         height: 20px;
+         background-color: rgb(255, 0, 0);
+         position: absolute;
+         transition: 0.3s;
+      }
+
+      .ddiv {
+         width: calc(100% - 2px);
+         height: calc(100% - 2px);
+         position: absolute;
+         background: linear-gradient(90deg, #0e0e0e, rgb(56, 56, 56));
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         border-radius: 14px;
+         justify-content: flex-end;
+      }
+   </style>
+   <meta charset="UTF-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Document</title>
+</head>
+
+<body>
+   <div class="mass" id="kk">
+      <p id="exa" class="pp"></p>
+      <p id="exa1" class="pp"></p>
+      <button type="button" class="bu" onclick="funn()">Agree</button>
+
+   </div>
+
+   <script>
+      let sum = 0,
+         input,
+         avg = 0,
+         shar = 0,
+         pol = 0,
+         pol1 = 0;
+      let go = [];
+      let arr = [
+         "Arabic",
+         "English",
+         "History",
+         "Mathmatics",
+         "Religoin",
+         "Geografy",
+         "Scientific",
+         "Tecnology",
+      ];
+      let jk1 = document.getElementById('kk');
+      let vip = document.getElementById("exa");
+      let vip1 = document.getElementById("exa1");
+      let aa = [];
+      let aa1 = [];
+      let fg = 0;
+      let poss = document.documentElement;
+      let fg1 = 0;
+
+      document.write(`<div class="up"><form action="#" class="form"><div class="inf">`);
+
+      for (let i = 0; i < arr.length; i++) {
+         document.write(
+            `<div class="slid" id="slid" onclick="ffun(${i})"><div id="ddiv" class="ddiv"><p>${arr[i]}</p><div class="innn" id="inn${i}"><input type="text"  class="input" id="in${i}" value="100" required></div></div></div>`
+         );
+
+
+      }
+      document.write(
+         `<input type="submit" class="sub" id="sub" value="calculate"></div></form>`
+      );
+
+
+
+      function ffun(ir) {
+         document.getElementById('in' + ir).focus();
+      }
+
+
+
+
+      document.getElementById("sub").onclick = function () {
+         for (let i1 = 0; i1 < arr.length; i1++) {
+            go[i1] = document.getElementById("in" + i1);
+         }
+
+         if (
+            go[0].value <= 150 &&
+            go[0].value >= 0 &&
+            go[1].value <= 150 &&
+            go[1].value >= 0 &&
+            go[2].value <= 100 &&
+            go[2].value >= 0 &&
+            go[3].value <= 100 &&
+            go[3].value >= 0 &&
+            go[4].value <= 100 &&
+            go[4].value >= 0 &&
+            go[5].value <= 100 &&
+            go[5].value >= 0 &&
+            go[6].value <= 100 &&
+            go[6].value >= 0 &&
+            go[7].value <= 100 &&
+            go[7].value >= 0
+         ) {
+
+
+            for (let b1 = 0; b1 < arr.length; b1++) {
+               if (go[b1].value != "") {
+                  shar += 1;
+               }
+            }
+
+            if (shar == 8) {
+               shar = 0;
+
+               if (go[4].value < 50 || go[5].value < 50) {
+                  go[4].value = 0;
+                  go[5].value = 0;
+               }
+               if (go[6].value < 50 || go[7].value < 50) {
+                  go[6].value = 0;
+                  go[7].value = 0;
+               }
+
+
+               document.getElementById("nnn").style.display = "flex";
+               document.getElementById("fee").style.visibility = "unset";
+               document.getElementById("fee").style.opacity = "1";
+               if (go[0].value < 75) {
+                  document.getElementById("you0").style.display = "block";
+                  document.getElementById("you10").style.display = "none";
+                  document.getElementById("you0").innerHTML =
+                     arr[0] + "__________" + " " + "[" + go[0].value + "]";
+                  pol++;
+               } else if (go[0].value == 150) {
+                  document.getElementById("you10").style.display = "block";
+                  document.getElementById("you0").style.display = "none";
+                  document.getElementById("you10").innerHTML =
+                     arr[0] + "__________" + " " + "[" + go[0].value + "]";
+                  pol1++;
+               } else {
+                  document.getElementById("you0").style.display = "none";
+               }
+               if (go[1].value < 75) {
+                  document.getElementById("you1").style.display = "block";
+                  document.getElementById("you11").style.display = "none";
+                  document.getElementById("you1").innerHTML =
+                     arr[1] + "__________" + " " + "[" + go[1].value + "]";
+                  pol++;
+               } else if (go[1].value == 150) {
+                  document.getElementById("you11").style.display = "block";
+                  document.getElementById("you1").style.display = "none";
+                  document.getElementById("you11").innerHTML =
+                     arr[1] + "__________" + " " + "[" + go[1].value + "]";
+                  pol1++;
+               } else {
+                  document.getElementById("you1").style.display = "none";
+               }
+
+               for (let i9 = 2; i9 < 8; i9++) {
+                  if (go[i9].value < 50) {
+                     document.getElementById("you" + i9).style.display = "block";
+                     document.getElementById("you" + i9).innerHTML =
+                        arr[i9] + "__________" + " " + "[" + go[i9].value + "]";
+                     pol++;
+                  } else {
+                     document.getElementById("you" + i9).style.display = "none";
+                  }
+               }
+
+               for (let i9 = 2; i9 < 8; i9++) {
+                  if (go[i9].value == 100) {
+                     document.getElementById("you1" + i9).style.display = "block";
+                     document.getElementById("you1" + i9).innerHTML =
+                        arr[i9] + "__________" + " " + "[" + go[i9].value + "]";
+                     pol1++;
+                  } else {
+                     document.getElementById("you1" + i9).style.display = "none";
+                  }
+               }
+
+               document.getElementById("spa").innerHTML = "[" + pol + "]";
+               document.getElementById("spa1").innerHTML = "[" + pol1 + "]";
+               pol = 0;
+               pol1 = 0;
+
+
+
+               sum = (go[4].value > go[5].value || go[4].value == 100 && go[6].value > go[7].value || go[6].value == 100)
+                  ? Number(go[0].value) +
+                  Number(go[1].value) +
+                  Number(go[2].value) +
+                  Number(go[3].value) +
+                  Number(go[4].value) +
+                  Number(go[6].value)
+                  : (go[4].value < go[5].value || go[5].value == 100 && go[6].value < go[7].value || go[7].value == 100)
+                     ? Number(go[0].value) +
+                     Number(go[1].value) +
+                     Number(go[2].value) +
+                     Number(go[3].value) +
+                     Number(go[5].value) +
+                     Number(go[7].value)
+                     : (go[4].value < go[5].value || go[5].value == 100 && go[6].value > go[7].value || go[6].value == 100)
+                        ? Number(go[0].value) +
+                        Number(go[1].value) +
+                        Number(go[2].value) +
+                        Number(go[3].value) +
+                        Number(go[5].value) +
+                        Number(go[6].value)
+                        : (go[4].value > go[5].value || go[4].value == 100 && go[6].value < go[7].value || go[7].value == 100)
+                           ? Number(go[0].value) +
+                           Number(go[1].value) +
+                           Number(go[2].value) +
+                           Number(go[3].value) +
+                           Number(go[4].value) +
+                           Number(go[7].value)
+                           : (go[4].value == go[5].value && go[6].value > go[7].value || go[6].value == 100)
+                              ? Number(go[0].value) +
+                              Number(go[1].value) +
+                              Number(go[2].value) +
+                              Number(go[3].value) +
+                              Number(go[5].value) +
+                              Number(go[6].value)
+                              : (go[4].value == go[5].value && go[6].value < go[7].value || go[7].value == 100)
+                                 ? Number(go[0].value) +
+                                 Number(go[1].value) +
+                                 Number(go[2].value) +
+                                 Number(go[3].value) +
+                                 Number(go[5].value) +
+                                 Number(go[7].value)
+                                 : (go[4].value > go[5].value || go[4].value == 100 && go[6].value == go[7].value)
+                                    ? Number(go[0].value) +
+                                    Number(go[1].value) +
+                                    Number(go[2].value) +
+                                    Number(go[3].value) +
+                                    Number(go[4].value) +
+                                    Number(go[6].value)
+                                    : (go[4].value < go[5].value || go[5].value == 100 && go[6].value == go[7].value)
+                                       ? Number(go[0].value) +
+                                       Number(go[1].value) +
+                                       Number(go[2].value) +
+                                       Number(go[3].value) +
+                                       Number(go[5].value) +
+                                       Number(go[6].value)
+                                       : Number(go[0].value) +
+                                       Number(go[1].value) +
+                                       Number(go[2].value) +
+                                       Number(go[3].value) +
+                                       Number(go[5].value) +
+                                       Number(go[6].value);
+
+               avg = sum / 7;
+               document.getElementById("sel").innerHTML =
+                  "The Sum is :" + " " + "[" + sum + "]";
+               document.getElementById("sel1").innerHTML =
+                  "The Average is :" + " " + "[" + avg.toFixed(2) + "%" + "]";
+
+               document.getElementById("hhh").style.width = avg + "%";
+               let df = avg * 255 / 100;
+               document.getElementById("hhh").style.backgroundColor = "rgba(0," + df + ",0,1)";
+
+
+               sum = 0;
+               avg = 0;
+
+            } else {
+
+               shar = 0;
+               document.getElementById("fee").style.visibility = "collapse";
+               document.getElementById("fee").style.opacity = "0";
+
+            }
+
+         } else {
+
+            jk1.style.visibility = "unset";
+            jk1.style.opacity = "1";
+            jk1.style.transform = "unset";
+
+            for (let i = 0; i < 2; i++) {
+
+               if (go[i].value < 0 || go[i].value > 150) {
+
+                  aa[i] = arr[i];
+                  fg++;
+               }
+
+            }
+
+            for (let i = 2; i < 8; i++) {
+
+               if (go[i].value < 0 || go[i].value > 100) {
+
+                  aa1[i] = arr[i];
+                  fg1++;
+               }
+
+            }
+            if (fg > 0) {
+               vip.innerHTML = "Please Enter The Exam " + aa.join(" ") + " Sign Between 1 - 150";
+               aa = [""];
+            }
+            if (fg1 > 0) {
+               vip1.innerHTML = "Please Enter The Exam " + aa1.join(" ") + " Sign Between 1 - 100";
+               aa1 = [""];
+            }
+
+
+
+         }
+      };
+
+
+      function funn() {
+
+         jk1.style.visibility = "collapse";
+         jk1.style.opacity = "0";
+         jk1.style.transform = "scale3d(0,0,1)";
+      }
+
+      function funn1() {
+         document.getElementById('kk').style.display = "none";
+
+      }
+
+      document.write(`<div class="out" id="out"><div class="di" id="nnn">
+         <div class="none" id="fee">
+            <div id="suk" class="suk"><div class="sucsess sucsess1">
+<p id="sel"></p>
+<p id="sel1"></p>
+<div class="ppp"><p class="ness" id="hhh"></p></div></div>
+</div>
+<div id="suk1" class="suk"><div class="sucsess">
+<p>Items your failled with <span id="spa">0</span> :</p>`);
+
+
+
+
+
+      for (let r1 = 0; r1 < 8; r1++) {
+         document.write(`<p class="par" id="you${r1}"></p>`);
+
+      }
+      document.write(
+         `</div></div><div id="suk2" class="suk"><div class="sucsess">
+         <p>Items your sucssed with <span id="spa1">0</span> :</p>`
+      );
+      for (let r1 = 0; r1 < 8; r1++) {
+         document.write(`<p class="par" id="you1${r1}"></p>`);
+
+      }
+      document.write(`</div></div>
+      </div>
+</div>
+</div>
+</div></div>`);
+
+      window.addEventListener("mousemove", function (e) {
+
+         let car = this.document.getElementById("suk").getBoundingClientRect(),
+            xaxis1 = e.pageX - car.left,
+            yaxis1 = e.pageY - window.scrollY - car.top;
+         let carx = this.document.getElementById("suk1").getBoundingClientRect(),
+            xaxis1x = e.pageX - carx.left,
+            yaxis1x = e.pageY - window.scrollY - carx.top;
+
+         let carxz = this.document.getElementById("suk2").getBoundingClientRect(),
+            xaxis1xz = e.pageX - carxz.left,
+            yaxis1xz = e.pageY - window.scrollY - carxz.top;
+         let carxzg = this.document.getElementById("out").getBoundingClientRect(),
+            xaxis1xzg = e.pageX - carxzg.left,
+            yaxis1xzg = e.pageY - window.scrollY - carxzg.top;
+
+         if (xaxis1 < car.width + 100 && xaxis1 > -100 && yaxis1 < car.height + 100 && yaxis1 > -100) {
+            poss.style.setProperty("--xk", xaxis1 + "px");
+            poss.style.setProperty("--yk", yaxis1 + "px");
+         } else {
+            poss.style.setProperty("--xk", -(100) + "px");
+            poss.style.setProperty("--yk", -(100) + "px");
+         }
+         if (xaxis1x < carx.width + 100 && xaxis1x > -100 && yaxis1x < carx.height + 100 && yaxis1x > -100) {
+            poss.style.setProperty("--xkc", xaxis1x + "px");
+            poss.style.setProperty("--ykc", yaxis1x + "px");
+         } else {
+            poss.style.setProperty("--xkc", -(100) + "px");
+            poss.style.setProperty("--ykc", -(100) + "px");
+         }
+         if (xaxis1xz < carxz.width + 100 && xaxis1xz > -100 && yaxis1xz < carxz.height + 100 && yaxis1xz > -100) {
+            poss.style.setProperty("--xkcz", xaxis1xz + "px");
+            poss.style.setProperty("--ykcz", yaxis1xz + "px");
+         } else {
+            poss.style.setProperty("--xkcz", -(100) + "px");
+            poss.style.setProperty("--ykcz", -(100) + "px");
+         }
+         if (xaxis1xzg < carxzg.width + 100 && xaxis1xzg > -100 && yaxis1xzg < carxzg.height + 100 && yaxis1xzg > -100) {
+            poss.style.setProperty("--xkcza", xaxis1xzg + "px");
+            poss.style.setProperty("--ykcza", yaxis1xzg + "px");
+         } else {
+            poss.style.setProperty("--xkcza", -(100) + "px");
+            poss.style.setProperty("--ykcza", -(100) + "px");
+         }
+         document.getElementById("suk").style.background = `radial-gradient(
+circle at var(--xk) var(--yk),
+#fff 3px,
+rgb(27 27 27) 100px
+)`;
+         document.getElementById("suk1").style.background = `radial-gradient(
+circle at var(--xkc) var(--ykc),
+#fff 3px,
+rgb(27 27 27) 100px
+)`;
+         document.getElementById("suk2").style.background = `radial-gradient(
+circle at var(--xkcz) var(--ykcz),
+#fff 3px,
+rgb(27 27 27) 100px
+)`;
+         document.getElementById("out").style.background = `radial-gradient(
+circle at var(--xkcza) var(--ykcza),
+#fff 3px,
+rgb(27 27 27) 100px
+)`;
+      });
+   </script>
+   <script src="light.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            color: #fff;
+        }
+
+        body {
+            background-color: #000000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            cursor: none;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        let canv = document.getElementById("canvas"),
+            ctx = canv.getContext('2d');
+        let cir = new Array();
+        let lines = new Array();
+        let enemy = new Array();
+        let lineenemyoa = new Array();
+        let w = canv.width = window.innerWidth;
+        let h = canv.height = window.innerHeight;
+        let s = 20;
+
+        let back = new Array();
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        window.addEventListener("resize", () => {
+            w = canv.width = window.innerWidth;
+            h = canv.height = window.innerHeight;
+        });
+
+
+        function plan(x, y) {
+            this.x = x;
+            this.y = y;
+            let x1 = 0;
+            let y1 = 0;
+            window.addEventListener("mousemove", (e) => {
+                this.x = e.x;
+                this.y = e.y;
+            });
+            this.draw = () => {
+                ctx.lineWidth = 7;
+                ctx.beginPath();
+                ctx.strokeStyle = `#0ff`;
+                ctx.fillStyle = "#4a0032";
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x - 20, this.y - 20);
+                ctx.lineTo(this.x - 20, this.y + 20);
+                ctx.lineTo(this.x, this.y);
+                ctx.lineTo(this.x - 20, this.y - 20);
+                ctx.lineTo(this.x - 50, this.y - 30);
+                ctx.lineTo(this.x - 90, this.y - 90);
+                ctx.lineTo(this.x - 90, this.y + 90);
+                ctx.lineTo(this.x - 50, this.y + 30);
+                ctx.lineTo(this.x - 20, this.y + 20);
+                ctx.stroke();
+                ctx.fill();
+                ctx.beginPath();
+                ctx.fillStyle = "#2e001f";
+                ctx.moveTo(this.x - 90, this.y - 20);
+                ctx.lineTo(this.x - 170, this.y - 50);
+                ctx.lineTo(this.x - 170, this.y - 20);
+                ctx.lineTo(this.x - 120, this.y - 0);
+                ctx.lineTo(this.x - 170, this.y + 20);
+                ctx.lineTo(this.x - 170, this.y + 50);
+                ctx.lineTo(this.x - 90, this.y + 20);
+                ctx.stroke();
+                ctx.fill();
+
+
+                for (let i = 0; i < enemy.length; i++) {
+                    for (let j = 0; j < enemy.length; j++) {
+
+                        if (this.x >= enemy[j].x && this.x <= enemy[j].x + 120 &&
+                            this.y >= enemy[j].y - (200) && this.y <= enemy[j].y + ((200))) {
+                            ctx.beginPath();
+                            ctx.moveTo(this.x, this.y);
+                            for (let k = 0; k < 20; k++) {
+                                ctx.lineTo(this.x + x1, this.y + y1);
+
+                                this.update();
+
+                            }
+                            funcbov(cir[0]);
+                            Object.prototype.sheke = false;
+                            document.body.style.cursor = "unset";
+                            ctx.stroke();
+                            cir.shift();
+
+
+                        }
+                    }
+                }
+            }
+
+            this.update = () => {
+                x1++;
+                y1++;
+            }
+        }
+        class Bov {
+            constructor(x, y, sheke, dx, dy, r, g, b) {
+                this.x = x;
+                this.y = y;
+                this.sheke = sheke;
+                this.dx = dx;
+                this.dy = dy;
+                this.m = 1;
+
+                this.r = r;
+                this.g = g;
+                this.b = b;
+            }
+
+            draw = function () {
+                if (this.sheke == true) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgb(${this.r}, ${this.g}, ${this.b}, ${this.m -= 0.01}`;
+                    ctx.lineWidth = 20;
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x, this.y);
+                    ctx.stroke();
+                    this.update();
+                }
+            }
+            update = function () {
+                this.x += this.dx;
+                this.y += this.dy;
+            }
+        }
+        function line(x, y, step, rad) {
+            this.x = x;
+            this.y = y;
+            this.step = step;
+            this.rad = rad;
+
+
+            this.draw = () => {
+                ctx.beginPath();
+                ctx.strokeStyle = `#0ff`;
+                ctx.lineWidth = 4;
+                ctx.moveTo(this.x - 20, this.y);
+                ctx.lineTo(this.x, this.y);
+                ctx.stroke();
+
+            }
+            this.update = () => {
+
+                for (let i = 0; i < enemy.length; i++) {
+                    for (let j = 0; j < enemy.length; j++) {
+
+                        if (this.x >= enemy[j].x - (rad - s) && this.x <= enemy[j].x + ((rad * 2) + s) &&
+                            this.y >= enemy[j].y - (100 - s) && this.y <= enemy[j].y + ((100 * 2)) + s) {
+                            funcbov(enemy[j]);
+                            enemy[j].x = w + rad;
+
+                            lines.shift();
+
+
+                        }
+                    }
+
+                }
+
+
+
+                this.x += step;
+                if (this.x - this.rad >= w || this.y - this.rad >= h) {
+                    lines.shift();
+
+                }
+                this.draw();
+            }
+
+        }
+        function enemyo(x, y, speedE, rad) {
+            this.x = x;
+            this.y = y;
+            this.speedE = speedE;
+            this.rad = rad;
+            let x1 = this.x;
+            let di = 2;
+            this.draw = () => {
+                ctx.beginPath();
+                ctx.strokeStyle = `#f00`;
+                ctx.fillStyle = "#ff0";
+                ctx.lineWidth = 4;
+                ctx.fillStyle = "#ff0";
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x + 20 / di, this.y + 20 / di);
+                ctx.lineTo(this.x + 20 / di, this.y - 20 / di);
+                ctx.lineTo(this.x, this.y);
+                ctx.lineTo(this.x + 20 / di, this.y + 20 / di);
+                ctx.lineTo(this.x + 50 / di, this.y + 30 / di);
+                ctx.lineTo(this.x + 90 / di, this.y + 90 / di);
+                ctx.lineTo(this.x + 90 / di, this.y - 90 / di);
+                ctx.lineTo(this.x + 50 / di, this.y - 30 / di);
+                ctx.lineTo(this.x + 20 / di, this.y - 20 / di);
+                ctx.stroke();
+                ctx.fill();
+                ctx.beginPath();
+                ctx.moveTo(this.x + 90 / di, this.y + 20 / di);
+                ctx.lineTo(this.x + 170 / di, this.y + 50 / di);
+                ctx.lineTo(this.x + 170 / di, this.y + 20 / di);
+                ctx.lineTo(this.x + 120 / di, this.y + 0);
+                ctx.lineTo(this.x + 170 / di, this.y - 20 / di);
+                ctx.lineTo(this.x + 170 / di, this.y - 50 / di);
+                ctx.lineTo(this.x + 90 / di, this.y - 20 / di);
+                ctx.stroke();
+                ctx.fill();
+
+
+
+
+            }
+            this.update = () => {
+
+                if (this.x <= -190) {
+                    this.x = w + this.rad;
+                    this.y = Math.random() * (h - this.rad);
+                }
+                this.x -= this.speedE;
+
+
+                this.draw();
+
+
+            }
+        }
+        function bacground(x, y, rad, step) {
+
+            this.x = x;
+            this.y = y;
+            this.rad = rad;
+            this.step = step;
+            this.draw = () => {
+
+                ctx.beginPath();
+                ctx.fillStyle = "#fff";
+                ctx.arc(this.x, this.y, rad, 2 * Math.PI, false);
+                ctx.fill();
+            }
+            this.update = () => {
+
+                this.x -= this.step;
+                if (this.x + this.rad <= 0) {
+                    this.x = w + this.rad;
+                }
+                this.draw();
+            }
+        }
+
+        let bov = new Array();
+
+        function funcbov(thiss) {
+            for (let i = 0; i < 20; i++) {
+                if (Object.prototype.sheke == true) {
+                    let x = thiss.x;
+                    let y = thiss.y;
+                    let dx = Math.random() * 4;
+                    let dy = Math.random() * 4;
+                    let r = 0;
+                    let g = 0;
+                    let b = 0;
+                    if (!(thiss == cir[0])) {
+                        r = 255;
+                        g = 0;
+                        b = 0;
+                    } else {
+                        r = 0;
+                        g = 255;
+                        b = 255;
+                    }
+                    bov.push(new Bov(x, y, true, dx, dy, r, g, b));
+                    setTimeout(() => {
+                        bov.shift();
+                    }, 2000);
+                }
+
+            }
+
+        }
+
+
+        function lineenemyo(x, y) {
+            this.x = x;
+            this.y = y;
+            let x1 = 0;
+
+            this.draw = () => {
+
+                ctx.beginPath();
+                ctx.lineWidth = 7;
+                ctx.fillStyle = "#f00";
+
+                ctx.arc(this.x - x1, this.y, 5, 2 * Math.PI, false);
+                ctx.fill();
+
+
+            }
+            this.update = function () {
+                this.x -= 7;
+                this.draw();
+            }
+        }
+        for (let i = 0; i < 200; i++) {
+            let x = Math.random() * w;
+            let y = Math.random() * h;
+            let rad = (Math.random() * 2);
+            let step = Math.random() * 1;
+
+            back.push(new bacground(x, y, rad, step));
+
+        }
+
+        x = w / 2;
+        y = h / 2;
+
+
+        cir.push(new plan(x, y));
+
+        Object.prototype.sheke = true;
+
+
+
+
+        window.addEventListener("mousedown", (e) => {
+            func(e);
+
+            window.addEventListener("mousemove", func1);
+
+        });
+        window.addEventListener("click", func0);
+
+        function func0(e) {
+
+            linee(e);
+
+        }
+        let tt = null;
+
+        function func(e) {
+            tt = setInterval(() => {
+
+                linee(e);
+
+
+
+            }, 100);
+        }
+        let time = 0;
+        function func1(e) {
+
+            clearInterval(tt);
+            if (time % 5 == 0) {
+
+                linee(e);
+                time = 0;
+            }
+
+            time++;
+
+        }
+        let sh = true;
+        function linee(e) {
+            if (Object.prototype.sheke) {
+                let step = 30;
+                let rad = 10;
+
+                let y = e.clientY;
+                if (Object.prototype.sheke) {
+                    if (sh) {
+                        cir[0].x = cir[0].x + 5;
+
+                        sh = false;
+                    } else {
+                        cir[0].x = cir[0].x - 5;
+                        sh = true;
+
+                    }
+                }
+
+                lines.push(new line(cir[0].x, y, step, rad));
+            }
+        }
+
+        window.addEventListener("mouseup", () => {
+            clearInterval(tt);
+            window.removeEventListener("mousemove", func1);
+        });
+        let i = 0;
+        let t = setInterval(ene, 1000);
+        function ene() {
+            let rad = 20;
+            let speedE = (Math.random() + 1) * 2;
+            let x = w + rad;
+            let y = Math.random() * (h - rad);
+            if (i == 10) {
+                clearInterval(t);
+
+            }
+            enemy.push(new enemyo(x, y, speedE, rad));
+            setInterval(() => {
+                enemy.push(new lineenemyo(x, y));
+            }, 1000);
+
+            i++;
+
+        }
+
+
+
+
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            requestAnimationFrame(animate);
+            for (let i = 0; i < back.length; i++) {
+
+                back[i].update();
+            }
+            for (let i = 0; i < lines.length; i++) {
+
+                lines[i].update();
+            }
+            for (let i = 0; i < cir.length; i++) {
+                if (Object.prototype.sheke) {
+                    cir[i].draw();
+                }
+            }
+            for (let i = 0; i < lineenemyoa.length; i++) {
+
+                lineenemyoa[i].update();
+            }
+            for (let i = 0; i < enemy.length; i++) {
+
+                enemy[i].update();
+            }
+            for (let i = 0; i < bov.length; i++) {
+
+                bov[i].draw();
+            }
+
+        }
+        animate();
+    </script>
+</body>
+
+</html>

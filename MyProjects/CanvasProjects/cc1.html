@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            color: #fff;
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        canvas {
+            background-color: #121212;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        let cax = document.getElementById("canvas"),
+            ctxx = cax.getContext('2d');
+        let w1 = cax.width = window.innerWidth;
+        let h1 = cax.height = window.innerHeight;
+        let areac = new Array();
+        let area1l = new Array();
+        let step = 5;
+        let num1 = w1 / 20;
+        let mas = 200;
+   let currentPoint = new Array();
+            let otherPoint = new Array();
+            let distance = 0;
+        function lines(x, y, rad, dx, dy) {
+            this.x = x;
+            this.y = y;
+            this.m = 10;
+            this.m1 = 20;
+            this.dx = dx;
+            this.dy = dy;
+            this.radus = rad;
+         
+
+            this.draw1_ = () => {
+                for (let i = 0; i < areac.length; i++) {
+
+                    currentPoint = areac[i];
+                    for (let j = 0; j < areac.length; j++) {
+                        otherPoint = areac[j];
+                        if (otherPoint == currentPoint) {
+                            continue;
+                        }
+
+                        distance = Math.sqrt((otherPoint.x - currentPoint.x) * (otherPoint.x - currentPoint.x) +
+                            (otherPoint.y - currentPoint.y) * (otherPoint.y - currentPoint.y));
+
+                        if (distance <= mas) {
+                            ctxx.beginPath();
+                            ctxx.strokeStyle = `rgb(${currentPoint.x / (w1 / 255)}, ${255 - currentPoint.y / (h1 / 255)}, ${currentPoint.y / (h1 / 255)
+                                }, ${1 - (distance / mas)})`;
+                            ctxx.lineWidth = 1;
+
+                            ctxx.moveTo(currentPoint.x, currentPoint.y);
+                            ctxx.lineTo(otherPoint.x, otherPoint.y);
+                            ctxx.stroke();
+                        }
+
+                    }
+                }
+            }
+        }
+        function circlec(x, y, rad, dx, dy) {
+            this.x = x;
+            this.y = y;
+            this.e = Math.random() * 1;
+            this.ma = Math.random() * 2;
+            this.pls = Math.random() * 0.1;
+            this.m = 10;
+            this.m1 = 20;
+            this.dx = dx;
+            this.dy = dy;
+            this.radus = rad;
+
+
+            this.draw_ = function () {
+
+
+
+                ctxx.beginPath();
+                ctxx.fillStyle = `rgb(${this.x / (w1 / 255)}, ${255 - this.y / (h1 / 255)}, ${this.y / (h1 / 255)
+                    }, ${1})`;
+                ctxx.arc(this.x, this.y, rad, 2 * Math.PI, false);
+                ctxx.fill();
+
+            }
+            this.update_ = function () {
+                if (this.x + this.radus > w1 || this.x - this.radus < 0) {
+                    this.dx = -this.dx;
+                }
+                if (this.y + this.radus > h1 || this.y - this.radus < 0) {
+                    this.dy = -this.dy;
+                }
+
+
+                this.y += this.dy;
+                this.x += this.dx;
+                this.draw_();
+
+            }
+        }
+
+
+
+        let arr = [1, -1];
+        for (let i = 0; i < num1; i++) {
+
+
+
+            let rad = 5;
+            let x = Math.random() * w1;
+            let y = Math.random() * h1;
+            let dx = (Math.random() * step) * Number(arr[(Math.random() * (arr.length - 1)).toFixed("")]);
+            let dy = (Math.random() * step) * Number(arr[(Math.random() * (arr.length - 1)).toFixed("")]);
+
+            areac.push(new circlec(x, y, rad, dx, dy));
+
+
+
+        }
+
+
+        let area1 = new lines(w1 / 2, h1 / 2, 60, 6, 6);
+
+
+
+        function animater() {
+            requestAnimationFrame(animater);
+            ctxx.clearRect(0, 0, w1, h1);
+            for (let i = 0; i < areac.length; i++) {
+                areac[i].update_();
+
+            }
+
+            area1.draw1_();
+
+
+
+        }
+        animater();
+    </script>
+</body>
+
+</html>

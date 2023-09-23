@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #fff;
+            font-family: "La Belle Aurore", cursive;
+            user-select: none;
+            cursor: none;
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        canvas {
+            position: absolute;
+        }
+
+        .div {
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        h1 {
+            color: #fff;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="div" id="div">
+        <!-- <h1>TARIQ MOHAMMAD</h1> -->
+    </div>
+
+    <script>
+        let cax = document.getElementById("canvas"),
+            ctxx = cax.getContext('2d');
+        let div = document.getElementById("div");
+        ctxx.imageSmoothingQuality = "high";
+        let w = cax.width = window.innerWidth;
+        let h = cax.height = window.innerHeight;
+        let wid = 1.5;
+        window.addEventListener("resize", () => {
+            cax.width = window.innerWidth;
+            cax.height = window.innerHeight;
+        });
+        let area = new Array();
+        let area1 = new Array();
+        let area2 = new Array();
+        let area3 = new Array();
+        let numberPointes = 500;
+        let mas = 400;
+
+
+        div.style.height = h + "px";
+        ctxx.lineCap = "round";
+        ctxx.lineJoin = "round";
+
+        const getRandomInt = (min, max, low) => {
+            if (low) return Math.floor(Math.random() * Math.random() * (max - min)) + min;
+            else return Math.floor(Math.random() * (max - min)) + min;
+        };
+
+
+
+
+
+        function circle(x, y, rad, dx, dy) {
+
+            this.x = x;
+            this.y = y;
+            this.e = Math.random() * 1;
+            this.ma = Math.random() * 2;
+            this.pls = Math.random() * 0.1;
+            this.m = 10;
+            this.m1 = 20;
+            this.dx = dx;
+            this.dy = dy;
+
+            this.radus = rad;
+            let currentPoint = new Array();
+            let otherPoint = new Array();
+            let distance = 0;
+
+
+            this.draw = function () {
+
+
+                ctxx.beginPath();
+                ctxx.fillStyle = `rgb(${this.x / (w / 255)}, ${255 - this.y / (h / 255)}, ${this.y / (h / 255)
+                    }, ${1})`;
+                ctxx.arc(this.x, this.y, rad, 2 * Math.PI, false);
+                ctxx.fill();
+
+            }
+            this.update = () => {
+
+                if (this.x + this.radus > w || this.x - this.radus < 0) {
+                    this.dx = -this.dx;
+                }
+                if (this.y + this.radus > h || this.y - this.radus < 0) {
+                    this.dy = -this.dy;
+                }
+                if (this.x - this.radus < 0) {
+                    this.x = w - this.radus;
+                }
+
+                this.y += this.dy;
+                this.x += this.dx;
+
+
+
+                // this.x += 2;
+                // if (this.x > w - rad) {
+                //     this.x = rad;
+                // }
+
+                this.draw();
+            }
+
+        }
+
+        function circle1(x1, y1, wid) {
+
+            let currentPoint = new Array();
+            let otherPoint = new Array();
+            let distance = 0;
+            this.x1 = x1;
+            this.y1 = y1;
+            this.wid = wid;
+            this.draw1 = function () {
+                for (let i = 0; i < area.length; i++) {
+
+
+
+
+
+                    currentPoint = area[i];
+
+                    distance = Math.sqrt((this.x1 - currentPoint.x) * (this.x1 - currentPoint.x) +
+                        (this.y1 - currentPoint.y) * (this.y1 - currentPoint.y));
+                    distance1 = Math.sqrt((otherPoint.x - currentPoint.x) * (otherPoint.x - currentPoint.x) +
+                        (otherPoint.x - currentPoint.y) * (otherPoint.x - currentPoint.y));
+                    if (distance <= mas) {
+                        ctxx.strokeStyle = `rgb(${this.x1 / (w / 255)}, ${255 - this.y1 / (h / 255)}, ${this.y1 / (h / 255)
+                            }, ${1 - (distance / mas)})`;
+                        ctxx.lineWidth = this.wid;
+                        ctxx.beginPath();
+
+
+
+
+
+                        ctxx.moveTo(this.x1, this.y1);
+                        ctxx.quadraticCurveTo(currentPoint.x - 20, currentPoint.y - 60, currentPoint.x, currentPoint.y);
+
+                        ctxx.stroke();
+
+
+                    } else {
+                        area1.shift();
+
+                    }
+
+
+
+
+
+
+
+                }
+            }
+
+        }
+
+        function circle2(x1, y1, wid) {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.wid = wid;
+            this.max = 0;
+            this.max1 = 0;
+
+            this.draw2 = () => {
+
+                ctxx.lineWidth = wid;
+                ctxx.strokeStyle = `rgb(${this.x1 / (w / 255)}, ${255 - this.y1 / (h / 255)}, ${this.y1 / (h / 255)
+                    }, ${1})`;
+                ctxx.lineTo(this.x1, this.y1);
+                ctxx.stroke();
+            }
+
+
+        }
+
+
+        let cur = 100;
+        let bv = 0;
+        let step = 0.2;
+        for (let i = 0; i < numberPointes; i++) {
+
+
+
+            let rad = Math.random() * 2;
+            let x = Math.random() * w;
+            let y = Math.random() * h;
+            let dx = Math.random() * step;
+            let dy = Math.random() * step;
+
+
+            area.push(new circle(x, y, rad, dx, dy));
+
+        }
+
+
+
+
+        window.addEventListener("mousemove", func);
+        window.addEventListener("touchstart", (e) => {
+            [...e.changedTouches].forEach((e) => {
+                func(e);
+
+            });
+        });
+
+        window.addEventListener("touchmove", (e) => {
+            [...e.changedTouches].forEach((e) => {
+                func(e);
+
+            });
+        });
+
+
+        function func(e) {
+
+            let x1 = e.clientX;
+            let y1 = e.clientY;
+
+            area1.push(new circle1(x1, y1, wid));
+
+        }
+
+        window.addEventListener("mousemove", (e) => {
+            let x1 = e.clientX;
+            let y1 = e.clientY;
+            area2.push(new circle2(x1, y1, 20));
+
+            setTimeout(() => {
+                area2.shift();
+            }, 800);
+        });
+
+        window.addEventListener("click", (e) => {
+            let x1 = e.clientX;
+            let y1 = e.clientY;
+            area3.push(new circle3(x1, y1, 20));
+
+            // setTimeout(() => {
+            //     area3.shift();
+            // }, 800);
+        });
+
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctxx.clearRect(0, 0, w, h);
+            for (let i = 0; i < area.length; i++) {
+
+                area[i].update();
+            }
+
+
+
+
+            for (let i = 0; i < area1.length; i++) {
+
+                area1[i].draw1();
+
+
+            }
+            ctxx.beginPath();
+            for (let i = 0; i < area2.length; i++) {
+
+                area2[i].draw2();
+
+
+            }
+            for (let i = 0; i < area3.length; i++) {
+
+                area3[i].draw3();
+
+                setTimeout(() => {
+                    area3.shift();
+                }, 3000);
+            }
+
+        }
+        animate();
+        // let r = [9, 7, 88, 6, 4];
+        //         let max = r[0];
+        // for (let i = 0; i < r.length; i++) {
+
+        //     if (r[i] > max) {
+        //         max = r[i];
+        //     }
+        // }
+        // console.log("THE MAX OF NUMBER IS: " + max);
+        // particleArray.splice(i, 1);
+
+        // console.log(ctxx.getImageData(0, 0, w, h).data);
+
+
+    </script>
+</body>
+
+</html>
